@@ -6,4 +6,4 @@ game = threading.Thread(target = start_game)
 server = threading.Thread(target = start_server)
 
 game.start()
-server.start()
+#server.start()
