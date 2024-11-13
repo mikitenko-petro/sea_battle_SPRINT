@@ -1,6 +1,5 @@
 import pygame
 from .pygame_image import PygameImage
-import sys
 
 class PygameButton():
     def __init__(self, screen, path, size):
