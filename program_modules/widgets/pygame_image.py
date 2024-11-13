@@ -11,5 +11,7 @@ class PygameImage():
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
 
+        self.draw()
+
     def draw(self):
         self.screen.blit(self.image, (self.rect.x, self.rect.y))
