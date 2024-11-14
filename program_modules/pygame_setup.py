@@ -10,7 +10,7 @@ class Game():
         self = pygame.init()
         game = True
         screen = pygame.display.set_mode(size = (800, 600))
-
+        
         while game:
             event = pygame.event.get()
             main_screen = MainScreenScene(screen, event)
