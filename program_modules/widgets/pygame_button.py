@@ -6,6 +6,11 @@ class PygameButton():
         self.button_image = PygameImage(screen, path, coordinates, size)
         self.button_x, self.button_y = coordinates
         self.button_width, self.button_height = size
+        self.button_font = pygame.font.Font(None, 20)
+        self.button_text = self.button_font.render("Start", True, (0, 0, 0))
+        text_x = self.button_width/2.7 + self.button_x
+        text_y = self.button_height/2.7 + self.button_y
+        screen.blit(self.button_text, (text_x, text_y))
 
         self.click_checking(event)
 
