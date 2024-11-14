@@ -13,7 +13,6 @@ def start_game():
 
     while game:
         #print("work")
-        
         for event in pygame.event.get():
             start_button.click_checking(event)
             if event.type == pygame.QUIT:
