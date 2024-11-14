@@ -2,6 +2,7 @@
 import pygame
 from .widgets.pygame_image import PygameImage
 from .widgets.pygame_button import PygameButton
+from .widgets.main_screen_scene import MainScreenScene
 
 class Game():
     def __init__(self) -> None:
@@ -12,8 +13,7 @@ class Game():
 
         while game:
             event = pygame.event.get()
-            background_image = PygameImage(screen, "static/images/great_sea_battle_bg.png", (0, 0), (800, 600))
-            start_button = PygameButton(screen, "static/images/start_button.png", (100, 100), (100, 40), event)
+            main_screen = MainScreenScene(screen, event)
 
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
@@ -23,8 +23,6 @@ class Game():
             pygame.display.flip()
         
 
-def start_game():
-    
-
+def start_game(): 
     game = Game()
 
