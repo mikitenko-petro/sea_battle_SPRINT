@@ -3,15 +3,33 @@ from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
 class PygameButton():
-    def __init__(self, screen, path, coordinates, size, event, function, text = None):
-        self.button_image = PygameImage(screen, path, coordinates, size)
+    def __init__(
+        self,
+        screen : object,
+        path : str,
+        coordinates : tuple,
+        size : tuple,
+        event : object,
+        function,
+        font_size = 20,
+        text = None):
+        
         self.button_x, self.button_y = coordinates
         self.button_width, self.button_height = size
 
-        button_x = self.button_x + self.button_width/2
-        button_y = self.button_y + self.button_height/2
+        self.button_image = PygameImage(screen, path, coordinates, size)
+        self.button_text_font = pygame.font.Font(None, font_size)
 
-        self.button_text = PygameText(screen, text, button_x, button_y)
+        button_text_x = self.button_x + self.button_width/2 - len(text)*font_size/6
+        button_text_y = self.button_y + self.button_height/2 - font_size/4
+
+        self.button_text = PygameText(
+        screen = screen,
+        text = text,
+        font = None,
+        font_size = font_size,
+        x = button_text_x,
+        y = button_text_y)
 
         self.click_checking(event, function)
 
