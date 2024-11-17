@@ -2,7 +2,13 @@ import pygame
 from ..search_path import search_path
 
 class PygameImage():
-    def __init__(self, screen, path, coordinates, size):
+    def __init__(
+        self,
+        screen : object,
+        path : str,
+        coordinates : tuple,
+        size : tuple):
+
         self.screen = screen
 
         self.image = pygame.image.load(search_path(path))
