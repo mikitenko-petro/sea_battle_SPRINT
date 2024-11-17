@@ -19,3 +19,6 @@ class MainScreenScene():
         function = lambda: print(2232),
         text = "Start",
         font_size = 40)
+
+def main_screen_scene(screen, event):
+    scene = MainScreenScene(screen = screen, event = event)

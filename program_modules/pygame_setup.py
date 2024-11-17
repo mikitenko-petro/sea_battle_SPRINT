@@ -9,9 +9,8 @@ class Game():
 
         while game:
             event = pygame.event.get()
-            scene_manager = SceneManager(screen, event)
-            scene_manager.show(scene_index = 0)
-            # game_screen = GameScreneScene(screen)
+            scene_manager = SceneManager(screen = screen, event = event)
+            scene_manager.show(1)
 
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
