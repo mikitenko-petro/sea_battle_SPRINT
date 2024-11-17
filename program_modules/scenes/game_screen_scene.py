@@ -8,3 +8,4 @@ class GameScreneScene():
         path = "static/images/sea_bg.png",
         coordinates = (0, 0),
         size = (1200, 700))
+

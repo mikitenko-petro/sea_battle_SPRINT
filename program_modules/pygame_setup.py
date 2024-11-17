@@ -1,6 +1,5 @@
 import pygame
-from .scenes.main_screen_scene import MainScreenScene
-from .scenes.game_screen_scene import GameScreneScene
+from .scenes.scene_manager import SceneManager
 
 class Game():
     def __init__(self):
@@ -10,7 +9,8 @@ class Game():
 
         while game:
             event = pygame.event.get()
-            main_screen = MainScreenScene(screen, event)
+            scene_manager = SceneManager(screen, event)
+            scene_manager.show(scene_index = 0)
             # game_screen = GameScreneScene(screen)
 
             for pygame_event in event:
