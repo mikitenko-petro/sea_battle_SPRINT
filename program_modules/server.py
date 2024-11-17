@@ -17,7 +17,7 @@ sea = [[" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
 def start_server():
     with socket.socket(family = socket.AF_INET, type = socket.SOCK_STREAM) as server_socket:
         # зв'язуємо socket з IP та портом
-        server_socket.bind(("192.168.0.196", 8081))
+        server_socket.bind(("SERVER_IP", 8081))
         #Переводить socket в режим очікування
         
         
