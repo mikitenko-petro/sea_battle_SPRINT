@@ -15,13 +15,17 @@ sea = [[" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
        [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",]]
 def client(cell: tuple):
     with socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM) as client_socket:
-        client_socket.connect(("SERVER_IP", 8081))
+        client_socket.connect(("SERVER_IP", 8082))
         #data = client_socket.recv(1024)
         row, column = cell
         sea[row-1][column-1] = "X"
         message = pickle.dumps(sea)
+        client_socket.sendall("check connect".encode("utf-8"))
         while True:
             if input('Go?') == "yes":
                 client_socket.sendall(message)
                 print(f"send: {sea}" )
-client((3, 5))            
+            data = client_socket.recv(1024)
+            if data:
+                print(pickle.loads(data))
+client((1, 1))           
