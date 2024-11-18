@@ -1,17 +1,18 @@
 import pygame
-from .main_screen_scene import main_screen_scene
-from .game_screen_scene import game_screen_scene
-
+from .main_screen_scene import MainScreenScene
+from .game_screen_scene import GameScreneScene
 
 class SceneManager():
-    def __init__(self, screen, event):
-        self.screen = screen
-        self.event = event
+    def __init__(self, screen : object):
+        main_screen_scene = MainScreenScene(screen = screen, scene_manager = self)
+        game_screen_scene = GameScreneScene(screen = screen, scene_manager = self)
 
-        self.scene_list = [
-        lambda: main_screen_scene(screen = screen, event = event),
-        lambda: game_screen_scene(screen = screen, event = event)
-        ]
+        self.scene_list = {"main": main_screen_scene, "game": game_screen_scene}
 
-    def show(self, scene_index):
-        return self.scene_list[scene_index]()
+        self.current_scene = "main"
+        
+    def change_scene(self, scene):
+        self.current_scene = scene
+
+    def show(self, event):
+        return self.scene_list[self.current_scene].run(event = event)
