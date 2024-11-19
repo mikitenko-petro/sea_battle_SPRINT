@@ -1,4 +1,3 @@
-import threading
 import program_modules
 
 if __name__ == "__main__":
