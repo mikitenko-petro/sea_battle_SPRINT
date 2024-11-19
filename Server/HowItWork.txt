@@ -1,0 +1,2 @@
+This application is necessary to start the server (in working)
+We'll add instructions soon! (no point now)

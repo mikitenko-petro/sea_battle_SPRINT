@@ -3,6 +3,7 @@ from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
 class PygameButton():
+
     def __init__(
         self,
         screen : object,
