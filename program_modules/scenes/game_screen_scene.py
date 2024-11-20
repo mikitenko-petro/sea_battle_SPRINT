@@ -24,9 +24,9 @@ class GameScreneScene():
                     cell = PygameImage(
                         screen = self.screen,
                         path = "static/images/cell.png",
-                        coordinates = (cell_x, cell_y),
+                        coordinates = (50 + cell_x, 150 + cell_y),
                         size = (50, 50))
                     
-                cell_x += 60 
-            cell_y += 60
+                cell_x += 50
+            cell_y += 50
             cell_x = 0
