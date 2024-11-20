@@ -22,10 +22,10 @@ def client(cell: tuple):
         message = pickle.dumps(sea)
         #client_socket.sendall("check".encode("utf-8"))
         while True:
-            if input('Go?') == "yes":
-                client_socket.sendall(message)
-                print(f"send: {sea}" )
             data = client_socket.recv(1024)
             if data:
                 print(pickle.loads(data))
-client((1, 1))    
+            if input('Go?') == "yes":
+                client_socket.sendall(message)
+                print(f"send: {sea}" )
+client((2, 2))   

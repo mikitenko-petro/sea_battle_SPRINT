@@ -9,12 +9,12 @@ def start_server():
         server_socket.bind(("192.168.0.196", 8082))
         #Переводить socket в режим очікування
         server_socket.listen(2)
-        print("connecting ... ")
+        print("connecting...")
         # Очікує та приймає підключення клієнту
         client_socket, adress = server_socket.accept()
-        print("connected", adress)
+        print("connected:", adress)
         client_socket2, adress2 = server_socket.accept()
-        print("connected", adress2)
+        print("connected:", adress2)
         while True:
             data = client_socket.recv(1024)
             
