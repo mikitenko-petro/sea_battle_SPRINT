@@ -1,6 +1,6 @@
 import pygame
 
-
+#делаем сетку для кораблей
 class Grid():
     def __init__(self):
         self.grid = [

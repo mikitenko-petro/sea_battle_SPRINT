@@ -8,6 +8,7 @@ class GameScreneScene():
         self.scene_manager = scene_manager
         self.player_grid = Grid()
         self.enemy_grid = Grid()
+        
     def run(self, event : object):
         background_image = PygameImage(
         screen = self.screen,
@@ -48,12 +49,7 @@ class GameScreneScene():
             enemy_cell_y += 50
             enemy_cell_x = 0
 
-        for ship_x in range(4): 
-            ship = PygameImage(
-                coordinates = (150 + ship_x*50, 50),
-                size = (50, 50),
-                screen = self.screen,
-                path ="static/images/ship1X1.png"
-            )
+        
 
+        
             
