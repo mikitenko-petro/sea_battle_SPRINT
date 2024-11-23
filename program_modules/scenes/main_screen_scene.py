@@ -25,4 +25,4 @@ class MainScreenScene():
         font_size = 40)
 
     def change_scene(self):
-        self.scene_manager.change_scene(scene = "prepare_to_game")
+        self.scene_manager.change_scene(scene = "conect_to_server")

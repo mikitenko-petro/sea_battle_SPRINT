@@ -22,7 +22,6 @@ class Game():
             pygame.display.update()
             pygame.display.flip()
         
-
 def start_game(): 
     game = Game()
     game.run()
