@@ -14,11 +14,9 @@ class ConectToServerScreenScene():
         size = (1200, 700))
 
         text_input = TextInput(
-        size = (128, 32),
-        coordinates = (500, 500),
+        size = (384, 96),
+        coordinates = (600, 100),
         event = event,
-        screen = self.screen
-        )
-
+        screen = self.screen)
     
     
