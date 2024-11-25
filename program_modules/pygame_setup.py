@@ -1,11 +1,13 @@
 import pygame
 from .scenes.scene_manager import SceneManager
+from .pygame_storage import PygameStorage
 
 class Game():
     def __init__(self):
         pygame.init()
         self.screen = pygame.display.set_mode(size = (1200, 700))
-        self.scene_manager = SceneManager(screen = self.screen)
+        self.pygame_storage = PygameStorage()
+        self.scene_manager = SceneManager(screen = self.screen, pygame_storage = self.pygame_storage)
 
     def run(self):
         game = True

@@ -1,10 +1,11 @@
 import pygame
 from ..widgets.pygame_image import PygameImage
-from ..widgets.text_input import TextInput
+from ..widgets.pygame_text_input import PygameTextInput
 
 class ConectToServerScreenScene():
-    def __init__(self, screen):
+    def __init__(self, screen, scene_manager, pygame_storage):
         self.screen = screen
+        self.pygame_storage = pygame_storage
 
     def run(self, event):
         background_image = PygameImage(
@@ -13,10 +14,11 @@ class ConectToServerScreenScene():
         coordinates = (0, 0),
         size = (1200, 700))
 
-        text_input = TextInput(
+        text_input = PygameTextInput(
         size = (384, 96),
-        coordinates = (600, 100),
+        coordinates = (600, 400),
         event = event,
-        screen = self.screen)
+        screen = self.screen,
+        pygame_storage = self.pygame_storage)
     
     
