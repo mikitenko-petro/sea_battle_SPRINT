@@ -72,6 +72,8 @@ class PygameTextInput():
             self.pygame_storage.storage_dict["IP"] = self.pygame_storage.storage_dict[f"{self.name}_text_input"]
             self.change_status()
 
+    
+
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
