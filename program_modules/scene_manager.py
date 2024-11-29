@@ -1,7 +1,7 @@
-from .main_screen_scene import MainScreenScene
-from .game_screen_scene import GameScreneScene
-from .prepare_to_game_screen_scene import PrepareToGameScreenScene
-from .conect_to_server_screen_scene import ConectToServerScreenScene
+from .scenes.main_screen_scene import MainScreenScene
+from .scenes.game_screen_scene import GameScreneScene
+from .scenes.prepare_to_game_screen_scene import PrepareToGameScreenScene
+from .scenes.conect_to_server_screen_scene import ConectToServerScreenScene
 
 class SceneManager():
     def __init__(self, screen : object, pygame_storage : object):

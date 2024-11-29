@@ -2,7 +2,6 @@ import pygame
 from ..widgets.pygame_image import PygameImage
 from ..game_modules.grid import Grid
 
-
 class PrepareToGameScreenScene():
     def __init__(self, screen):
         self.screen = screen

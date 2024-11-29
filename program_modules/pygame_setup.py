@@ -1,5 +1,6 @@
 import pygame
-from .scenes.scene_manager import SceneManager
+import sys
+from .scene_manager import SceneManager
 from .pygame_storage import PygameStorage
 
 class Game():
@@ -15,11 +16,12 @@ class Game():
         while game:
             event = pygame.event.get()
 
-            self.scene_manager.show(event = event)
-
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
                     game = False
+                    sys.exit()
+
+            self.scene_manager.show(event = event)
 
             pygame.display.update()
             pygame.display.flip()
