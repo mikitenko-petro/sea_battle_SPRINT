@@ -1,17 +1,20 @@
 import pygame
+import pyperclip
 from .pygame_button import PygameButton
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
 class PygameTextInput():
-    def __init__(self, size, coordinates, event, screen, pygame_storage, name):
+    def __init__(self, size, coordinates, event, screen, pygame_storage, name, store_to, initial_text):
         self.name = name
+        self.store_to = store_to
+        self.initial_text = initial_text
         self.screen = screen
         self.event = event
         self.pygame_storage = pygame_storage
         self.x, self.y = coordinates
         self.width, self.height = size
-        self.pygame_storage.add_variable({f"{self.name}_text_input" : "Enter ip adress"})
+        self.pygame_storage.add_variable({f"{self.name}_text_input" : initial_text})
         self.pygame_storage.add_variable({f"{self.name}_text_input_status" : False})
 
         self.input_text(event)
@@ -47,8 +50,7 @@ class PygameTextInput():
         coordinates = (self.x + self.width + 10, self.y),
         size = (self.width/4, self.height),
         path = "static/images/apply_button.png",
-        function = lambda: self.apply_ip())
-
+        function = lambda: self.apply())
     
     def change_status(self):
         if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
@@ -56,23 +58,23 @@ class PygameTextInput():
             self.pygame_storage.storage_dict[f"{self.name}_text_input"] = ""
         else:
             self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
-            self.pygame_storage.storage_dict[f"{self.name}_text_input"] = "Enter IP adress"
+            self.pygame_storage.storage_dict[f"{self.name}_text_input"] = self.initial_text
 
     def input_text(self, event):
         for pygame_event in event:
-            
-            if pygame_event.type == pygame.KEYDOWN:
-                if pygame_event.key == pygame.K_BACKSPACE:
-                    self.pygame_storage.storage_dict[f"{self.name}_text_input"] = self.pygame_storage.storage_dict[f"{self.name}_text_input"][:-1]
-                else:
-                    self.pygame_storage.storage_dict[f"{self.name}_text_input"] += pygame_event.unicode    
+            if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == True:
+                if pygame_event.type == pygame.KEYDOWN:
+                    if pygame_event.key == pygame.K_BACKSPACE:
+                        self.pygame_storage.storage_dict[f"{self.name}_text_input"] = self.pygame_storage.storage_dict[f"{self.name}_text_input"][:-1]
+                    elif pygame_event.key == 118:
+                        self.pygame_storage.storage_dict[f"{self.name}_text_input"] = pyperclip.paste()
+                    else:
+                        self.pygame_storage.storage_dict[f"{self.name}_text_input"] += pygame_event.unicode
 
-    def apply_ip(self):
+    def apply(self):
         if self.pygame_storage.storage_dict[f"{self.name}_text_input"] != "":
-            self.pygame_storage.storage_dict["IP"] = self.pygame_storage.storage_dict[f"{self.name}_text_input"]
+            self.pygame_storage.storage_dict[self.store_to] = self.pygame_storage.storage_dict[f"{self.name}_text_input"]
             self.change_status()
-
-    
 
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()

@@ -1,4 +1,3 @@
-import pygame
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_text import PygameText
 from ..widgets.pygame_text_input import PygameTextInput
@@ -10,6 +9,7 @@ class ConectToServerScreenScene():
         self.screen = screen
         self.pygame_storage = pygame_storage
         self.pygame_storage.add_variable({"IP" : ""})
+        self.pygame_storage.add_variable({"PORT" : ""})
 
     def run(self, event):
         background_image = PygameImage(
@@ -24,11 +24,13 @@ class ConectToServerScreenScene():
         event = event,
         screen = self.screen,
         pygame_storage = self.pygame_storage,
-        name = "ip")
+        name = "ip",
+        store_to = "IP",
+        initial_text = "enter your ip")
 
         ip_label = PygameImage(
         screen = self.screen,
-        path = "static/images/start_button.png",
+        path = "static/images/casual_label.png",
         coordinates = (10, 250),
         size = (128*2.5, 32*2))
 
@@ -46,11 +48,13 @@ class ConectToServerScreenScene():
         event = event,
         screen = self.screen,
         pygame_storage = self.pygame_storage,
-        name = "port")
+        name = "port",
+        store_to = "PORT",
+        initial_text = "enter your port")
 
         port_label = PygameImage(
         screen = self.screen,
-        path = "static/images/start_button.png",
+        path = "static/images/casual_label.png",
         coordinates = (10, 450),
         size = (128*2.5, 32*2))
 
@@ -61,5 +65,3 @@ class ConectToServerScreenScene():
         font_size = 40,
         x = 10 + 10,
         y = 250 + 220)
-
-        
