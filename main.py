@@ -1,4 +1,4 @@
 import program_modules
 
 if __name__ == "__main__":
-    pass
+    program_modules.start_game()

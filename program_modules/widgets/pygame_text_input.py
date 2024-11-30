@@ -5,15 +5,26 @@ from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
 class PygameTextInput():
-    def __init__(self, size, coordinates, event, screen, pygame_storage, name, store_to, initial_text):
+    def __init__(
+        self,
+        size : tuple,
+        coordinates : tuple,
+        event : object,
+        screen : object,
+        pygame_storage : object,
+        name : str,
+        store_to : str,
+        initial_text : str
+        ):
+
         self.name = name
         self.store_to = store_to
         self.initial_text = initial_text
         self.screen = screen
-        self.event = event
         self.pygame_storage = pygame_storage
         self.x, self.y = coordinates
         self.width, self.height = size
+
         self.pygame_storage.add_variable({f"{self.name}_text_input" : initial_text})
         self.pygame_storage.add_variable({f"{self.name}_text_input_status" : False})
 
