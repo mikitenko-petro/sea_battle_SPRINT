@@ -2,6 +2,7 @@ import pygame
 import sys
 from .scene_manager import SceneManager
 from .pygame_storage import PygameStorage
+from .client import Client
 
 class Game():
     def __init__(self):
@@ -9,6 +10,7 @@ class Game():
         self.screen = pygame.display.set_mode(size = (1200, 700))
         self.pygame_storage = PygameStorage()
         self.scene_manager = SceneManager(screen = self.screen, pygame_storage = self.pygame_storage)
+        self.client = Client(ip = "", port = 0)
 
     def run(self):
         game = True
