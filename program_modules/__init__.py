@@ -1,1 +1,1 @@
-import program_modules.process
+from program_modules.pygame_setup import start_game
