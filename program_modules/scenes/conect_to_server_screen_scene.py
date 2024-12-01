@@ -5,12 +5,12 @@ from ..widgets.pygame_text_input import PygameTextInput
 
 #Створюємо клас для створення екрану для під'єднання до серверу
 class ConectToServerScreenScene():
-    #Робим метод
+    #Робим метод ініт для задання параметрів та модулів
     def __init__(self, screen, scene_manager, pygame_storage):
         self.screen = screen
         self.pygame_storage = pygame_storage
         self.pygame_storage.add_variable({"IP" : ""})
-
+    #Робим метод для створення підклбчення до серверу гри
     def run(self, event):
         background_image = PygameImage(
         screen = self.screen,
