@@ -5,16 +5,15 @@ from ..widgets.pygame_text_input import PygameTextInput
 from ..widgets.pygame_button import PygameButton
 #Створюємо клас для створення екрану для під'єднання до серверу
 class ConectToServerScreenScene():
-    #Робим метод
     def __init__(self, screen : object, scene_manager : object, pygame_storage : object, client : object):
         self.scene_manager = scene_manager
         self.screen = screen
         self.pygame_storage = pygame_storage
         self.client = client
         self.pygame_storage.add_variable({"IP" : ""})
-        self.pygame_storage.add_variable({"PORT" : ""})
-
+    #Створюємо метод для створення підключення до сервера
     def run(self, event):
+        #Робим фон для екрану підключення до сервера
         self.client.ip
         self.show(event)
 
@@ -27,6 +26,8 @@ class ConectToServerScreenScene():
         path = "static/images/lighthouse_bg.png",
         coordinates = (0, 0),
         size = (1200, 700))
+        
+        #Робимо строку вводу для айпі
         connect_to_server_button = PygameButton(
         screen = self.screen,
         path = "static/images/start_button.png",
@@ -35,8 +36,7 @@ class ConectToServerScreenScene():
         font_size = 20,
         event = event,
         function = lambda: self.connect_to_server(),
-        text = "connect to server",
-        )
+        text = "connect to server")
 
         text_input_ip = PygameTextInput(
         size = (384, 96),
@@ -47,7 +47,8 @@ class ConectToServerScreenScene():
         name = "ip",
         store_to = "IP",
         initial_text = "enter your ip")
-
+        
+        #Відображуємо айпі
         ip_label = PygameLabel(
         screen = self.screen,
         path = "static/images/casual_label.png",
@@ -56,7 +57,8 @@ class ConectToServerScreenScene():
         text = f"your IP: {self.pygame_storage.storage_dict['IP']}",
         font = None,
         font_size = 40)
-
+        
+        #Робимо строку вводу для порту
         text_input_port = PygameTextInput(
         size = (384, 96),
         coordinates = (600, 450),
@@ -66,13 +68,14 @@ class ConectToServerScreenScene():
         name = "port",
         store_to = "PORT",
         initial_text = "enter your port")
-
+        
+        #Відображуємо порт
         port_label = PygameImage(
         screen = self.screen,
         path = "static/images/casual_label.png",
         coordinates = (10, 450),
         size = (128*2.5, 32*2))
-
+        #Текст для порту
         port_text = PygameText(
         screen = self.screen,
         text = f"your PORT: {self.pygame_storage.storage_dict['PORT']}",

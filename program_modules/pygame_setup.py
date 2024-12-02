@@ -4,6 +4,7 @@ from .scene_manager import SceneManager
 from .pygame_storage import PygameStorage
 from .client import Client
 
+#Робим класс гри
 class Game():
     def __init__(self):
         pygame.init()
@@ -13,12 +14,15 @@ class Game():
         self.scene_manager = SceneManager(screen = self.screen, pygame_storage = self.pygame_storage, client = self.client)
         
 
+    #Робим клас запуску гри
     def run(self):
         game = True
 
+        #Робим цикл
         while game:
             event = pygame.event.get()
 
+            #робим ще один цикл
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
                     game = False
@@ -28,7 +32,8 @@ class Game():
 
             pygame.display.update()
             pygame.display.flip()
-        
+
+#Метод для запуску гри
 def start_game(): 
     game = Game()
     game.run()
