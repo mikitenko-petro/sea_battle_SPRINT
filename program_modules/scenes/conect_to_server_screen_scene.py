@@ -11,14 +11,13 @@ class ConectToServerScreenScene():
         self.pygame_storage = pygame_storage
         self.client = client
         self.pygame_storage.add_variable({"IP" : ""})
+        self.pygame_storage.add_variable({"PORT" : ""})
+
     #Створюємо метод для створення підключення до сервера
     def run(self, event):
-        #Робим фон для екрану підключення до сервера
+        #Робимo фон для екрану підключення до сервера
         self.client.ip
         self.show(event)
-
-    def move_to_scene(self, scene_name):
-        self.scene_manager.change_scene(scene = scene_name)
         
     def show(self, event):
         background_image = PygameImage(
@@ -75,6 +74,7 @@ class ConectToServerScreenScene():
         path = "static/images/casual_label.png",
         coordinates = (10, 450),
         size = (128*2.5, 32*2))
+
         #Текст для порту
         port_text = PygameText(
         screen = self.screen,
@@ -90,7 +90,7 @@ class ConectToServerScreenScene():
         coordinates = (150, 650),
         size = (128, 32),
         event = event,
-        function = lambda: self.move_to_scene(scene_name = "prepare_to_game"),)
+        function = lambda: self.scene_manager.change_scene(scene = "prepare_to_game"))
 
     def connect_to_server(self):
         self.client.ip = self.pygame_storage.storage_dict['IP']

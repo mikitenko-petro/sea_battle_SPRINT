@@ -3,7 +3,7 @@ from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
 #Робим клас для створення кнопки
-class PygameButton():
+class PygameButton(PygameImage, PygameText):
     def __init__(
         self,
         screen : object,
@@ -13,18 +13,18 @@ class PygameButton():
         event : object,
         function,
         font_size = 20,
-        text = None):
+        text : str = ""):
         
         #
         self.button_x, self.button_y = coordinates
         self.button_width, self.button_height = size
 
         #
-        self.button_image = PygameImage(screen, path, coordinates, size)
-        self.button_text_font = pygame.font.Font(None, font_size)
+        PygameImage.__init__(screen, path, coordinates, size)
 
         #Робим умову для кнопки
         if text != None:
+            self.button_text_font = pygame.font.Font(None, font_size)
             button_text_x = self.button_x + self.button_width/2 - len(text)*font_size/6
             button_text_y = self.button_y + self.button_height/2 - font_size/4
 
