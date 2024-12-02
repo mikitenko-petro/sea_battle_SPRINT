@@ -4,6 +4,7 @@ from .pygame_button import PygameButton
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
 
+#Робимо клас для створення вводу тексту
 class PygameTextInput():
     def __init__(
         self,
@@ -16,7 +17,7 @@ class PygameTextInput():
         store_to : str,
         initial_text : str
         ):
-
+        
         self.name = name
         self.store_to = store_to
         self.initial_text = initial_text
@@ -26,13 +27,16 @@ class PygameTextInput():
         self.width, self.height = size
         self.event = event
 
+        #Робим текст який буде змінюватись при натисканні
         self.pygame_storage.add_variable({f"{self.name}_text_input" : initial_text})
         self.pygame_storage.add_variable({f"{self.name}_text_input_status" : False})
 
+        #Указуємо змінні які будемо використовувати
         self.input_text(event)
         self.click_checking(event)
         self.show()
 
+    #Робимо саму кнопку вводу тексту
     def show(self):
         if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
             self.input_image = PygameImage(
@@ -48,6 +52,7 @@ class PygameTextInput():
             size = (self.width, self.height),
             path = "static/images/input_field_selected.png")
         
+        #Робимо текст для кнопки
         self.input_text_lable = PygameText(
         screen = self.screen,
         text = self.pygame_storage.storage_dict[f"{self.name}_text_input"],
@@ -56,6 +61,7 @@ class PygameTextInput():
         x = self.x+10,
         y = self.y+30)
 
+        #Робимо кнопку для  піддтвердження
         self.apply_button = PygameButton(
         screen = self.screen,
         event = self.event,
@@ -64,6 +70,7 @@ class PygameTextInput():
         path = "static/images/apply_button.png",
         function = lambda: self.apply())
     
+    #Робим функцію для заміни тексту на строку вводу
     def change_status(self):
         if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
             self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] = True
@@ -72,6 +79,7 @@ class PygameTextInput():
             self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
             self.pygame_storage.storage_dict[f"{self.name}_text_input"] = self.initial_text
 
+    #Робимо метод кнопку вводу тексту
     def input_text(self, event):
         for pygame_event in event:
             if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == True:
@@ -83,14 +91,17 @@ class PygameTextInput():
                     else:
                         self.pygame_storage.storage_dict[f"{self.name}_text_input"] += pygame_event.unicode
 
+    #Робимо метод для піддтвердження
     def apply(self):
         if self.pygame_storage.storage_dict[f"{self.name}_text_input"] != "":
             self.pygame_storage.storage_dict[self.store_to] = self.pygame_storage.storage_dict[f"{self.name}_text_input"]
             self.change_status()
 
+    #Робимо метод для натискання миші по кнопці
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
+        #Робимо функцію для натискання миші по кнопці
         for pygame_event in event:
             if self.pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
                 if mouse_x >= self.x and mouse_x <= self.x + self.width:
