@@ -24,6 +24,7 @@ class PygameTextInput():
         self.pygame_storage = pygame_storage
         self.x, self.y = coordinates
         self.width, self.height = size
+        self.event = event
 
         self.pygame_storage.add_variable({f"{self.name}_text_input" : initial_text})
         self.pygame_storage.add_variable({f"{self.name}_text_input_status" : False})

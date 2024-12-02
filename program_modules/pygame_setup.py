@@ -10,8 +10,9 @@ class Game():
         pygame.init()
         self.screen = pygame.display.set_mode(size = (1200, 700))
         self.pygame_storage = PygameStorage()
-        self.scene_manager = SceneManager(screen = self.screen, pygame_storage = self.pygame_storage)
-        self.client = Client(ip = "", port = 0)
+        self.client = Client(ip = "26.39.233.93", port = 0)
+        self.scene_manager = SceneManager(screen = self.screen, pygame_storage = self.pygame_storage, client = self.client)
+        
 
     #Робим клас запуску гри
     def run(self):

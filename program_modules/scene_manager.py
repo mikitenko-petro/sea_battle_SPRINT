@@ -4,7 +4,7 @@ from .scenes.prepare_to_game_screen_scene import PrepareToGameScreenScene
 from .scenes.conect_to_server_screen_scene import ConectToServerScreenScene
 #Робим клас для перемикання між сценами
 class SceneManager():
-    def __init__(self, screen : object, pygame_storage : object):
+    def __init__(self, screen : object, pygame_storage : object, client : object):
         main_screen_scene = MainScreenScene(
         screen = screen,
         scene_manager = self)
@@ -20,6 +20,7 @@ class SceneManager():
 
         #Створюємо змінну до якої присвоюємо клас сцени підключення до сервера
         conect_to_server_screen_scene = ConectToServerScreenScene(
+        client = client,
         screen = screen,
         scene_manager = self,
         pygame_storage = pygame_storage)
@@ -34,8 +35,8 @@ class SceneManager():
         #Задається початкова сцена
         self.current_scene = "main"
     
-    #Робимо метод зміни сцени
-    def change_scene(self, scene):
+    #Робимо метод зміни сцени        
+    def change_scene(self, scene : str):
         self.current_scene = scene
 
     #Робимо функцію для показу сцени
