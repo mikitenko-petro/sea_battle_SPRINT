@@ -4,7 +4,7 @@ class PygameStorage():
         self.storage_dict = {}
 
     #Робим метод додавання змінної
-    def add_variable(self, storage_object : object):
+    def add_variable(self, storage_object : dict):
         is_found = False
         value_key = list(storage_object.keys())
 
@@ -19,3 +19,5 @@ class PygameStorage():
         #
         if is_found == False:    
             self.storage_dict.update(storage_object)
+
+pygame_storage = PygameStorage()

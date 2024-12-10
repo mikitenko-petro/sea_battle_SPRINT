@@ -3,15 +3,13 @@
 - Hegor Halkin / Єгор Галкін [github.com/EgorGalkinORG](https://github.com/EgorGalkinORG)
 - Mykytenko Petro / Микитенко Петро [github.com/mikitenko-petro](https://github.com/mikitenko-petro)
 - David Petrenko / Давид Петренко [github.com/Davidptn](https://github.com/Davidptn)
-- Timur Koshel / Тимур Кошель [github.com/kosheltimur](https://github.com/kosheltimur)
 ____
 
 # Main Information of project / Основна інформація про проект 
 ### Project can / Проект може:
-1. Create a Battleship game / Створювати гру кораблі
+1. Create a Battleship game / Створювати гру у кораблі
 1. Create the server / Створювати сервер
 1. Connect to server / Підключатися до сервера 
-1. Play a Battleship game / Грати в кораблі
 ____
 
 # How correctly run the project / Як правильно запустити проект
@@ -43,6 +41,8 @@ graph TD;
     sea_battle_SPRINT-->program_modules;
     program_modules-->game_modules;
     game_modules-->grid.py;
+    game_modules-->ship.py;
+    game_modules-->ships_lable.py;
 
     program_modules-->scenes;
     scenes-->conect_to_server_scene.py;
@@ -65,6 +65,8 @@ graph TD;
     program_modules-->search_path.py;
     
     sea_battle_SPRINT-->static;
+    static-->fonts;
+    static-->images;
 
     sea_battle_SPRINT-->.gitignore;
     sea_battle_SPRINT-->requirements.txt;
@@ -76,8 +78,9 @@ ____
 # Conclusion / Висновок:
 Project taught us how to do / Проект навчив нас як це робити:
 1. Create server and clients / Створювати серверів і клієнтів
+1. Taught how to make multiplayer games /  Навчив робити багатокористувацькі ігри
 1. Work with pygame and others lidraries / Працювати з бібліотеками pygame та іншими
 1. Work with OOP / Працювати з ООП
 ____
-
-##### Readme file by Hegor / Файл Readme зроблен Єгором
+# Enjoy the game! / Приємної гри!
+ 
