@@ -1,44 +1,55 @@
 import pygame
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
+from .pygame_hitbox import PygameHitBox
 
-class PygameButton():
+#Робим клас для створення кнопки
+class PygameButton(PygameHitBox):
     def __init__(
         self,
-        screen : object,
-        path : str,
         coordinates : tuple,
         size : tuple,
         event : object,
-        function,
+        function : object,
         font_size = 20,
-        text = None):
-        
-        self.button_x, self.button_y = coordinates
-        self.button_width, self.button_height = size
+        text : str | None = None,
+        path : str | None = None,
+        screen : object | None = None):
 
-        self.button_image = PygameImage(screen, path, coordinates, size)
-        self.button_text_font = pygame.font.Font(None, font_size)
+        #
+        PygameHitBox.__init__(self, coordinates, size)
 
+        #
+        if path != None:
+            self.button_image = PygameImage(
+                screen = screen,
+                path = path,
+                coordinates = coordinates,
+                size = size
+            )
+
+        #Робим умову для кнопки
         if text != None:
-            button_text_x = self.button_x + self.button_width/2 - len(text)*font_size/6
-            button_text_y = self.button_y + self.button_height/2 - font_size/4
+            self.button_text_font = pygame.font.Font(None, font_size)
+            button_text_x = self.x + self.width/2 - len(text)*font_size/6
+            button_text_y = self.y + self.height/2 - font_size/4
 
+            #Робим текст для кнопки
             self.button_text = PygameText(
-            screen = screen,
-            text = text,
-            font = None,
-            font_size = font_size,
-            x = button_text_x,
-            y = button_text_y)
+                screen = screen,
+                text = text,
+                font = None,
+                font_size = font_size,
+                x = button_text_x,
+                y = button_text_y
+            )
 
-        self.click_checking(event, function)
-
-    def click_checking(self, event, function):
+        #Робим функцію для натискання кнопки
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
+        #Робим цикл для натискання кнопки
         for pygame_event in event: 
-            if mouse_x >= self.button_x and mouse_x <= self.button_x + self.button_width:
-                if mouse_y >= self.button_y and mouse_y <= self.button_y + self.button_height:
+            if mouse_x >= self.x and mouse_x <= self.x + self.width:
+                if mouse_y >= self.y and mouse_y <= self.y + self.height:
                     if pygame_event.type == pygame.MOUSEBUTTONDOWN:
                         function()
