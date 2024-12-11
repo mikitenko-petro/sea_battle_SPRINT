@@ -29,7 +29,7 @@ class ConectToServerScreenScene():
             size = (128*1.5, 32*1.5),
             font_size = 30,
             event = event,
-            function = lambda: self.connect_to_server(),
+            function = self.connect_to_server,
             text = "connect to server"
         )
 

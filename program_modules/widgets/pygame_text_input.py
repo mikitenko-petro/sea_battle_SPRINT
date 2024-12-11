@@ -59,7 +59,8 @@ class PygameTextInput():
     def change_status(self):
         if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
             pygame_storage.storage_dict[f"{self.name}_text_input_status"] = True
-            pygame_storage.storage_dict[self.store_to] == ""
+            pygame_storage.storage_dict[self.store_to] = ""
+            
         else:
             pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
 
@@ -78,8 +79,12 @@ class PygameTextInput():
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
         for pygame_event in event:
-            if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
-                if mouse_x >= self.x and mouse_x <= self.x + self.width:
-                    if mouse_y >= self.y and mouse_y <= self.y + self.height:
-                        if pygame_event.type == pygame.MOUSEBUTTONDOWN:
-                            self.change_status()
+            if mouse_x >= self.x and mouse_x <= self.x + self.width and mouse_y >= self.y and mouse_y <= self.y + self.height:
+                if pygame_event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
+                    self.change_status()
+        
+            else:
+                if pygame_event.type == pygame.MOUSEBUTTONDOWN:
+                    pygame_storage.storage_dict[f"{self.name}_text_input_status"] = True
+                    self.change_status()

@@ -19,7 +19,8 @@ class SceneManager():
          #Створюємо змінну до якої присвоюємо клас сцени основної гри
         game_screen_scene = GameScreneScene(
         screen = screen,
-        scene_manager = self)
+        scene_manager = self,
+        client = client)
 
         #Створюємо змінну до якої присвоюємо клас сцени підключення до сервера
         conect_to_server_screen_scene = ConectToServerScreenScene(

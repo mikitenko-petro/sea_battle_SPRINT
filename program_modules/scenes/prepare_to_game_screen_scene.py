@@ -12,7 +12,7 @@ class PrepareToGameScreenScene():
         self.screen = screen
         self.scene_manager = scene_manager
         pygame_storage.add_variable({"ship_list" : []})
-        pygame_storage.add_variable({"PLAYER_GRID" : Grid(coordinates = (350, 150))})
+        pygame_storage.add_variable({"PLAYER_GRID" : Grid(coordinates = (350, 150), type = "player", scene_manager = scene_manager)})
 
         for i in range(10):
             if i < 4:
@@ -53,14 +53,28 @@ class PrepareToGameScreenScene():
         ship_manager.show_label(coordinates = (50, 150))
         
         pygame_storage.storage_dict["PLAYER_GRID"].place_ship()
+        
+        pygame_storage.add_variable({"check_placement" : False})
 
-        move_to_scene = PygameButton(
-            screen = self.screen,
-            path = "static/images/blue_button.png",
-            text = "start game",
-            font_size = 40,
-            coordinates = (472, 50),
-            size = (128*2, 32*2),
-            event = event,
-            function = lambda: self.scene_manager.change_scene(scene = "game")
-        )
+        placed_ships = 0
+
+        for ship in pygame_storage.storage_dict["ship_list"]:
+            if ship.status == "placed":
+                placed_ships += 1
+        
+        if placed_ships == len(pygame_storage.storage_dict["ship_list"]):
+            pygame_storage.storage_dict["check_placement"] = True
+        else:
+            pygame_storage.storage_dict["check_placement"] = False
+
+        if pygame_storage.storage_dict["check_placement"] == True:
+            move_to_scene = PygameButton(
+                screen = self.screen,
+                path = "static/images/blue_button.png",
+                text = "start game",
+                font_size = 40,
+                coordinates = (472, 50),
+                size = (128*2, 32*2),
+                event = event,
+                function = lambda: self.scene_manager.change_scene(scene = "game")
+            )

@@ -1,0 +1,248 @@
+from ..widgets.pygame_image import PygameImage
+from ..widgets.pygame_hitbox import PygameHitBox
+from ..widgets.pygame_button import PygameButton
+from ..pygame_storage import pygame_storage
+from .game_widgets.turn_button import TurnButton
+from .game_widgets.return_button import ReturnButton
+from .game_widgets.collision import Collision
+import pygame
+
+class Ship():
+    def __init__(self, type, id):
+        self.type = type
+        self.status = "unplaced"
+        self.direction = "right"
+        self.is_picked = False
+        self.row = -1
+        self.column = -1
+        self.path = ""
+        self.id = id
+        self.delta_x = 0
+        self.delta_y = 0
+        
+        PygameHitBox.__init__(self, (0,0), (50,50))
+
+        self.change_direction()
+
+    def change_direction(self):
+        match self.type:
+            case "1x1":
+                self.path = "static/images/ship1X1.png"
+
+            case "2x1":
+                self.path = "static/images/ship2X1.png"
+
+            case "3x1":
+                self.path = "static/images/ship3X1.png"
+
+            case "4x1":
+                self.path = "static/images/ship4X1.png"
+
+        match self.direction:
+            case "top":
+                self.delta_x = 0
+
+                self.angle = 0
+
+                match self.type:
+                    case "1x1":
+                        self.delta_y = 0
+
+                    case "2x1":
+                        self.delta_y = 50
+
+                    case "3x1":
+                        self.delta_y = 100
+
+                    case "4x1":
+                        self.delta_y = 150
+
+            case "bottom":
+                self.delta_y = 0
+                self.delta_x = 0
+
+                self.angle = 180
+
+            case "right":
+                self.delta_y = 0
+                self.delta_x = 0
+        
+                self.angle = 90
+
+            case "left":
+                self.delta_y = 0
+
+                self.angle = 270
+
+                match self.type:
+                    case "1x1":
+                        self.delta_x = 0
+
+                    case "2x1":
+                        self.delta_x = 50
+
+                    case "3x1":
+                        self.delta_x = 100
+
+                    case "4x1":
+                        self.delta_x = 150
+        
+        if self.direction == "top" or self.direction == "bottom":
+            self.width = 50
+            match self.type:
+                case "1x1":
+                    self.height = 50
+
+                case "2x1":
+                    self.height = 100
+
+                case "3x1":
+                    self.height = 150
+
+                case "4x1":
+                    self.height = 200
+
+        elif self.direction == "left" or self.direction == "right":
+            self.height = 50
+            match self.type:
+                case "1x1":
+                    self.width = 50
+
+                case "2x1":
+                    self.width = 100
+
+                case "3x1":
+                    self.width = 150
+
+                case "4x1":
+                    self.width = 200
+    
+    def show_ship(self, screen, event, x, y, scene_manager):
+        self.x = x
+        self.y = y
+
+        self.image_width = 50
+
+        if self.is_picked == True:
+            match self.type:
+                case "1x1":
+                    self.path = "static/images/ship1X1selected.png"
+
+                case "2x1":
+                    self.path = "static/images/ship2X1selected.png"
+
+                case "3x1":
+                    self.path = "static/images/ship3X1selected.png"
+
+                case "4x1":
+                    self.path = "static/images/ship4X1selected.png"
+
+        else:
+            match self.type:
+                case "1x1":
+                    self.path = "static/images/ship1X1.png"
+
+                case "2x1":
+                    self.path = "static/images/ship2X1.png"
+
+                case "3x1":
+                    self.path = "static/images/ship3X1.png"
+
+                case "4x1":
+                    self.path = "static/images/ship4X1.png"
+
+        match self.type:
+            case "1x1":
+                self.image_height = 50
+
+            case "2x1":
+                self.image_height = 100
+
+            case "3x1":
+                self.image_height = 150
+
+            case "4x1":
+                self.image_height = 200
+
+        self.ship_image = PygameImage(
+            screen,
+            path = self.path,
+            coordinates = (x - self.delta_x, y - self.delta_y),
+            size = (self.image_width, self.image_height),
+            angle = self.angle
+        )
+        
+        self.ship_collision_rect = Collision(
+            screen,
+            coordinates = (x - self.delta_x + 2, y - self.delta_y + 2),
+            size = (self.width - 4, self.height - 4),
+            type = "ship collision"
+        )
+
+        if scene_manager.current_scene == "prepare_to_game":
+            if self.status == "placed":
+                self.buffer_rect = Collision(
+                    screen,
+                    coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
+                    size = (self.width + 100 - 4, self.height + 100 - 4),
+                    type = "ship buffer"
+                )
+            else:
+                if hasattr(self, "buffer_rect") == True:
+                    delattr(self, "buffer_rect")
+
+            self.draw_buttons(screen = screen, event = event)
+
+        else:
+            if hasattr(self, "buffer_rect") == True:
+                delattr(self, "buffer_rect")
+        
+    def highlight_ship(self):
+        if self.is_picked == False and pygame_storage.storage_dict["picked_ship"] == -1:
+            self.is_picked = True
+            pygame_storage.storage_dict["picked_ship"] = self.id
+
+        elif self.is_picked == True:
+            self.is_picked = False
+            pygame_storage.storage_dict["picked_ship"] = -1
+
+    def select_ship(self, event):
+        ship_button = PygameButton(
+            coordinates = (self.x - self.delta_x, self.y - self.delta_y),
+            size = (self.width, self.height),
+            event = event,
+            function = self.highlight_ship
+        )
+
+    def draw_buttons(self, screen, event):
+        if self.is_picked == True and self.status == "placed":
+            x = self.x + 50
+            y = self.y - 50
+            turn_button = TurnButton(screen, (x, y), event, self.id)
+
+            x = self.x + 100
+            y = self.y - 50
+            return_button = ReturnButton(screen, (x, y), event, self.id)
+            
+    def check_collide(self, screen):
+        collision_list = []
+        for collision in pygame_storage.storage_dict["collision_list"]:
+            if collision.type == "buffer":
+                collision_list.append(collision)
+
+        try:
+            if self.ship_collision_rect.rect.collidelist(collision_list) != -1:
+                pygame.draw.rect(screen, (255, 0, 0), self.ship_collision_rect, 2)
+        except:
+            pass
+
+        collision_list = []
+
+        for ship in pygame_storage.storage_dict["ship_list"]:
+            if hasattr(ship, "buffer_rect") == True:
+                if ship.id != self.id:
+                    collision_list.append(ship.buffer_rect)
+
+        for collision in collision_list:
+            if self.ship_collision_rect.rect.collidelist(collision_list) != -1:
+                pygame.draw.rect(screen, (255, 0, 0), self.ship_collision_rect, 2)
