@@ -61,5 +61,6 @@ class ConectToServerScreenScene():
             self.client.join()
 
             self.scene_manager.change_scene(scene = "prepare_to_game")
+            
         except Exception as error:
             print(error)

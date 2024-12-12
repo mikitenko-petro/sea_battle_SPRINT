@@ -10,6 +10,7 @@ class GameScreneScene():
     def __init__(self, screen : object, scene_manager : object, client : object):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.client = client
         pygame_storage.add_variable(
             {"ENEMY_GRID" : Grid(
                     coordinates = (650, 150),
@@ -24,15 +25,17 @@ class GameScreneScene():
         pygame_storage.storage_dict["collision_list"] = []
 
         pygame_storage.add_variable(
-            {"MainGameManager" : MainGameManager(client = self.scene_manager)}
+            {"MainGameManager" : MainGameManager(client = self.client)}
         )
-        pygame_storage.storage_dict["MainGameManager"].shoot("123")
+
+        pygame_storage.storage_dict["MainGameManager"].check_hit()
         #Робим фон
         background_image = PygameImage(
-        screen = self.screen,
-        path = "static/images/sea_bg.png",
-        coordinates = (0, 0),
-        size = (1200, 700))
+            screen = self.screen,
+            path = "static/images/sea_bg.png",
+            coordinates = (0, 0),
+            size = (1200, 700)
+        )
 
         pygame_storage.storage_dict["PLAYER_GRID"].show_grid(self.screen, event)
         pygame_storage.storage_dict["PLAYER_GRID"].x = 50

@@ -16,7 +16,7 @@ class SceneManager():
         screen = screen,
         scene_manager = self)
 
-         #Створюємо змінну до якої присвоюємо клас сцени основної гри
+        #Створюємо змінну до якої присвоюємо клас сцени основної гри
         game_screen_scene = GameScreneScene(
         screen = screen,
         scene_manager = self,

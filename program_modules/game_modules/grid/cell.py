@@ -65,6 +65,8 @@ class Cell(PygameHitBox):
             pygame_storage.storage_dict["selected_column"] = self.column
         else:
             if self.grid_type == "enemy":
-                pygame_storage.storage_dict["selected_row"] = self.row
-                pygame_storage.storage_dict["selected_column"] = self.column
-                pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
+                if pygame_storage.storage_dict["MainGameManager"].turn == True:
+                    pygame_storage.storage_dict["selected_row"] = self.row
+                    pygame_storage.storage_dict["selected_column"] = self.column
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
+                    pygame_storage.storage_dict["MainGameManager"].shoot(self.column, self.row)

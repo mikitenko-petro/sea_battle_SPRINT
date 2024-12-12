@@ -23,4 +23,3 @@ class PygameLabel(PygameImage, PygameText):
         text_y = y + height/2 - font_size/4
 
         PygameText.__init__(self, screen, text, font, font_size, text_x, text_y)
-
