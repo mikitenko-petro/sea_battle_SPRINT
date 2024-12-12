@@ -1,6 +1,7 @@
 import socket
 from .pygame_storage import pygame_storage
 import threading
+import sys
 
 class Client():
     def __init__(self, ip : str, port : int):
@@ -21,6 +22,8 @@ class Client():
             pygame_storage.add_variable({"number_client" : "1"})
         else:
             pygame_storage.add_variable({"number_client" : "2"})
+
+        print(pygame_storage.storage_dict["number_client"])
                        
     def get_data(self):
         while self.listening:

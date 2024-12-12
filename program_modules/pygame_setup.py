@@ -10,8 +10,7 @@ class Game():
         pygame.init()
         self.screen = pygame.display.set_mode(size = (1200, 700))
         self.client = Client(ip = "", port = 0)
-        self.client.get_data_func.start()
-
+        
         self.scene_manager = SceneManager(screen = self.screen, client = self.client)
         
         pygame_storage.add_variable({"debug": True})
@@ -19,14 +18,17 @@ class Game():
     #Робим клас запуску гри
     def run(self):
         #Робим цикл
-        while True:
+        game = True
+        while game:
             #Отримуємо усі дії миші та клавіатури
             event = pygame.event.get()
 
             #робим ще один цикл
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
+                    print(3323)
                     self.client.listening = False
+                    self.client.client_socket.close()
                     sys.exit()
 
             self.scene_manager.show(event = event)

@@ -59,6 +59,7 @@ class ConectToServerScreenScene():
             self.client.ip = pygame_storage.storage_dict['IP']
             self.client.port = int(pygame_storage.storage_dict['PORT'])
             self.client.join()
+            self.client.get_data_func.start()
 
             self.scene_manager.change_scene(scene = "prepare_to_game")
             
