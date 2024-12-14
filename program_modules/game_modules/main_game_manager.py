@@ -22,6 +22,7 @@ class MainGameManager():
                 row, column = read_string(data)
                 pygame_storage.storage_dict["PLAYER_GRID"].grid[int(row)][int(column)] = "x"
                 self.turn = True
+                self.client.data = None
 
     def run(self):
         self.queue_join = pygame_storage.storage_dict["number_client"]

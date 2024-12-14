@@ -18,15 +18,13 @@ class Game():
     #Робим клас запуску гри
     def run(self):
         #Робим цикл
-        game = True
-        while game:
+        while True:
             #Отримуємо усі дії миші та клавіатури
             event = pygame.event.get()
 
             #робим ще один цикл
             for pygame_event in event:
                 if pygame_event.type == pygame.QUIT:
-                    print(3323)
                     self.client.listening = False
                     self.client.client_socket.close()
                     sys.exit()

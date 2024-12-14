@@ -30,7 +30,6 @@ class Client():
             if self.ip != "" and self.port != 0:
                 try:
                     data = self.client_socket.recv(1024)
-                    print(data)
                     if data:
                         self.data = data.decode("utf-8")
                 except Exception as error:
