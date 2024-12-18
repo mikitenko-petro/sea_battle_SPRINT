@@ -26,9 +26,9 @@ class GameScreneScene():
         pygame_storage.storage_dict["collision_list"] = []
 
         pygame_storage.add_variable(
-            {"MainGameManager" : MainGameManager(client = self.client)}
+            {"MainGameManager" : MainGameManager(client = self.client, screen = self.screen)}
         )
-
+        pygame_storage.storage_dict["MainGameManager"].check_lose()
         pygame_storage.storage_dict["MainGameManager"].check_hit()
         #Робим фон
         background_image = PygameImage(
@@ -55,6 +55,6 @@ class GameScreneScene():
             path = "static/images/blue_button.png",
             coordinates = (500, 10),
             size = (128*2, 32*2),
-            text = (lambda: "your turn" if pygame_storage.storage_dict["MainGameManager"].turn else "enemy turn")(),
+            text = (lambda: "your turn" if pygame_storage.storage_dict["player_turn"] else "enemy turn")(),
             font_size = 40
         )

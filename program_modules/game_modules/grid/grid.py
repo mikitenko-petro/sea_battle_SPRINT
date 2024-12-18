@@ -41,12 +41,15 @@ class Grid(PygameHitBox):
                         ps.storage_dict["selected_column"] = -1
     
     def show_grid(self, screen, event):
+        self.cell_list = []
+
         cell_x = 0
         cell_y = 0
+        cell_index = 0
 
         for row in self.grid:
             for type in row:
-                cell = Cell(
+                self.cell_list.append(Cell(
                     screen = screen,
                     coordinates = (cell_x, cell_y),
                     size = (50,50),
@@ -55,10 +58,10 @@ class Grid(PygameHitBox):
                     type = type,
                     grid_type = self.type,
                     scene_manager = self.scene_manager
-                )
+                ))
+                self.cell_list[cell_index].click_checking(event)
 
-                cell.click_checking(event = event)
-                    
+                cell_index += 1
                 cell_x += 50
             cell_y += 50
             cell_x = 0

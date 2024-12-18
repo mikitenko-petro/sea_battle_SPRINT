@@ -1,7 +1,6 @@
 import socket
 from .pygame_storage import pygame_storage
 import threading
-import sys
 
 class Client():
     def __init__(self, ip : str, port : int):

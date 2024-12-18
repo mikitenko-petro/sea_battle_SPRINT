@@ -34,13 +34,16 @@ class Cell(PygameHitBox):
 
             case 'x':
                 self.path = "static/images/wrong_cell.png"
+
+            case 'X':
+                self.path = "static/images/right_cell.png"
                 self.collision = Collision(
                     screen = screen,
                     coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
                     size = (self.width-2, self.height-2),
                     type = "cell"
                 )
-
+            
         cell = PygameImage(
             screen = screen,
             path = self.path,
@@ -72,9 +75,9 @@ class Cell(PygameHitBox):
             pygame_storage.storage_dict["selected_column"] = self.column
         else:
             if self.grid_type == "enemy":
-                if pygame_storage.storage_dict["MainGameManager"].turn == True:
+                if pygame_storage.storage_dict["player_turn"] == True:
                     pygame_storage.storage_dict["selected_row"] = self.row
                     pygame_storage.storage_dict["selected_column"] = self.column
                     pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
                     pygame_storage.storage_dict["MainGameManager"].shoot(self.column, self.row)
-                    pygame_storage.storage_dict["MainGameManager"].turn = False
+                    pygame_storage.storage_dict["player_turn"] = False
