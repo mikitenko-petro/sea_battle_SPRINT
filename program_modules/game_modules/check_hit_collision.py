@@ -1,5 +1,6 @@
 from .game_widgets.collision import Collision
 from ..pygame_storage import pygame_storage
+from ..music_manager import music_manager
 
 def check_hit_collision(screen, row, column):
     check_collision = Collision(
@@ -20,8 +21,9 @@ def check_hit_collision(screen, row, column):
 
     for collision in collision_list:
         if check_collision.rect.colliderect(collision):
-           is_hit = True
-           break
+            music_manager.music_dict["hit_effect"].play()
+            is_hit = True
+            break
 
     del check_collision
 

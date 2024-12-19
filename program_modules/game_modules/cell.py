@@ -1,8 +1,8 @@
-from ...widgets.pygame_image import PygameImage
-from ...widgets.pygame_hitbox import PygameHitBox
-from ...widgets.pygame_button import PygameButton
-from ..game_widgets.collision import Collision
-from ...pygame_storage import pygame_storage
+from ..widgets.pygame_image import PygameImage
+from ..widgets.pygame_hitbox import PygameHitBox
+from ..widgets.pygame_button import PygameButton
+from .game_widgets.collision import Collision
+from ..pygame_storage import pygame_storage
 import pygame
 
 class Cell(PygameHitBox):

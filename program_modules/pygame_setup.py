@@ -13,7 +13,7 @@ class Game():
         
         self.scene_manager = SceneManager(screen = self.screen, client = self.client)
         
-        pygame_storage.add_variable({"debug": True})
+        pygame_storage.add_variable({"debug": False})
 
     #Робим клас запуску гри
     def run(self):

@@ -1,4 +1,5 @@
 from ..pygame_storage import pygame_storage
+from ..music_manager import music_manager
 from ..string_manager import read_string, write_string
 from .check_hit_collision import check_hit_collision
 
@@ -32,24 +33,27 @@ class MainGameManager():
                     if check_hit_collision(self.screen, int(row), int(column)) == True:
                         self.client.send_data(write_string("you don't missed"))
                         pygame_storage.storage_dict["PLAYER_GRID"].grid[int(row)][int(column)] = "X"
+                        music_manager.music_dict["kill_effect"].play()
                     else:
                         pygame_storage.storage_dict["PLAYER_GRID"].grid[int(row)][int(column)] = "x"
                         pygame_storage.storage_dict["player_turn"] = True
                 else:
-                    if read_string(data) == "win":
-                        print("win")
-                    else:
-                        pygame_storage.storage_dict["ENEMY_GRID"].grid[pygame_storage.storage_dict["last_row"]][pygame_storage.storage_dict["last_column"]] = "X"
-                        pygame_storage.storage_dict["player_turn"] = True
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[pygame_storage.storage_dict["last_row"]][pygame_storage.storage_dict["last_column"]] = "X"
+                    pygame_storage.storage_dict["player_turn"] = True
                 
                 self.client.data = None
                 
     def check_lose(self):
+        data = self.client.data
+        if data != None:
+            if data == "win":
+                print("win")
+                self.client.data = None
+
         pygame_storage.storage_dict["defeated_ship"] = 0
         for ship in pygame_storage.storage_dict["ship_list"]:
-            print(pygame_storage.storage_dict["defeated_ship"])
             if ship.status == "defeated":
                 pygame_storage.storage_dict["defeated_ship"] += 1
                        
         if pygame_storage.storage_dict["defeated_ship"] == 9:
-            self.client.send_data(write_string("win"))
+            self.client.send_data("win")

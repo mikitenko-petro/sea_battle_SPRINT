@@ -1,6 +1,6 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
-from ..game_modules.grid.grid import Grid
+from ..game_modules.grid import Grid
 from ..game_modules.ship import Ship
 from ..game_modules.ship_manager import ShipManager
 from ..pygame_storage import pygame_storage
