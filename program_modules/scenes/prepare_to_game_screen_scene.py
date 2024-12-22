@@ -1,10 +1,12 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
+from ..widgets.pygame_rect import PygameRect
 from ..game_modules.grid import Grid
 from ..game_modules.ship import Ship
 from ..game_modules.ship_manager import ShipManager
 from ..pygame_storage import pygame_storage
-from ..game_modules.game_widgets.collision import Collision
+
+from ..game_widgets.random_placement_button import RandomPlacementButton
 
 #Робим клас для підготовки гри
 class PrepareToGameScreenScene():
@@ -37,10 +39,10 @@ class PrepareToGameScreenScene():
         pygame_storage.storage_dict["PLAYER_GRID"].show_grid(self.screen, event)
 
         collision_list = [
-            Collision(self.screen, (350, 100), (500, 50), "buffer"),
-            Collision(self.screen, (850, 150), (50, 500), "buffer"),
-            Collision(self.screen, (350, 650), (500, 50), "buffer"),
-            Collision(self.screen, (300, 150), (50, 500), "buffer")
+            PygameRect((350, 100), (500, 50), screen=self.screen),
+            PygameRect((850, 150), (50, 500), screen=self.screen),
+            PygameRect((350, 650), (500, 50), screen=self.screen),
+            PygameRect((300, 150), (50, 500), screen=self.screen)
         ]
 
         pygame_storage.add_variable({"collision_list" : collision_list})
@@ -79,4 +81,10 @@ class PrepareToGameScreenScene():
                 event = event,
                 function = lambda: self.scene_manager.change_scene(scene = "game")
             )
+            
+        random_button = RandomPlacementButton(
+            event = event, 
+            screen = self.screen, 
+            grid = pygame_storage.storage_dict["PLAYER_GRID"]
+        )
         

@@ -1,5 +1,5 @@
-from ...pygame_storage import pygame_storage
-from ...widgets.pygame_button import PygameButton
+from ..pygame_storage import pygame_storage
+from ..widgets.pygame_button import PygameButton
 
 class ReturnButton():
     def __init__(self, screen : object, coordinates : tuple, event : object, id : int):

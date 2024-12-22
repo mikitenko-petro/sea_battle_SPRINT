@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_hitbox import PygameHitBox
 from ..widgets.pygame_button import PygameButton
-from .game_widgets.collision import Collision
+from ..widgets.pygame_rect import PygameRect
 from ..pygame_storage import pygame_storage
 import pygame
 
@@ -27,6 +27,7 @@ class Cell(PygameHitBox):
 
         self.path = ""
         self.scene_manager = scene_manager
+        self.type = type
 
         match type:
             case '  ':
@@ -37,11 +38,10 @@ class Cell(PygameHitBox):
 
             case 'X':
                 self.path = "static/images/right_cell.png"
-                self.collision = Collision(
+                self.collision = PygameRect(
                     screen = screen,
                     coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
                     size = (self.width-2, self.height-2),
-                    type = "cell"
                 )
             
         cell = PygameImage(

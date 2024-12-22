@@ -1,7 +1,7 @@
-from ..pygame_storage import pygame_storage
-from ..music_manager import music_manager
-from ..string_manager import read_string, write_string
-from .check_hit_collision import check_hit_collision
+from .pygame_storage import pygame_storage
+from .music_manager import music_manager
+from .string_manager import read_string, write_string
+from .game_modules.check_hit_collision import check_hit_collision
 
 class MainGameManager():
     def __init__(self, client, screen):
@@ -10,6 +10,9 @@ class MainGameManager():
         pygame_storage.add_variable({"last_row" : -1})
         pygame_storage.add_variable({"last_column" : -1})
         pygame_storage.add_variable({"defeated_ship" : 0})
+        pygame_storage.add_variable({"defeated_cells" : 0})
+
+        pygame_storage.add_variable({"win" : None})
 
         if pygame_storage.storage_dict["number_client"] == "1":
             pygame_storage.add_variable({"player_turn" : True})
@@ -44,16 +47,23 @@ class MainGameManager():
                 self.client.data = None
                 
     def check_lose(self):
-        data = self.client.data
-        if data != None:
-            if data == "win":
-                print("win")
-                self.client.data = None
-
         pygame_storage.storage_dict["defeated_ship"] = 0
         for ship in pygame_storage.storage_dict["ship_list"]:
             if ship.status == "defeated":
                 pygame_storage.storage_dict["defeated_ship"] += 1
                        
         if pygame_storage.storage_dict["defeated_ship"] == 9:
-            self.client.send_data("win")
+            pygame_storage.storage_dict["win"] = False
+
+        pygame_storage.storage_dict["defeated_cells"] = 0
+        if hasattr(pygame_storage.storage_dict["ENEMY_GRID"], "cell_list") == True:
+            for cell in pygame_storage.storage_dict["ENEMY_GRID"].cell_list:
+                if cell.type == "X":
+                    pygame_storage.storage_dict["defeated_cells"] += 1
+                       
+        if pygame_storage.storage_dict["defeated_cells"] == 20:
+            pygame_storage.storage_dict["win"] = True
+
+        print(pygame_storage.storage_dict["win"])
+
+        
