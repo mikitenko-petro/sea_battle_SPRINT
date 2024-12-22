@@ -1,7 +1,8 @@
-from ...widgets.pygame_image import PygameImage
-from ...widgets.pygame_hitbox import PygameHitBox
-from ...widgets.pygame_button import PygameButton
-from ...pygame_storage import pygame_storage
+from ..widgets.pygame_image import PygameImage
+from ..widgets.pygame_hitbox import PygameHitBox
+from ..widgets.pygame_button import PygameButton
+from ..widgets.pygame_rect import PygameRect
+from ..pygame_storage import pygame_storage
 import pygame
 
 class Cell(PygameHitBox):
@@ -26,6 +27,7 @@ class Cell(PygameHitBox):
 
         self.path = ""
         self.scene_manager = scene_manager
+        self.type = type
 
         match type:
             case '  ':
@@ -34,6 +36,14 @@ class Cell(PygameHitBox):
             case 'x':
                 self.path = "static/images/wrong_cell.png"
 
+            case 'X':
+                self.path = "static/images/right_cell.png"
+                self.collision = PygameRect(
+                    screen = screen,
+                    coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
+                    size = (self.width-2, self.height-2),
+                )
+            
         cell = PygameImage(
             screen = screen,
             path = self.path,
@@ -65,6 +75,9 @@ class Cell(PygameHitBox):
             pygame_storage.storage_dict["selected_column"] = self.column
         else:
             if self.grid_type == "enemy":
-                pygame_storage.storage_dict["selected_row"] = self.row
-                pygame_storage.storage_dict["selected_column"] = self.column
-                pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
+                if pygame_storage.storage_dict["player_turn"] == True:
+                    pygame_storage.storage_dict["selected_row"] = self.row
+                    pygame_storage.storage_dict["selected_column"] = self.column
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
+                    pygame_storage.storage_dict["MainGameManager"].shoot(self.column, self.row)
+                    pygame_storage.storage_dict["player_turn"] = False

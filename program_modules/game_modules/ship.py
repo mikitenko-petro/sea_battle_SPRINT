@@ -1,14 +1,15 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_hitbox import PygameHitBox
 from ..widgets.pygame_button import PygameButton
+from ..music_manager import music_manager
 from ..pygame_storage import pygame_storage
-from .game_widgets.turn_button import TurnButton
-from .game_widgets.return_button import ReturnButton
-from .game_widgets.collision import Collision
+from ..game_widgets.turn_button import TurnButton
+from ..game_widgets.return_button import ReturnButton
+from ..widgets.pygame_rect import PygameRect
 import pygame
 
 class Ship():
-    def __init__(self, type, id):
+    def __init__(self, type, id, client):
         self.type = type
         self.status = "unplaced"
         self.direction = "right"
@@ -19,6 +20,7 @@ class Ship():
         self.id = id
         self.delta_x = 0
         self.delta_y = 0
+        self.client = client
         
         PygameHitBox.__init__(self, (0,0), (50,50))
 
@@ -151,6 +153,20 @@ class Ship():
                 case "4x1":
                     self.path = "static/images/ship4X1.png"
 
+        if self.status == "defeated":
+            match self.type:
+                case "1x1":
+                    self.path = "static/images/ship1X1defeated.png"
+
+                case "2x1":
+                    self.path = "static/images/ship2X1defeated.png"
+
+                case "3x1":
+                    self.path = "static/images/ship3X1defeated.png"
+
+                case "4x1":
+                    self.path = "static/images/ship4X1defeated.png"
+
         match self.type:
             case "1x1":
                 self.image_height = 50
@@ -172,20 +188,19 @@ class Ship():
             angle = self.angle
         )
         
-        self.ship_collision_rect = Collision(
-            screen,
+        self.ship_collision_rect = PygameRect(
+            screen=screen,
             coordinates = (x - self.delta_x + 2, y - self.delta_y + 2),
             size = (self.width - 4, self.height - 4),
-            type = "ship collision"
+            color = (255, 0, 0)
         )
 
         if scene_manager.current_scene == "prepare_to_game":
             if self.status == "placed":
-                self.buffer_rect = Collision(
-                    screen,
+                self.buffer_rect = PygameRect(
+                    screen=screen,
                     coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
                     size = (self.width + 100 - 4, self.height + 100 - 4),
-                    type = "ship buffer"
                 )
             else:
                 if hasattr(self, "buffer_rect") == True:
@@ -226,13 +241,15 @@ class Ship():
             
     def check_collide(self, screen):
         collision_list = []
+        pygame_storage.storage_dict["check_placement"] = False
+
         for collision in pygame_storage.storage_dict["collision_list"]:
-            if collision.type == "buffer":
-                collision_list.append(collision)
+            collision_list.append(collision)
 
         try:
-            if self.ship_collision_rect.rect.collidelist(collision_list) != -1:
-                pygame.draw.rect(screen, (255, 0, 0), self.ship_collision_rect, 2)
+            if self.ship_collision_rect.collidelist(collision_list) != -1:
+                self.ship_collision_rect.draw()
+                pygame_storage.storage_dict["check_placement"] = True
         except:
             pass
 
@@ -244,5 +261,33 @@ class Ship():
                     collision_list.append(ship.buffer_rect)
 
         for collision in collision_list:
-            if self.ship_collision_rect.rect.collidelist(collision_list) != -1:
-                pygame.draw.rect(screen, (255, 0, 0), self.ship_collision_rect, 2)
+            if self.ship_collision_rect.collidelist(collision_list) != -1:
+                self.ship_collision_rect.draw()
+                pygame_storage.storage_dict["check_placement"] = True
+
+        collision_list = []
+
+        for cell in pygame_storage.storage_dict["PLAYER_GRID"].cell_list:
+            if hasattr(cell, "collision") == True:
+                collision_list.append(cell.collision)
+
+        collisions = [hitbox for hitbox in collision_list if self.ship_collision_rect.colliderect(hitbox)]
+
+        for collision in collision_list:
+            if self.ship_collision_rect.collidelist(collision_list) != -1:
+                match self.type:
+                    case "1x1":
+                        if len(collisions) == 1:
+                            self.status = "defeated"
+
+                    case "2x1":
+                        if len(collisions) == 2:
+                            self.status = "defeated"
+
+                    case "3x1":
+                        if len(collisions) == 3:
+                            self.status = "defeated"
+
+                    case "4x1":
+                        if len(collisions) == 4:
+                            self.status = "defeated"   

@@ -10,7 +10,7 @@ class ShipManager():
         for i in range(len(pygame_storage.storage_dict["ship_list"])):
             pygame_storage.storage_dict["ship_list"][i].select_ship(event = self.event)
 
-            if pygame_storage.storage_dict["ship_list"][i].status == "placed":
+            if pygame_storage.storage_dict["ship_list"][i].status == "placed" or pygame_storage.storage_dict["ship_list"][i].status == "defeated":
                 pygame_storage.storage_dict["ship_list"][i].show_ship(
                     self.screen,
                     event,
@@ -24,7 +24,6 @@ class ShipManager():
     def show_label(self, coordinates):
         self.x, self.y = coordinates
         for i in range(len(pygame_storage.storage_dict["ship_list"])):
-
             if pygame_storage.storage_dict["ship_list"][i].status == "unplaced":
                 pygame_storage.storage_dict["ship_list"][i].show_ship(
                     self.screen,
