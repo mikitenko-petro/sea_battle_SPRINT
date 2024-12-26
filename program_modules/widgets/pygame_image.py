@@ -8,8 +8,9 @@ class PygameImage():
         path : str,
         coordinates : tuple,
         size : tuple,
-        angle : int = 0):
-    
+        angle : int = 0,
+        already_display : bool = True):
+
         #
         self.screen = screen
 
@@ -22,4 +23,8 @@ class PygameImage():
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
 
+        if already_display:
+            self.display()
+
+    def display(self):
         self.screen.blit(self.image, (self.rect.x, self.rect.y))

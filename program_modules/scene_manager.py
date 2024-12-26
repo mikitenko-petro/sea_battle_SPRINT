@@ -2,6 +2,7 @@ from .scenes.main_screen_scene import MainScreenScene
 from .scenes.game_screen_scene import GameScreneScene
 from .scenes.prepare_to_game_screen_scene import PrepareToGameScreenScene
 from .scenes.conect_to_server_screen_scene import ConectToServerScreenScene
+from .scenes.end_screen_scene import EndScreenScene
 
 #Робим клас для перемикання між сценами
 class SceneManager():
@@ -31,13 +32,20 @@ class SceneManager():
             screen = screen,
             scene_manager = self
         )
+        
+        end_screen_scene = EndScreenScene(
+            screen = screen,
+            client = client,
+            scene_manager = self
+        )
 
         #Створюємо список де вказуємо наші змінні
         self.scene_list = {
             "main": main_screen_scene,
             "conect_to_server": conect_to_server_screen_scene,
             "prepare_to_game": prepare_to_game_screen_scene,
-            "game": game_screen_scene
+            "game": game_screen_scene,
+            "end": end_screen_scene
         }
 
         #Задається початкова сцена

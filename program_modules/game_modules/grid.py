@@ -42,27 +42,21 @@ class Grid(PygameHitBox):
     
     def show_grid(self, screen, event):
         self.cell_list = []
-
-        cell_x = 0
-        cell_y = 0
         cell_index = 0
 
-        for row in self.grid:
-            for type in row:
-                self.cell_list.append(Cell(
-                    screen = screen,
-                    coordinates = (cell_x, cell_y),
-                    size = (50,50),
-                    initial_x = self.x,
-                    initial_y = self.y,
-                    type = type,
-                    grid_type = self.type,
-                    scene_manager = self.scene_manager
-                ))
+        for y, row in enumerate(self.grid):
+            for x, type in enumerate(row):
+                self.cell_list.append(
+                    Cell(
+                        screen = screen,
+                        coordinates = (x*50, y*50),
+                        size = (50,50),
+                        initial_x = self.x,
+                        initial_y = self.y,
+                        type = type,
+                        grid_type = self.type,
+                        scene_manager = self.scene_manager
+                    )
+                )
                 self.cell_list[cell_index].click_checking(event)
-
                 cell_index += 1
-                cell_x += 50
-            cell_y += 50
-            cell_x = 0
-    

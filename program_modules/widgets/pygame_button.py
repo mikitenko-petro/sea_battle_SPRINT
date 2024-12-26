@@ -12,6 +12,7 @@ class PygameButton(PygameHitBox):
         event : object,
         function : object,
         font_size = 20,
+        font : str | None = None,
         text : str | None = None,
         path : str | None = None,
         screen : object | None = None):
@@ -38,7 +39,7 @@ class PygameButton(PygameHitBox):
             self.button_text = PygameText(
                 screen = screen,
                 text = text,
-                font = None,
+                font = font,
                 font_size = font_size,
                 x = button_text_x,
                 y = button_text_y

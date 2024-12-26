@@ -26,8 +26,9 @@ class GameScreneScene():
         pygame_storage.storage_dict["collision_list"] = []
 
         pygame_storage.add_variable(
-            {"MainGameManager" : MainGameManager(client = self.client, screen = self.screen)}
+            {"MainGameManager" : MainGameManager(client = self.client, screen = self.screen, scene_manager = self.scene_manager)}
         )
+       
         pygame_storage.storage_dict["MainGameManager"].check_lose()
         pygame_storage.storage_dict["MainGameManager"].check_hit()
         #Робим фон
@@ -58,4 +59,3 @@ class GameScreneScene():
             text = (lambda: "your turn" if pygame_storage.storage_dict["player_turn"] else "enemy turn")(),
             font_size = 40
         )
-        

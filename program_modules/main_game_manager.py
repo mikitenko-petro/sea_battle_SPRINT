@@ -4,9 +4,11 @@ from .string_manager import read_string, write_string
 from .game_modules.check_hit_collision import check_hit_collision
 
 class MainGameManager():
-    def __init__(self, client, screen):
+    def __init__(self, client, screen, scene_manager):
         self.client = client
         self.screen = screen
+        self.scene_manager = scene_manager
+
         pygame_storage.add_variable({"last_row" : -1})
         pygame_storage.add_variable({"last_column" : -1})
         pygame_storage.add_variable({"defeated_ship" : 0})
@@ -52,8 +54,9 @@ class MainGameManager():
             if ship.status == "defeated":
                 pygame_storage.storage_dict["defeated_ship"] += 1
                        
-        if pygame_storage.storage_dict["defeated_ship"] == 9:
+        if pygame_storage.storage_dict["defeated_ship"] == 10:
             pygame_storage.storage_dict["win"] = False
+            self.scene_manager.change_scene(scene = "end")
 
         pygame_storage.storage_dict["defeated_cells"] = 0
         if hasattr(pygame_storage.storage_dict["ENEMY_GRID"], "cell_list") == True:
@@ -63,7 +66,4 @@ class MainGameManager():
                        
         if pygame_storage.storage_dict["defeated_cells"] == 20:
             pygame_storage.storage_dict["win"] = True
-
-        print(pygame_storage.storage_dict["win"])
-
-        
+            self.scene_manager.change_scene(scene = "end")

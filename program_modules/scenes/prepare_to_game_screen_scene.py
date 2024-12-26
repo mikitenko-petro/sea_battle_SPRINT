@@ -84,7 +84,6 @@ class PrepareToGameScreenScene():
             
         random_button = RandomPlacementButton(
             event = event, 
-            screen = self.screen, 
-            grid = pygame_storage.storage_dict["PLAYER_GRID"]
+            screen = self.screen
         )
         
