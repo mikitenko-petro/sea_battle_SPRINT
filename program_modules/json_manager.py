@@ -1,10 +1,10 @@
 import json
+from .search_path import search_path
 
-def write_json(json_path : str):
-    with open(json_path, "w") as file:
-        json.dump(json_path, file)
-
-def read_json(json_path : str):
-    with open(json_path, "r") as file:
-        data = json.load(file)
-        return data
+def read_json(path : str) -> dict:
+    with open(file = search_path(path), encoding = 'utf-8', mode= 'r') as file:
+        return json.load(file)
+    
+def write_json(path : str, data : object) -> None:
+    with open(file = search_path(path), encoding = 'utf-8', mode= 'w') as file:
+        return json.dump(data, file, indent = 4)

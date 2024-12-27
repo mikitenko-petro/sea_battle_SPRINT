@@ -7,45 +7,31 @@ from .scenes.end_screen_scene import EndScreenScene
 #Робим клас для перемикання між сценами
 class SceneManager():
     def __init__(self, screen : object, client : object):
-        main_screen_scene = MainScreenScene(
-            screen = screen,
-            scene_manager = self
-        )
-
-        #Створюємо змінну до якої присвоюємо клас сцени підготовки гри
-        prepare_to_game_screen_scene = PrepareToGameScreenScene(
-            client = client,
-            screen = screen,
-            scene_manager = self
-        )
-
-        #Створюємо змінну до якої присвоюємо клас сцени основної гри
-        game_screen_scene = GameScreneScene(
-            screen = screen,
-            scene_manager = self,
-            client = client
-        )
-
-        #Створюємо змінну до якої присвоюємо клас сцени підключення до сервера
-        conect_to_server_screen_scene = ConectToServerScreenScene(
-            client = client,
-            screen = screen,
-            scene_manager = self
-        )
-        
-        end_screen_scene = EndScreenScene(
-            screen = screen,
-            client = client,
-            scene_manager = self
-        )
-
-        #Створюємо список де вказуємо наші змінні
         self.scene_list = {
-            "main": main_screen_scene,
-            "conect_to_server": conect_to_server_screen_scene,
-            "prepare_to_game": prepare_to_game_screen_scene,
-            "game": game_screen_scene,
-            "end": end_screen_scene
+            "main": MainScreenScene(
+                screen = screen,
+                scene_manager = self
+            ),
+            "prepare_to_game": PrepareToGameScreenScene(
+                client = client,
+                screen = screen,
+                scene_manager = self
+            ),
+            "game": GameScreneScene(
+                screen = screen,
+                scene_manager = self,
+                client = client
+            ),
+            "conect_to_server": ConectToServerScreenScene(
+                client = client,
+                screen = screen,
+                scene_manager = self
+            ),
+            "end": EndScreenScene(
+                screen = screen,
+                client = client,
+                scene_manager = self
+            )
         }
 
         #Задається початкова сцена

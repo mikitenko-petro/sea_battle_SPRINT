@@ -34,7 +34,7 @@ class Game():
             pygame.display.update()
             pygame.display.flip()
 
+pygame_storage.add_variable({"GAME": Game()})
 #Метод для запуску гри
-def start_game(): 
-    game = Game()
-    game.run()
+def start_game():
+    pygame_storage.storage_dict["GAME"].run()
