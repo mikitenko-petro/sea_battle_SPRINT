@@ -1,7 +1,7 @@
 import random
 import threading
 import time
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 from ..game_modules.check_random_ship_collision import check_random_ship_collision
 from ..widgets.pygame_button import PygameButton
 

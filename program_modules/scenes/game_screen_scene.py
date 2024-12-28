@@ -1,9 +1,9 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_label import PygameLabel
 from ..game_modules.grid import Grid
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 from ..game_modules.ship_manager import ShipManager
-from ..main_game_manager import MainGameManager
+from ..game_modules.main_game_manager import MainGameManager
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():

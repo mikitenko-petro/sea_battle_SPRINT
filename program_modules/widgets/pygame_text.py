@@ -1,5 +1,5 @@
 import pygame
-from ..search_path import search_path
+from ..tools.search_path import search_path
 #Робимо Текст
 class PygameText():
     def __init__(

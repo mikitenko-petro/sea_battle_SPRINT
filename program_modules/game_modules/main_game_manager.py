@@ -1,7 +1,7 @@
-from .pygame_storage import pygame_storage
-from .music_manager import music_manager
-from .string_manager import read_string, write_string
-from .game_modules.check_hit_collision import check_hit_collision
+from ..tools.pygame_storage import pygame_storage
+from ..tools.music_manager import music_manager
+from ..tools.string_manager import read_string, write_string
+from .check_hit_collision import check_hit_collision
 
 class MainGameManager():
     def __init__(self, client, screen, scene_manager):
@@ -22,7 +22,7 @@ class MainGameManager():
             pygame_storage.add_variable({"player_turn" : False})
 
     def shoot(self, row, column):
-        if pygame_storage.storage_dict["player_turn"] == True:
+        if pygame_storage.storage_dict["player_turn"]:
             data = write_string(row, column)
             self.client.send_data(data)
             pygame_storage.storage_dict["player_turn"] = False

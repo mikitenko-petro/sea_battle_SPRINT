@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 from ..client import Client
 
 #Створюємо клас для створення екрану для під'єднання до серверу
@@ -64,7 +64,6 @@ class EndScreenScene():
         self.client.listening = False
         self.client.client_socket.close()
         pygame_storage.storage_dict["GAME"].client = Client(ip = "", port = 0)
-
 
         pygame_storage.storage_dict['win'] = None
 

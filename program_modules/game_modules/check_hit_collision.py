@@ -1,6 +1,6 @@
 from ..widgets.pygame_rect import PygameRect
-from ..pygame_storage import pygame_storage
-from ..music_manager import music_manager
+from ..tools.pygame_storage import pygame_storage
+from ..tools.music_manager import music_manager
 
 def check_hit_collision(screen, row, column):
 

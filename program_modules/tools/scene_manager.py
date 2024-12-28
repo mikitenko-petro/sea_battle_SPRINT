@@ -1,8 +1,8 @@
-from .scenes.main_screen_scene import MainScreenScene
-from .scenes.game_screen_scene import GameScreneScene
-from .scenes.prepare_to_game_screen_scene import PrepareToGameScreenScene
-from .scenes.conect_to_server_screen_scene import ConectToServerScreenScene
-from .scenes.end_screen_scene import EndScreenScene
+from ..scenes.main_screen_scene import MainScreenScene
+from ..scenes.game_screen_scene import GameScreneScene
+from ..scenes.prepare_to_game_screen_scene import PrepareToGameScreenScene
+from ..scenes.conect_to_server_screen_scene import ConectToServerScreenScene
+from ..scenes.end_screen_scene import EndScreenScene
 
 #Робим клас для перемикання між сценами
 class SceneManager():

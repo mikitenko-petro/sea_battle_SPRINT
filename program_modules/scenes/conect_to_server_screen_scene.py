@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_text_input import PygameTextInput
 from ..widgets.pygame_button import PygameButton
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 from ..game_widgets.last_choise_button import LastChoiceButton
 
 #Створюємо клас для створення екрану для під'єднання до серверу
@@ -46,12 +46,13 @@ class ConectToServerScreenScene():
 
         self.last_sesion_ip = LastChoiceButton(
             screen = self.screen,
-            x = 600,
-            y = 96,
-            content_type = "IP"
+            x = 610,
+            y = 260-96,
+            content_type = "IP",
+            event = event
         )
-
-        # self.last_sesion_ip.show_button(event = event)
+        
+        self.last_sesion_ip.show_button(600, 250, 384, 96)
         
         #Робимо строку вводу для порту
         text_input_port = PygameTextInput(
@@ -64,6 +65,16 @@ class ConectToServerScreenScene():
             initial_text = "enter your port"
         )
 
+        self.last_sesion_port = LastChoiceButton(
+            screen = self.screen,
+            x = 610,
+            y = 460-96,
+            content_type = "PORT",
+            event = event
+        )
+        
+        self.last_sesion_port.show_button(600, 450, 384, 96)
+
     def connect_to_server(self):
         try:
             self.client.ip = pygame_storage.storage_dict['IP']
@@ -72,6 +83,7 @@ class ConectToServerScreenScene():
             self.client.get_data_func.start()
 
             self.last_sesion_ip.create_json(pygame_storage.storage_dict['IP'])
+            self.last_sesion_port.create_json(pygame_storage.storage_dict['PORT'])
 
             self.scene_manager.change_scene(scene = "prepare_to_game")
             
