@@ -1,12 +1,11 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_hitbox import PygameHitBox
 from ..widgets.pygame_button import PygameButton
-from ..music_manager import music_manager
-from ..pygame_storage import pygame_storage
+from ..tools.music_manager import music_manager
+from ..tools.pygame_storage import pygame_storage
 from ..game_widgets.turn_button import TurnButton
 from ..game_widgets.return_button import ReturnButton
 from ..widgets.pygame_rect import PygameRect
-import pygame
 
 class Ship():
     def __init__(self, type, id, client):

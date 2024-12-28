@@ -1,5 +1,5 @@
 import socket
-from .pygame_storage import pygame_storage
+from .tools.pygame_storage import pygame_storage
 import threading
 
 class Client():

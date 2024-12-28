@@ -1,6 +1,6 @@
 import pygame
 from .pygame_hitbox import PygameHitBox
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 
 class PygameRect(PygameHitBox, pygame.Rect):
     def __init__(

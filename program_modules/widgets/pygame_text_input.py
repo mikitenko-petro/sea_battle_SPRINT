@@ -2,7 +2,7 @@ import pygame
 import pyperclip
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 
 class PygameTextInput():
     def __init__(

@@ -2,7 +2,8 @@ from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_hitbox import PygameHitBox
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_rect import PygameRect
-from ..pygame_storage import pygame_storage
+from ..widgets.pygame_animation import PygameAnimation
+from ..tools.pygame_storage import pygame_storage
 import pygame
 
 class Cell(PygameHitBox):
@@ -28,6 +29,7 @@ class Cell(PygameHitBox):
         self.path = ""
         self.scene_manager = scene_manager
         self.type = type
+        self.grid_type = grid_type
 
         match type:
             case '  ':
@@ -43,16 +45,34 @@ class Cell(PygameHitBox):
                     coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
                     size = (self.width-2, self.height-2),
                 )
+        if type == "x":
+            cell = PygameImage(
+                screen = screen,
+                path = "static/images/cell.png",
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )
+
+            pygame_storage.add_variable({f"cell_{self.row}_{self.column}_{self.grid_type}" :
+                PygameAnimation(
+                    screen = screen,
+                    animation_name = "baubles",
+                    coordinates = (initial_x + self.x, initial_y + self.y),
+                    size = size,
+                    speed = 0.15
+                )
+            })
+
+            pygame_storage.storage_dict[f"cell_{self.row}_{self.column}_{self.grid_type}"].display()
             
-        cell = PygameImage(
-            screen = screen,
-            path = self.path,
-            coordinates = (initial_x + self.x, initial_y + self.y),
-            size = size
-        )
-
-        self.grid_type = grid_type
-
+        else:
+            cell = PygameImage(
+                screen = screen,
+                path = self.path,
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )
+        
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
@@ -74,7 +94,7 @@ class Cell(PygameHitBox):
             pygame_storage.storage_dict["selected_row"] = self.row
             pygame_storage.storage_dict["selected_column"] = self.column
         else:
-            if self.grid_type == "enemy":
+            if self.grid_type == "enemy" and pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] == "  ":
                 if pygame_storage.storage_dict["player_turn"] == True:
                     pygame_storage.storage_dict["selected_row"] = self.row
                     pygame_storage.storage_dict["selected_column"] = self.column

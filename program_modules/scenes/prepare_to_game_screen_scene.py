@@ -4,7 +4,7 @@ from ..widgets.pygame_rect import PygameRect
 from ..game_modules.grid import Grid
 from ..game_modules.ship import Ship
 from ..game_modules.ship_manager import ShipManager
-from ..pygame_storage import pygame_storage
+from ..tools.pygame_storage import pygame_storage
 
 from ..game_widgets.random_placement_button import RandomPlacementButton
 
@@ -52,7 +52,7 @@ class PrepareToGameScreenScene():
             screen = self.screen,
             scene_manager = self.scene_manager
         )
-
+        
         ship_manager.show_label(coordinates = (50, 150))
         
         pygame_storage.storage_dict["PLAYER_GRID"].place_ship()
@@ -84,7 +84,6 @@ class PrepareToGameScreenScene():
             
         random_button = RandomPlacementButton(
             event = event, 
-            screen = self.screen, 
-            grid = pygame_storage.storage_dict["PLAYER_GRID"]
+            screen = self.screen
         )
         
