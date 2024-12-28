@@ -3,13 +3,15 @@ from ..widgets.pygame_text_input import PygameTextInput
 from ..widgets.pygame_button import PygameButton
 from ..tools.pygame_storage import pygame_storage
 from ..game_widgets.last_choise_button import LastChoiceButton
+from ..game_modules.grid import Grid
+from ..game_modules.ship import Ship
+from ..widgets.pygame_rect import PygameRect
 
 #Створюємо клас для створення екрану для під'єднання до серверу
 class ConectToServerScreenScene():
-    def __init__(self, screen : object, scene_manager : object, client : object):
+    def __init__(self, screen : object, scene_manager : object):
         self.scene_manager = scene_manager
         self.screen = screen
-        self.client = client
         pygame_storage.add_variable({"IP" : "enter your ip"})
         pygame_storage.add_variable({"PORT" : "enter your port"})
 
@@ -77,15 +79,46 @@ class ConectToServerScreenScene():
 
     def connect_to_server(self):
         try:
-            self.client.ip = pygame_storage.storage_dict['IP']
-            self.client.port = int(pygame_storage.storage_dict['PORT'])
-            self.client.join()
-            self.client.get_data_func.start()
+            pygame_storage.storage_dict["GAME"].client.ip = pygame_storage.storage_dict['IP']
+            pygame_storage.storage_dict["GAME"].client.port = int(pygame_storage.storage_dict['PORT'])
+            pygame_storage.storage_dict["GAME"].client.join()
+            pygame_storage.storage_dict["GAME"].client.get_data_func.start()
 
             self.last_sesion_ip.create_json(pygame_storage.storage_dict['IP'])
             self.last_sesion_port.create_json(pygame_storage.storage_dict['PORT'])
 
+            self.prepare_to_game()
+
             self.scene_manager.change_scene(scene = "prepare_to_game")
-            
         except Exception as error:
             print(error)
+
+    def prepare_to_game(self):
+        pygame_storage.add_variable({"PLAYER_GRID" : None})
+        pygame_storage.storage_dict["PLAYER_GRID"] = Grid(
+            coordinates = (350, 150),
+            type = "player",
+            scene_manager = self.scene_manager
+        )
+
+        pygame_storage.add_variable({"ship_list" : None})
+        pygame_storage.storage_dict["ship_list"] = []
+
+        for i in range(10):
+            if i < 4:
+                pygame_storage.storage_dict["ship_list"].append(Ship(type = "1x1", id = i))
+            elif i < 7:
+                pygame_storage.storage_dict["ship_list"].append(Ship(type = "2x1", id = i))
+            elif i < 9:
+                pygame_storage.storage_dict["ship_list"].append(Ship(type = "3x1", id = i))
+            else:
+                pygame_storage.storage_dict["ship_list"].append(Ship(type = "4x1", id = i))
+
+        pygame_storage.add_variable({"collision_list" : None})
+
+        pygame_storage.storage_dict["collision_list"] = [
+            PygameRect((350, 100), (500, 50), screen=self.screen),
+            PygameRect((850, 150), (50, 500), screen=self.screen),
+            PygameRect((350, 650), (500, 50), screen=self.screen),
+            PygameRect((300, 150), (50, 500), screen=self.screen)
+        ]

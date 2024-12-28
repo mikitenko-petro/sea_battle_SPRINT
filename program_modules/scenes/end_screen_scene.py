@@ -6,10 +6,9 @@ from ..client import Client
 
 #Створюємо клас для створення екрану для під'єднання до серверу
 class EndScreenScene():
-    def __init__(self, screen : object, scene_manager : object, client : object):
+    def __init__(self, screen : object, scene_manager : object):
         self.scene_manager = scene_manager
         self.screen = screen
-        self.client = client
 
     #Створюємо метод для створення підключення до сервера
     def run(self, event):
@@ -61,27 +60,12 @@ class EndScreenScene():
         )
 
     def end_of_work(self):
-        self.client.listening = False
-        self.client.client_socket.close()
+        pygame_storage.storage_dict["GAME"].client.listening = False
+        pygame_storage.storage_dict["GAME"].client.client_socket.close()
         pygame_storage.storage_dict["GAME"].client = Client(ip = "", port = 0)
 
+        pygame_storage.storage_dict["defeated_ship"] = 0
+        pygame_storage.storage_dict["defeated_cells"] = 0
         pygame_storage.storage_dict['win'] = None
-
-        pygame_storage.storage_dict["PLAYER_GRID"].grid = [
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-            ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
-        ]
-
-        pygame_storage.storage_dict["PLAYER_GRID"].grid = pygame_storage.storage_dict["ENEMY_GRID"].grid
-
-        pygame_storage.storage_dict["ship_list"] = []
 
         self.scene_manager.change_scene(scene = "main")

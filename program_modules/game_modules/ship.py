@@ -8,7 +8,7 @@ from ..game_widgets.return_button import ReturnButton
 from ..widgets.pygame_rect import PygameRect
 
 class Ship():
-    def __init__(self, type, id, client):
+    def __init__(self, type, id):
         self.type = type
         self.status = "unplaced"
         self.direction = "right"
@@ -19,8 +19,8 @@ class Ship():
         self.id = id
         self.delta_x = 0
         self.delta_y = 0
-        self.client = client
         
+        pygame_storage.add_variable({"can_highlight_ship" : True})
         PygameHitBox.__init__(self, (0,0), (50,50))
 
         self.change_direction()
@@ -212,13 +212,14 @@ class Ship():
                 delattr(self, "buffer_rect")
         
     def highlight_ship(self):
-        if self.is_picked == False and pygame_storage.storage_dict["picked_ship"] == -1:
-            self.is_picked = True
-            pygame_storage.storage_dict["picked_ship"] = self.id
+        if pygame_storage.storage_dict["can_highlight_ship"]:
+            if self.is_picked == False and pygame_storage.storage_dict["picked_ship"] == -1:
+                self.is_picked = True
+                pygame_storage.storage_dict["picked_ship"] = self.id
 
-        elif self.is_picked == True:
-            self.is_picked = False
-            pygame_storage.storage_dict["picked_ship"] = -1
+            elif self.is_picked == True:
+                self.is_picked = False
+                pygame_storage.storage_dict["picked_ship"] = -1
 
     def select_ship(self, event):
         ship_button = PygameButton(
