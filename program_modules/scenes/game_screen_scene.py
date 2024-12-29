@@ -8,25 +8,18 @@ from ..game_modules.main_game_manager import MainGameManager
 #Робим клас для ігрвого вікна
 class GameScreneScene():
     #Робим метод ініт для задання пареммрів та модулів
-    def __init__(self, screen :object, scene_manager : object, client : object):
+    def __init__(self, screen :object, scene_manager : object):
         self.screen = screen
         self.scene_manager = scene_manager
-        self.client = client
-        pygame_storage.add_variable(
-            {"ENEMY_GRID" : Grid(
-                    coordinates = (650, 150),
-                    type = "enemy",
-                    scene_manager = scene_manager
-                )
-            }
-        )
-         
+
+        pygame_storage.storage_dict["can_highlight_ship"] = False
+
     #Робим метод для створення екрану гри
     def run(self, event : object):
         pygame_storage.storage_dict["collision_list"] = []
 
         pygame_storage.add_variable(
-            {"MainGameManager" : MainGameManager(client = self.client, screen = self.screen, scene_manager = self.scene_manager)}
+            {"MainGameManager" : MainGameManager(screen = self.screen, scene_manager = self.scene_manager)}
         )
        
         pygame_storage.storage_dict["MainGameManager"].check_lose()

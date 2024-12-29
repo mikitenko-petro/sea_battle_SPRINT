@@ -17,12 +17,12 @@ class Client():
 
         player_type = self.client_socket.recv(1024).decode("utf-8")
 
-        if player_type == "1":
-            pygame_storage.add_variable({"number_client" : "1"})
-        else:
-            pygame_storage.add_variable({"number_client" : "2"})
+        pygame_storage.add_variable({"number_client" : None})
 
-        print(pygame_storage.storage_dict["number_client"])
+        if player_type == "1":
+            pygame_storage.storage_dict["number_client"] = "1"
+        else:
+            pygame_storage.storage_dict["number_client"] = "2"
                        
     def get_data(self):
         while self.listening:

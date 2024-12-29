@@ -13,23 +13,19 @@ class SceneManager():
                 scene_manager = self
             ),
             "prepare_to_game": PrepareToGameScreenScene(
-                client = client,
                 screen = screen,
                 scene_manager = self
             ),
             "game": GameScreneScene(
                 screen = screen,
                 scene_manager = self,
-                client = client
             ),
             "conect_to_server": ConectToServerScreenScene(
-                client = client,
                 screen = screen,
                 scene_manager = self
             ),
             "end": EndScreenScene(
                 screen = screen,
-                client = client,
                 scene_manager = self
             )
         }

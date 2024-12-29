@@ -1,6 +1,7 @@
 from ..tools.pygame_storage import pygame_storage as ps
 from .cell import Cell
 from ..widgets.pygame_hitbox import PygameHitBox
+from ..widgets.pygame_text import PygameText
 
 #Робим клас для створення сітки
 class Grid(PygameHitBox):
@@ -17,6 +18,9 @@ class Grid(PygameHitBox):
             ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
             ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
         ]
+
+        self.text_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"]
+        self.number_list = [1, 2, 3, 4, 5, 6, 7 , 8, 9, 10]
 
         PygameHitBox.__init__(self, coordinates, (0,0))
 
@@ -44,6 +48,25 @@ class Grid(PygameHitBox):
         self.cell_list = []
         cell_index = 0
 
+        for i in range(10):
+            text_word = PygameText(
+                screen = screen,
+                text = self.text_list[i],
+                font_size = 40,
+                x = self.x-35,
+                y = self.y+i*50+10,
+                font = "static/fonts/alagard.ttf"
+            )
+            
+            text_number = PygameText(
+                screen = screen,
+                text = f"{self.number_list[i]}",
+                font_size = 40,
+                x = self.x+i*50+10,
+                y = self.y-35,
+                font = "static/fonts/alagard.ttf"
+            )
+
         for y, row in enumerate(self.grid):
             for x, type in enumerate(row):
                 self.cell_list.append(
@@ -58,5 +81,6 @@ class Grid(PygameHitBox):
                         scene_manager = self.scene_manager
                     )
                 )
+                
                 self.cell_list[cell_index].click_checking(event)
                 cell_index += 1
