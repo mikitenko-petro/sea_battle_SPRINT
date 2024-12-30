@@ -48,16 +48,17 @@ class Cell(PygameHitBox):
                 size = size
             )
 
-            pygame_storage.add_variable({f"cell_{self.row}_{self.column}_{self.grid_type}":
-                PygameAnimation(
-                    animation_name = "baubles",
-                    coordinates = (initial_x + self.x, initial_y + self.y),
-                    size = size,
-                    speed = 0.15
-                )
-            })
+            pygame_storage.add_variable({f"bauble_animation_{self.row}_{self.column}_{self.grid_type}":
+                    PygameAnimation(
+                        animation_name = "baubles",
+                        coordinates = (initial_x + self.x, initial_y + self.y),
+                        size = size,
+                        speed = 0.15
+                    )
+                }
+            )
 
-            pygame_storage.storage_dict[f"cell_{self.row}_{self.column}_{self.grid_type}"].display()
+            pygame_storage.storage_dict[f"bauble_animation_{self.row}_{self.column}_{self.grid_type}"].display()
             
         else:
             cell = PygameImage(

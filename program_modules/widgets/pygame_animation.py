@@ -31,6 +31,7 @@ class PygameAnimation(PygameHitBox):
         
     def display(self):
         if self.step >= len(self.image_list):
+            self.image_list[0].display()
             self.step = 0
 
         else:

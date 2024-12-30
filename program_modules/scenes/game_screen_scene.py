@@ -1,5 +1,6 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_label import PygameLabel
+from ..game_widgets.fire_animation_widget import FireAnimationWidget
 from ..tools.pygame_storage import pygame_storage
 from ..game_modules.ship_manager import ShipManager
 from ..game_modules.main_game_manager import MainGameManager
@@ -37,6 +38,12 @@ class GameScreneScene():
         ship_manager = ShipManager(
             event = event
         )
+
+        player_fire_animation_widget = FireAnimationWidget(type = "player")
+        player_fire_animation_widget.create_fire_animation()
+        
+        enemy_fire_animation_widget = FireAnimationWidget(type = "enemy")
+        enemy_fire_animation_widget.create_fire_animation()
 
         turn_label = PygameLabel(
             path = "static/images/blue_button.png",
