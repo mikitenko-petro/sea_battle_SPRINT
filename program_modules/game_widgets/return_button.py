@@ -2,14 +2,13 @@ from ..tools.pygame_storage import pygame_storage
 from ..widgets.pygame_button import PygameButton
 
 class ReturnButton():
-    def __init__(self, screen : object, coordinates : tuple, event : object, id : int):
+    def __init__(self, coordinates : tuple, event : object, id : int):
         turn_button = PygameButton(
             coordinates = coordinates, 
             size = (50, 50),
             event = event, 
             function = lambda : self.ship_return(id = id),
             path = "static/images/return_button.png",
-            screen = screen
         )
         
     def ship_return(self, id : int):

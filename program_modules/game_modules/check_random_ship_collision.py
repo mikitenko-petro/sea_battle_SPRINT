@@ -2,7 +2,7 @@ from ..widgets.pygame_rect import PygameRect
 from ..tools.pygame_storage import pygame_storage
 
 class CheckRandomShipCollision():
-    def __init__(self, direction, screen, x, y, type, id):
+    def __init__(self, direction, x, y, type, id):
         self.type = type
         self.direction = direction
         self.delta_x = 0
@@ -63,18 +63,16 @@ class CheckRandomShipCollision():
                     self.width = 200
     
         self.ship_collision_rect = PygameRect(
-                screen=screen,
-                coordinates = (x - self.delta_x + 2, y - self.delta_y + 2),
-                size = (self.width - 4, self.height - 4),
-                color = (255, 0, 0)
-            )
+            coordinates = (x - self.delta_x + 2, y - self.delta_y + 2),
+            size = (self.width - 4, self.height - 4),
+            color = (255, 0, 0)
+        )
         
         self.ship_buffer_rect = PygameRect(
-                screen=screen,
-                coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
-                size = (self.width + 100 - 4, self.height + 100 - 4),
-                color = (255, 0, 0)
-            )
+            coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
+            size = (self.width + 100 - 4, self.height + 100 - 4),
+            color = (255, 0, 0)
+        )
 
     def check_ship_collision(self):
         collision_list = []
@@ -101,11 +99,11 @@ class CheckRandomShipCollision():
             
         return False
             
-def check_random_ship_collision(direction, screen, row, column, type, id):
+def check_random_ship_collision(direction, row, column, type, id):
     x = pygame_storage.storage_dict["PLAYER_GRID"].x + row*50
     y = pygame_storage.storage_dict["PLAYER_GRID"].y + column*50
 
-    random_ship_collision = CheckRandomShipCollision(direction, screen, x, y, type, id)
+    random_ship_collision = CheckRandomShipCollision(direction, x, y, type, id)
 
     is_hit = random_ship_collision.check_ship_collision()
     

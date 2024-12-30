@@ -6,17 +6,17 @@ from ..game_modules.check_random_ship_collision import check_random_ship_collisi
 from ..widgets.pygame_button import PygameButton
 
 class RandomPlacementButton():
-    def __init__(self, event, screen):
-        self.screen = screen
+    def __init__(self, coordinates, size, event):
         self.thread_auto_place_ships = threading.Thread(target = self.auto_place_ships)
 
         button = PygameButton(
-            coordinates = (0, 0), 
-            size = (50, 50), 
+            coordinates = coordinates, 
+            size = size, 
             event = event, 
             function = lambda : self.thread_auto_place_ships.start(), 
-            path = "static/images/turn_button.png", 
-            screen = self.screen
+            path = "static/images/hollow_label.png",
+            text = "AUTO",
+            font_size = 40,
         )
         
     def auto_place_ships(self):
@@ -35,8 +35,7 @@ class RandomPlacementButton():
                     column = random.randint(0, 9)
 
                     if not check_random_ship_collision(
-                        direction = direction, 
-                        screen = self.screen, 
+                        direction = direction,  
                         row = row, 
                         column = column,
                         type = ship.type,

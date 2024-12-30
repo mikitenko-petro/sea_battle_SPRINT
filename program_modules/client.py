@@ -3,10 +3,10 @@ from .tools.pygame_storage import pygame_storage
 import threading
 
 class Client():
-    def __init__(self, ip : str, port : int):
+    def __init__(self):
         self.client_socket = socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM)
-        self.ip = ip    
-        self.port = port
+        self.ip = ""    
+        self.port = 0
         self.get_data_func = threading.Thread(target = self.get_data)
         
         self.data = None

@@ -5,7 +5,7 @@ from ..widgets.pygame_text import PygameText
 
 #Робим клас для створення сітки
 class Grid(PygameHitBox):
-    def __init__(self, coordinates, type, scene_manager):
+    def __init__(self, coordinates, type):
         self.grid = [
             ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
             ["  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  ", "  "],
@@ -28,7 +28,6 @@ class Grid(PygameHitBox):
         ps.add_variable({"current_coumn" : -1})
 
         self.type = type
-        self.scene_manager = scene_manager
 
     def place_ship(self):
         if ps.storage_dict["picked_ship"] != -1:
@@ -44,13 +43,12 @@ class Grid(PygameHitBox):
                         ps.storage_dict["selected_row"] = -1
                         ps.storage_dict["selected_column"] = -1
     
-    def show_grid(self, screen, event):
+    def show_grid(self, event):
         self.cell_list = []
         cell_index = 0
 
         for i in range(10):
             text_word = PygameText(
-                screen = screen,
                 text = self.text_list[i],
                 font_size = 40,
                 x = self.x-35,
@@ -59,7 +57,6 @@ class Grid(PygameHitBox):
             )
             
             text_number = PygameText(
-                screen = screen,
                 text = f"{self.number_list[i]}",
                 font_size = 40,
                 x = self.x+i*50+10,
@@ -71,14 +68,12 @@ class Grid(PygameHitBox):
             for x, type in enumerate(row):
                 self.cell_list.append(
                     Cell(
-                        screen = screen,
                         coordinates = (x*50, y*50),
                         size = (50,50),
                         initial_x = self.x,
                         initial_y = self.y,
                         type = type,
                         grid_type = self.type,
-                        scene_manager = self.scene_manager
                     )
                 )
                 

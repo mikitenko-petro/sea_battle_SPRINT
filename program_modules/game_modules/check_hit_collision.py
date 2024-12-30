@@ -2,10 +2,9 @@ from ..widgets.pygame_rect import PygameRect
 from ..tools.pygame_storage import pygame_storage
 from ..tools.music_manager import music_manager
 
-def check_hit_collision(screen, row, column):
+def check_hit_collision(row, column):
 
     check_collision = PygameRect(
-        screen = screen,
         coordinates = (
             pygame_storage.storage_dict["PLAYER_GRID"].x + column*50 + 25,
             pygame_storage.storage_dict["PLAYER_GRID"].y + row*50 + 25

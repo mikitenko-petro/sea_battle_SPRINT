@@ -118,7 +118,7 @@ class Ship():
                 case "4x1":
                     self.width = 200
     
-    def show_ship(self, screen, event, x, y, scene_manager):
+    def show_ship(self, event, x, y):
         self.x = x
         self.y = y
 
@@ -180,7 +180,6 @@ class Ship():
                 self.image_height = 200
 
         self.ship_image = PygameImage(
-            screen,
             path = self.path,
             coordinates = (x - self.delta_x, y - self.delta_y),
             size = (self.image_width, self.image_height),
@@ -188,16 +187,14 @@ class Ship():
         )
         
         self.ship_collision_rect = PygameRect(
-            screen=screen,
             coordinates = (x - self.delta_x + 2, y - self.delta_y + 2),
             size = (self.width - 4, self.height - 4),
             color = (255, 0, 0)
         )
 
-        if scene_manager.current_scene == "prepare_to_game":
+        if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
             if self.status == "placed":
                 self.buffer_rect = PygameRect(
-                    screen=screen,
                     coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
                     size = (self.width + 100 - 4, self.height + 100 - 4),
                 )
@@ -205,7 +202,7 @@ class Ship():
                 if hasattr(self, "buffer_rect") == True:
                     delattr(self, "buffer_rect")
 
-            self.draw_buttons(screen = screen, event = event)
+            self.draw_buttons(event = event)
 
         else:
             if hasattr(self, "buffer_rect") == True:
@@ -229,17 +226,17 @@ class Ship():
             function = self.highlight_ship
         )
 
-    def draw_buttons(self, screen, event):
+    def draw_buttons(self, event):
         if self.is_picked == True and self.status == "placed":
             x = self.x + 50
             y = self.y - 50
-            turn_button = TurnButton(screen, (x, y), event, self.id)
+            turn_button = TurnButton((x, y), event, self.id)
 
             x = self.x + 100
             y = self.y - 50
-            return_button = ReturnButton(screen, (x, y), event, self.id)
+            return_button = ReturnButton((x, y), event, self.id)
             
-    def check_collide(self, screen):
+    def check_collide(self,):
         collision_list = []
         pygame_storage.storage_dict["check_placement"] = False
 

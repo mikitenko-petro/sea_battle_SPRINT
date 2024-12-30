@@ -4,8 +4,7 @@ from ..widgets.pygame_button import PygameButton
 import pygame
 
 class LastChoiceButton():
-    def __init__(self, content_type, screen, x, y, event):
-        self.screen = screen
+    def __init__(self, content_type, x, y, event):
         self.content_type = content_type
         self.x = x
         self.y = y
@@ -23,7 +22,6 @@ class LastChoiceButton():
                     function = lambda : self.text(),
                     text = data[self.content_type],
                     path = "static/images/grey_label.png",
-                    screen = self.screen,
                     font_size = 50
                 )
 

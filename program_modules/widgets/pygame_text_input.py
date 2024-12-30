@@ -10,7 +10,6 @@ class PygameTextInput():
         size : tuple,
         coordinates : tuple,
         event : object,
-        screen : object,
         name : str,
         store_to : str,
         initial_text : str):
@@ -18,7 +17,6 @@ class PygameTextInput():
         self.name = name
         self.store_to = store_to
         self.initial_text = initial_text
-        self.screen = screen
         self.x, self.y = coordinates
         self.width, self.height = size
         self.event = event
@@ -32,7 +30,6 @@ class PygameTextInput():
     def show(self):
         if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
             self.input_image = PygameImage(
-                screen = self.screen,
                 coordinates = (self.x, self.y),
                 size = (self.width, self.height),
                 path = "static/images/input_field.png"
@@ -40,14 +37,12 @@ class PygameTextInput():
 
         else:
             self.input_image = PygameImage(
-                screen = self.screen,
                 coordinates = (self.x, self.y),
                 size = (self.width, self.height),
                 path = "static/images/input_field_selected.png"
             )
         
         self.input_text_lable = PygameText(
-            screen = self.screen,
             text = pygame_storage.storage_dict[self.store_to],
             font = None,
             font_size = 50,

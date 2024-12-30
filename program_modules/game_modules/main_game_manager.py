@@ -4,10 +4,7 @@ from ..tools.string_manager import read_string, write_string
 from .check_hit_collision import check_hit_collision
 
 class MainGameManager():
-    def __init__(self, screen, scene_manager):
-        self.screen = screen
-        self.scene_manager = scene_manager
-
+    def __init__(self):
         pygame_storage.add_variable({"last_row" : -1})
         pygame_storage.add_variable({"last_column" : -1})
         pygame_storage.add_variable({"defeated_ship" : 0})
@@ -23,19 +20,19 @@ class MainGameManager():
     def shoot(self, row, column):
         if pygame_storage.storage_dict["player_turn"]:
             data = write_string(row, column)
-            pygame_storage.storage_dict["GAME"].client.send_data(data)
+            pygame_storage.storage_dict["Client"].send_data(data)
             pygame_storage.storage_dict["player_turn"] = False
             pygame_storage.storage_dict["last_row"] = row
             pygame_storage.storage_dict["last_column"] = column
 
     def check_hit(self):
-        data = pygame_storage.storage_dict["GAME"].client.data
+        data = pygame_storage.storage_dict["Client"].data
         if pygame_storage.storage_dict["player_turn"] == False:
             if data != None:
                 if len(read_string(data)) == 2:
                     row, column = read_string(data)
-                    if check_hit_collision(self.screen, int(row), int(column)) == True:
-                        pygame_storage.storage_dict["GAME"].client.send_data(write_string("you don't missed"))
+                    if check_hit_collision(int(row), int(column)) == True:
+                        pygame_storage.storage_dict["Client"].send_data(write_string("you don't missed"))
                         pygame_storage.storage_dict["PLAYER_GRID"].grid[int(row)][int(column)] = "X"
                         music_manager.music_dict["kill_effect"].play()
                     else:
@@ -45,7 +42,7 @@ class MainGameManager():
                     pygame_storage.storage_dict["ENEMY_GRID"].grid[pygame_storage.storage_dict["last_row"]][pygame_storage.storage_dict["last_column"]] = "X"
                     pygame_storage.storage_dict["player_turn"] = True
                 
-                pygame_storage.storage_dict["GAME"].client.data = None
+                pygame_storage.storage_dict["Client"].data = None
                 
     def check_lose(self):
         pygame_storage.storage_dict["defeated_ship"] = 0
@@ -55,7 +52,7 @@ class MainGameManager():
                        
         if pygame_storage.storage_dict["defeated_ship"] == 10:
             pygame_storage.storage_dict["win"] = False
-            self.scene_manager.change_scene(scene = "end")
+            pygame_storage.storage_dict["SceneManager"].change_scene(scene = "end")
 
         pygame_storage.storage_dict["defeated_cells"] = 0
         if hasattr(pygame_storage.storage_dict["ENEMY_GRID"], "cell_list") == True:
@@ -65,4 +62,4 @@ class MainGameManager():
                        
         if pygame_storage.storage_dict["defeated_cells"] == 20:
             pygame_storage.storage_dict["win"] = True
-            self.scene_manager.change_scene(scene = "end")
+            pygame_storage.storage_dict["SceneManager"].change_scene(scene = "end")

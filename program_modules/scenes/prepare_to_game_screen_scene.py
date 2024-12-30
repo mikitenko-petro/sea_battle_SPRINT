@@ -8,30 +8,34 @@ from ..game_widgets.random_placement_button import RandomPlacementButton
 
 #Робим клас для підготовки гри
 class PrepareToGameScreenScene():
-    def __init__(self, screen : object, scene_manager : object):
-        self.screen = screen
-        self.scene_manager = scene_manager
+    def __init__(self):
         pygame_storage.add_variable({"check_placement" : False})
+        pygame_storage.add_variable({"PLAYER_GRID" : None})
+        pygame_storage.add_variable({"ship_list" : None})
+        pygame_storage.add_variable({"collision_list" : None})
 
     #Робим метод для створення єкрану для підготовки гри
     def run(self, event : object):
         #Робим фон
         background_image = PygameImage(
-            screen = self.screen,
             path = "static/images/sea_bg.png",
             coordinates = (0, 0),
             size = (1200, 700)
         )
 
-        pygame_storage.storage_dict["PLAYER_GRID"].show_grid(self.screen, event)
+        decoration_image = PygameImage(
+            path = "static/images/decoration1.png",
+            coordinates = (0, 250),
+            size = (512, 512)
+        )
+
+        pygame_storage.storage_dict["PLAYER_GRID"].show_grid(event = event)
 
         ship_manager = ShipManager(
             event = event,
-            screen = self.screen,
-            scene_manager = self.scene_manager
         )
         
-        ship_manager.show_label(coordinates = (50, 150))
+        ship_manager.show_label(coordinates = (0, 0))
         
         pygame_storage.storage_dict["PLAYER_GRID"].place_ship()
         
@@ -50,7 +54,6 @@ class PrepareToGameScreenScene():
 
         if check_placement == True:
             move_to_scene = PygameButton(
-                screen = self.screen,
                 path = "static/images/blue_button.png",
                 text = "start game",
                 font_size = 40,
@@ -62,16 +65,14 @@ class PrepareToGameScreenScene():
             
         random_button = RandomPlacementButton(
             event = event, 
-            screen = self.screen
+            coordinates = (10, 620),
+            size = (128*1.5, 32*1.5)
         )
     
     def move_to_scene(self):
-        pygame_storage.add_variable({"ENEMY_GRID" : None})
-
         pygame_storage.storage_dict["ENEMY_GRID"] = Grid(
             coordinates = (650, 150),
             type = "enemy",
-            scene_manager = self.scene_manager
         )
         
-        self.scene_manager.change_scene(scene = "game")
+        pygame_storage.storage_dict["SceneManager"].change_scene(scene = "game")
