@@ -6,6 +6,8 @@ from ..tools.pygame_storage import pygame_storage
 from ..game_widgets.turn_button import TurnButton
 from ..game_widgets.return_button import ReturnButton
 from ..widgets.pygame_rect import PygameRect
+from ..tools.string_manager import write_string
+import pygame
 
 class Ship():
     def __init__(self, type, id):
@@ -236,7 +238,7 @@ class Ship():
             y = self.y - 50
             return_button = ReturnButton((x, y), event, self.id)
             
-    def check_collide(self,):
+    def check_collide(self):
         collision_list = []
         pygame_storage.storage_dict["check_placement"] = False
 
@@ -269,22 +271,40 @@ class Ship():
                 collision_list.append(cell.collision)
 
         collisions = [hitbox for hitbox in collision_list if self.ship_collision_rect.colliderect(hitbox)]
-
+        
         for collision in collision_list:
             if self.ship_collision_rect.collidelist(collision_list) != -1:
                 match self.type:
                     case "1x1":
                         if len(collisions) == 1:
                             self.status = "defeated"
-
+                            self.add_defeated_ship()
                     case "2x1":
                         if len(collisions) == 2:
                             self.status = "defeated"
-
+                            self.add_defeated_ship()
                     case "3x1":
                         if len(collisions) == 3:
                             self.status = "defeated"
-
+                            self.add_defeated_ship()
                     case "4x1":
                         if len(collisions) == 4:
-                            self.status = "defeated"   
+                            self.status = "defeated"
+                            self.add_defeated_ship()
+
+    def add_defeated_ship(self):
+        is_found = False
+
+        for id in pygame_storage.storage_dict["defeated_ship_list"]:
+            if id != self.id:
+                is_found = False
+            else:
+                is_found = True
+                break
+        
+        #
+        if not is_found:
+            pygame_storage.storage_dict["defeated_ship_list"].append(self.id)
+            pygame_storage.storage_dict["Client"].send_data(
+                write_string("defeated_ship", self.id, self.type, self.direction, self.row, self.column)
+            )

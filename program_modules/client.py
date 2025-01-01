@@ -9,7 +9,6 @@ class Client():
         self.port = 0
         self.get_data_func = threading.Thread(target = self.get_data)
         
-        self.data = None
         self.listening = True
         
     def join(self):
@@ -23,14 +22,16 @@ class Client():
             pygame_storage.storage_dict["number_client"] = "1"
         else:
             pygame_storage.storage_dict["number_client"] = "2"
+
+        print("player", pygame_storage.storage_dict["number_client"])
                        
     def get_data(self):
         while self.listening:
             if self.ip != "" and self.port != 0:
                 try:
-                    data = self.client_socket.recv(1024)
+                    data = self.client_socket.recv(1024).decode("utf-8")
                     if data:
-                        self.data = data.decode("utf-8")
+                        pygame_storage.storage_dict["DataManager"].load_data(data)
                 except Exception as error:
                     print(error)
 

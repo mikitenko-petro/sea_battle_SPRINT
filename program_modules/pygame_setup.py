@@ -3,8 +3,9 @@ import sys
 from .client import Client
 from .tools.scene_manager import SceneManager
 from .tools.image_container import ImageContainer
-from .game_widgets.fps_counter import FpsCounter
 from .tools.pygame_storage import pygame_storage
+from .tools.data_manager import DataManager
+from .game_widgets.fps_counter import FpsCounter
 
 pygame.init()
 pygame_storage.add_variable({"debug": False})
@@ -13,6 +14,7 @@ pygame_storage.add_variable({"SCREEN" : pygame.display.set_mode(size = (1200, 70
 pygame_storage.add_variable({"ImageContainer" : ImageContainer()})
 pygame_storage.add_variable({"Client" : Client()})
 pygame_storage.add_variable({"SceneManager" : SceneManager()})
+pygame_storage.add_variable({"DataManager" : DataManager()})
 
 pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(pygame_storage.storage_dict["ImageContainer"].images["static/images/icon.png"])

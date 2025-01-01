@@ -4,6 +4,7 @@ from ..game_widgets.fire_animation_widget import FireAnimationWidget
 from ..tools.pygame_storage import pygame_storage
 from ..game_modules.ship_manager import ShipManager
 from ..game_modules.main_game_manager import MainGameManager
+from ..game_widgets.capitan_icon import CapitanIcon
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
@@ -11,6 +12,12 @@ class GameScreneScene():
     def __init__(self):
         pygame_storage.storage_dict["can_highlight_ship"] = False
         pygame_storage.add_variable({"ENEMY_GRID" : None})
+        
+        # self.blue_capitan = CapitanIcon(
+        #     color = "blue",
+        #     coordinates = (0, 0),
+        #     size = (128, 128)
+        # )
 
     #Робим метод для створення екрану гри
     def run(self, event : object):
@@ -19,15 +26,15 @@ class GameScreneScene():
         pygame_storage.add_variable(
             {"MainGameManager" : MainGameManager()}
         )
-       
-        pygame_storage.storage_dict["MainGameManager"].check_lose()
-        pygame_storage.storage_dict["MainGameManager"].check_hit()
+
         #Робим фон
         background_image = PygameImage(
             path = "static/images/sea_bg.png",
             coordinates = (0, 0),
             size = (1200, 700)
         )
+
+        # self.blue_capitan.draw()
 
         pygame_storage.storage_dict["PLAYER_GRID"].show_grid(event)
         pygame_storage.storage_dict["PLAYER_GRID"].x = 50
@@ -38,6 +45,8 @@ class GameScreneScene():
         ship_manager = ShipManager(
             event = event
         )
+
+        pygame_storage.storage_dict["MainGameManager"].event_manager()
 
         player_fire_animation_widget = FireAnimationWidget(type = "player")
         player_fire_animation_widget.create_fire_animation()

@@ -1,6 +1,5 @@
 import pygame
 import os
-from os.path import isdir
 from .search_path import search_path
 
 class ImageContainer():
@@ -10,7 +9,6 @@ class ImageContainer():
 
     def load_images(self):
         for filename in os.listdir(search_path('static/images')):
-
             if filename.endswith('.png'):
                 image = pygame.image.load(os.path.join('static/images', filename)).convert_alpha()
                 self.images.update({f"static/images/{filename}": image})

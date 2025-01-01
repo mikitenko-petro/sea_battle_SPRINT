@@ -74,5 +74,12 @@ class PrepareToGameScreenScene():
             coordinates = (650, 150),
             type = "enemy",
         )
+
+        pygame_storage.add_variable({"player_turn" : None})
+
+        if pygame_storage.storage_dict["number_client"] == "1":
+            pygame_storage.storage_dict["player_turn"] = True
+        else:
+            pygame_storage.storage_dict["player_turn"] = False
         
         pygame_storage.storage_dict["SceneManager"].change_scene(scene = "game")

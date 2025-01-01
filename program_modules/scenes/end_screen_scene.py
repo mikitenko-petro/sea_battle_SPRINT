@@ -61,5 +61,6 @@ class EndScreenScene():
         pygame_storage.storage_dict["defeated_ship"] = 0
         pygame_storage.storage_dict["defeated_cells"] = 0
         pygame_storage.storage_dict['win'] = None
+        pygame_storage.storage_dict["dummy_ship_list"] = []
 
         pygame_storage.storage_dict["SceneManager"].change_scene(scene = "main")

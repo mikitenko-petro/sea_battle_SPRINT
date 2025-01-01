@@ -14,8 +14,7 @@ class PygameButton(PygameHitBox):
         font_size = 20,
         font : str | None = None,
         text : str | None = None,
-        path : str | None = None,
-        screen : object | None = None):
+        path : str | None = None):
 
         #
         PygameHitBox.__init__(self, coordinates, size)
