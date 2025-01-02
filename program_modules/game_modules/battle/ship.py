@@ -1,12 +1,12 @@
-from ..widgets.pygame_image import PygameImage
-from ..widgets.pygame_hitbox import PygameHitBox
-from ..widgets.pygame_button import PygameButton
-from ..tools.music_manager import music_manager
-from ..tools.pygame_storage import pygame_storage
-from ..game_widgets.turn_button import TurnButton
-from ..game_widgets.return_button import ReturnButton
-from ..widgets.pygame_rect import PygameRect
-from ..tools.string_manager import write_string
+from ...widgets.pygame_image import PygameImage
+from ...widgets.pygame_hitbox import PygameHitBox
+from ...widgets.pygame_button import PygameButton
+from ...tools.music_manager import music_manager
+from ...tools.pygame_storage import pygame_storage
+from ...game_widgets.turn_button import TurnButton
+from ...game_widgets.return_button import ReturnButton
+from ...widgets.pygame_rect import PygameRect
+from ...tools.string_manager import write_string
 import pygame
 
 class Ship():
@@ -22,7 +22,6 @@ class Ship():
         self.delta_x = 0
         self.delta_y = 0
         
-        pygame_storage.add_variable({"can_highlight_ship" : True})
         PygameHitBox.__init__(self, (0,0), (50,50))
 
         self.change_direction()
@@ -211,7 +210,7 @@ class Ship():
                 delattr(self, "buffer_rect")
         
     def highlight_ship(self):
-        if pygame_storage.storage_dict["can_highlight_ship"]:
+        if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
             if self.is_picked == False and pygame_storage.storage_dict["picked_ship"] == -1:
                 self.is_picked = True
                 pygame_storage.storage_dict["picked_ship"] = self.id
@@ -247,7 +246,7 @@ class Ship():
 
         try:
             if self.ship_collision_rect.collidelist(collision_list) != -1:
-                self.ship_collision_rect.draw()
+                self.ship_collision_rect.draw(2)
                 pygame_storage.storage_dict["check_placement"] = True
         except:
             pass
@@ -261,7 +260,7 @@ class Ship():
 
         for collision in collision_list:
             if self.ship_collision_rect.collidelist(collision_list) != -1:
-                self.ship_collision_rect.draw()
+                self.ship_collision_rect.draw(2)
                 pygame_storage.storage_dict["check_placement"] = True
 
         collision_list = []

@@ -1,5 +1,5 @@
-from ..widgets.pygame_rect import PygameRect
-from ..tools.pygame_storage import pygame_storage
+from ...widgets.pygame_rect import PygameRect
+from ...tools.pygame_storage import pygame_storage
 
 class CheckRandomShipCollision():
     def __init__(self, direction, x, y, type, id):

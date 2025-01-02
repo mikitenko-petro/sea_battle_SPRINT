@@ -1,9 +1,9 @@
-from ..widgets.pygame_image import PygameImage
-from ..widgets.pygame_hitbox import PygameHitBox
-from ..widgets.pygame_button import PygameButton
-from ..widgets.pygame_rect import PygameRect
-from ..widgets.pygame_animation import PygameAnimation
-from ..tools.pygame_storage import pygame_storage
+from ...widgets.pygame_image import PygameImage
+from ...widgets.pygame_hitbox import PygameHitBox
+from ...widgets.pygame_button import PygameButton
+from ...widgets.pygame_rect import PygameRect
+from ...widgets.pygame_animation import PygameAnimation
+from ...tools.pygame_storage import pygame_storage
 import pygame
 
 class Cell(PygameHitBox):
@@ -76,12 +76,13 @@ class Cell(PygameHitBox):
                     pygame_storage.storage_dict["selected_row"] = -1
                     pygame_storage.storage_dict["selected_column"] = -1
 
-        cell_button = PygameButton(
-            coordinates = (self.initial_x + self.x, self.initial_y + self.y),
-            size = (self.width, self.height),
-            event = event,
-            function = self.set_current_cell
-        )
+        if not pygame_storage.storage_dict["show_quests"]:
+            cell_button = PygameButton(
+                coordinates = (self.initial_x + self.x, self.initial_y + self.y),
+                size = (self.width, self.height),
+                event = event,
+                function = self.set_current_cell
+            )
     
     def set_current_cell(self):
         if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":

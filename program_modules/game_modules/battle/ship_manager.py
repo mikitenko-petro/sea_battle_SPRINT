@@ -1,4 +1,4 @@
-from ..tools.pygame_storage import pygame_storage
+from ...tools.pygame_storage import pygame_storage
 
 class ShipManager():
     def __init__(self, event):

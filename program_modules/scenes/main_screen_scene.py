@@ -29,6 +29,14 @@ class MainScreenScene():
             function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "conect_to_server")
         )
 
+        move_to_achievement_scene = PygameButton(
+            coordinates = (1150, 0),
+            size = (50,50),
+            event = event,
+            function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement"),
+            path = "static/images/achievements_icon.png"
+        )
+
         logo_text1 = PygameText(
             text = "Great Sea",
             font_size = 150,

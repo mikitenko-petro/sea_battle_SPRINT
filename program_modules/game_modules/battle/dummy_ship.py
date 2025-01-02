@@ -1,5 +1,5 @@
-from ..widgets.pygame_image import PygameImage
-from ..tools.pygame_storage import pygame_storage
+from ...widgets.pygame_image import PygameImage
+from ...tools.pygame_storage import pygame_storage
 
 class DummyShip():
     def __init__(self, id, direction, row, column, type):

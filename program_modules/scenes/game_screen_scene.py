@@ -2,16 +2,17 @@ from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_label import PygameLabel
 from ..game_widgets.fire_animation_widget import FireAnimationWidget
 from ..tools.pygame_storage import pygame_storage
-from ..game_modules.ship_manager import ShipManager
+from ..game_modules.battle.ship_manager import ShipManager
 from ..game_modules.main_game_manager import MainGameManager
 from ..game_widgets.capitan_icon import CapitanIcon
+from ..game_widgets.quest_label import QuestLabel
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
     #Робим метод ініт для задання пареммрів та модулів
     def __init__(self):
-        pygame_storage.storage_dict["can_highlight_ship"] = False
         pygame_storage.add_variable({"ENEMY_GRID" : None})
+        pygame_storage.add_variable({"show_quests": False})
         
         # self.blue_capitan = CapitanIcon(
         #     color = "blue",
@@ -38,7 +39,7 @@ class GameScreneScene():
 
         pygame_storage.storage_dict["PLAYER_GRID"].show_grid(event)
         pygame_storage.storage_dict["PLAYER_GRID"].x = 50
-        pygame_storage.storage_dict["PLAYER_GRID"].y = 150
+        pygame_storage.storage_dict["PLAYER_GRID"].y = 180
 
         pygame_storage.storage_dict["ENEMY_GRID"].show_grid(event)
 
@@ -60,4 +61,10 @@ class GameScreneScene():
             size = (128*2, 32*2),
             text = (lambda: "your turn" if pygame_storage.storage_dict["player_turn"] else "enemy turn")(),
             font_size = 40
+        )
+
+        quest_label = QuestLabel(
+            x = 800,
+            y = 0,
+            event = event,
         )

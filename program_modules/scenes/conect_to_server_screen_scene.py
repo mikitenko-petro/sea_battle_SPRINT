@@ -3,8 +3,8 @@ from ..widgets.pygame_text_input import PygameTextInput
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_rect import PygameRect
 from ..game_widgets.last_choise_button import LastChoiceButton
-from ..game_modules.grid import Grid
-from ..game_modules.ship import Ship
+from ..game_modules.battle.grid import Grid
+from ..game_modules.battle.ship import Ship
 from ..tools.pygame_storage import pygame_storage
 
 #Створюємо клас для створення екрану для під'єднання до серверу
@@ -19,6 +19,14 @@ class ConectToServerScreenScene():
             path = "static/images/lighthouse_bg.png",
             coordinates = (0, 0),
             size = (1200, 700)
+        )
+
+        return_button = PygameButton(
+            coordinates = (0, 0),
+            size = (50, 50),
+            event = event,
+            path = "static/images/apply_button.png",
+            function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "main")
         )
         
         #Робимо строку вводу для айпі

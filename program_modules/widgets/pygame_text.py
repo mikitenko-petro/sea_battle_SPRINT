@@ -20,5 +20,5 @@ class PygameText():
             self.font = search_path(font)
 
         self.button_font = pygame.font.Font(self.font, font_size)
-        self.button_text = self.button_font.render(text, True, color)
+        self.button_text = self.button_font.render(str(text), True, color)
         pygame_storage.storage_dict["SCREEN"].blit(self.button_text, (x, y))

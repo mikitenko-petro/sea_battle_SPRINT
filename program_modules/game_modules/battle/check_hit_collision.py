@@ -1,6 +1,6 @@
-from ..widgets.pygame_rect import PygameRect
-from ..tools.pygame_storage import pygame_storage
-from ..tools.music_manager import music_manager
+from ...widgets.pygame_rect import PygameRect
+from ...tools.pygame_storage import pygame_storage
+from ...tools.music_manager import music_manager
 
 def check_hit_collision(row, column):
     check_collision = PygameRect(

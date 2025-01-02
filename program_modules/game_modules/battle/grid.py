@@ -1,7 +1,7 @@
-from ..tools.pygame_storage import pygame_storage as ps
+from ...tools.pygame_storage import pygame_storage as ps
 from .cell import Cell
-from ..widgets.pygame_hitbox import PygameHitBox
-from ..widgets.pygame_text import PygameText
+from ...widgets.pygame_hitbox import PygameHitBox
+from ...widgets.pygame_text import PygameText
 
 #Робим клас для створення сітки
 class Grid(PygameHitBox):

@@ -1,9 +1,8 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
-from ..game_modules.grid import Grid
-from ..game_modules.ship_manager import ShipManager
+from ..game_modules.battle.grid import Grid
+from ..game_modules.battle.ship_manager import ShipManager
 from ..tools.pygame_storage import pygame_storage
-
 from ..game_widgets.random_placement_button import RandomPlacementButton
 
 #Робим клас для підготовки гри
@@ -71,7 +70,7 @@ class PrepareToGameScreenScene():
     
     def move_to_scene(self):
         pygame_storage.storage_dict["ENEMY_GRID"] = Grid(
-            coordinates = (650, 150),
+            coordinates = (650, 180),
             type = "enemy",
         )
 

@@ -1,8 +1,8 @@
 from ..tools.pygame_storage import pygame_storage
 from ..tools.music_manager import music_manager
-from ..tools.string_manager import read_string, write_string
-from .check_hit_collision import check_hit_collision
-from .dummy_ship import DummyShip
+from ..tools.string_manager import write_string
+from .battle.check_hit_collision import check_hit_collision
+from .battle.dummy_ship import DummyShip
 
 class MainGameManager():
     def __init__(self):
@@ -15,15 +15,17 @@ class MainGameManager():
 
         pygame_storage.add_variable({"dummy_ship_list" : []})
 
-        pygame_storage.add_variable({"hit_counter": 0})
+        pygame_storage.add_variable({"moves": 0})
+        
+        pygame_storage.add_variable({"hits": 0})
 
     def shoot(self, row, column):
         if pygame_storage.storage_dict["player_turn"]:
-            pygame_storage.storage_dict["hit_counter"] += 1
             pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord", row, column))
             pygame_storage.storage_dict["player_turn"] = False
             pygame_storage.storage_dict["last_row"] = row
             pygame_storage.storage_dict["last_column"] = column
+            pygame_storage.storage_dict["moves"] += 1
 
     def check_hit(self):
         data = pygame_storage.storage_dict["DataManager"].data["shoot_coord"]
@@ -35,6 +37,7 @@ class MainGameManager():
                 if check_hit_collision(row, column) == True:
                     pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord","you don't missed"))
                     pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "X"
+
                     music_manager.music_dict["kill_effect"].play()
                 else:
                     pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "x"
@@ -43,6 +46,7 @@ class MainGameManager():
             elif len(data) == 1:
                 pygame_storage.storage_dict["ENEMY_GRID"].grid[pygame_storage.storage_dict["last_row"]][pygame_storage.storage_dict["last_column"]] = "X"
                 pygame_storage.storage_dict["player_turn"] = True
+                pygame_storage.storage_dict["hits"] += 1
 
             pygame_storage.storage_dict["DataManager"].data["shoot_coord"] = None
                  
@@ -69,7 +73,6 @@ class MainGameManager():
     def check_destroy(self):
         data = pygame_storage.storage_dict["DataManager"].data["defeated_ship"]
         if data:
-            print("destroy ship data:",data)
             pygame_storage.storage_dict["dummy_ship_list"].append(
                 DummyShip(
                     id = data[0],
