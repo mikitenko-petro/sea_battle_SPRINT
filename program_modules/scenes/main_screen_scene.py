@@ -33,7 +33,7 @@ class MainScreenScene():
             coordinates = (1150, 0),
             size = (50,50),
             event = event,
-            function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement"),
+            function = self.move_to_achievement_scene,
             path = "static/images/achievements_icon.png"
         )
 
@@ -54,3 +54,15 @@ class MainScreenScene():
             font = "static/fonts/alagard.ttf",
             color = (34, 32, 52)
         )
+
+    def move_to_achievement_scene(self):
+        try:
+            pygame_storage.storage_dict["AchievementManager"].load_achievements()
+            
+            pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement")
+        except FileNotFoundError:
+            pass
+        except Exception as error:
+            print(error)
+
+        

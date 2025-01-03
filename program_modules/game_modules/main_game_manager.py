@@ -12,11 +12,11 @@ class MainGameManager():
         pygame_storage.add_variable({"defeated_cells" : 0})
 
         pygame_storage.add_variable({"win" : None}) 
+        pygame_storage.add_variable({"winned_games" : 0})
 
         pygame_storage.add_variable({"dummy_ship_list" : []})
 
         pygame_storage.add_variable({"moves": 0})
-        
         pygame_storage.add_variable({"hits": 0})
 
     def shoot(self, row, column):

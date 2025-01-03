@@ -2,6 +2,7 @@ from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
 from ..tools.pygame_storage import pygame_storage
+from ..game_widgets.achievement_label import AchievementLabel
 
 #Робимо клас для Основної сцени гри
 class AchievementScreenScene():
@@ -33,4 +34,10 @@ class AchievementScreenScene():
             y = 500,
             font = "static/fonts/alagard.ttf",
             color = (34, 32, 52)
+        )
+
+        achievement_label = AchievementLabel(
+            x = 0,
+            y = 0,
+            event = event
         )

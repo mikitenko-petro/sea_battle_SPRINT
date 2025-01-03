@@ -5,7 +5,7 @@ class FirstKillLargestShipQuest(Quest):
     def __init__(self):
         Quest.__init__(self)
         
-        self.title = "destroy the 4x1 ship"
+        self.title = "destroy the 4x1 ship first"
         self.image_path = "static/images/first_kill_icon.png"
         self.medals = 3
     

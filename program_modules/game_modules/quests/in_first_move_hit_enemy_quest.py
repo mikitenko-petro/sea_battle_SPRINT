@@ -7,7 +7,7 @@ class HitShipInFirstMove(Quest):
 
         self.title = "hit the ship at start"
         self.image_path = "static/images/first_kill_icon.png"
-        self.medals = 5
+        self.medals = 2
     
     def check_quest_done(self):
         if pygame_storage.storage_dict["moves"] == 1:

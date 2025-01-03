@@ -6,6 +6,7 @@ from .tools.image_container import ImageContainer
 from .tools.pygame_storage import pygame_storage
 from .tools.data_manager import DataManager
 from .game_widgets.fps_counter import FpsCounter
+from .game_modules.achievements.achievement_manager import AchievementManager
 
 pygame.init()
 pygame_storage.add_variable({"debug": False})
@@ -15,6 +16,7 @@ pygame_storage.add_variable({"ImageContainer" : ImageContainer()})
 pygame_storage.add_variable({"Client" : Client()})
 pygame_storage.add_variable({"SceneManager" : SceneManager()})
 pygame_storage.add_variable({"DataManager" : DataManager()})
+pygame_storage.add_variable({"AchievementManager": AchievementManager()})
 
 pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(pygame_storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
@@ -36,6 +38,11 @@ def run():
                 sys.exit()
 
         pygame_storage.storage_dict["SceneManager"].show(event = event)
+
+        try:
+            pygame_storage.storage_dict["AchievementManager"].check_all_achievements()
+        except:
+            pass
 
         fps_counter.render()
 

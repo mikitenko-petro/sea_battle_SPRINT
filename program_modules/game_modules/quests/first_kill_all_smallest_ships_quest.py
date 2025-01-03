@@ -7,7 +7,7 @@ class FirstKillAllSmallestShipsQuest(Quest):
         
         self.title = "destroy all 1x1 ships first"
         self.image_path = "static/images/first_kill_icon.png"
-        self.medals = 3
+        self.medals = 2
     
     def check_quest_done(self):
         ships1x1defeated = 0

@@ -1,9 +1,10 @@
 from pygame import mixer
+from .search_path import search_path
 
 class PygameMusic():
     def __init__(self, path : str, volume : int):
         self.music = mixer.music
-        self.music.load(path)
+        self.music.load(search_path(path))
         self.music.set_volume(volume)
     
     def play(self, loops : int = 1):

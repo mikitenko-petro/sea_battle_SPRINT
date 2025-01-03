@@ -7,7 +7,7 @@ class KillShipInTimeQuest(Quest):
 
         self.title = "destroy 2 ships in 10 moves"
         self.image_path = "static/images/first_kill_icon.png"
-        self.medals = 5
+        self.medals = 3
     
     def check_quest_done(self):
         if pygame_storage.storage_dict["moves"] <= 10:

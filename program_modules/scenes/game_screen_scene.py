@@ -68,3 +68,5 @@ class GameScreneScene():
             y = 0,
             event = event,
         )
+
+        
