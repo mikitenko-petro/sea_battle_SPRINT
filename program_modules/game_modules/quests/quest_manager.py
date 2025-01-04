@@ -15,7 +15,7 @@ class QuestManager():
             HitShipInFirstMove(),
         ]
 
-        pygame_storage.add_variable({"medals" : 0})
+        pygame_storage.add_variable({"medals" : 69})
 
     def check_all_quests(self):
         for quest in self.quests_list:

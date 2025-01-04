@@ -5,6 +5,7 @@ from ..tools.pygame_storage import pygame_storage
 from ..game_modules.battle.ship_manager import ShipManager
 from ..game_widgets.capitan_icon import CapitanIcon
 from ..game_widgets.quest_label import QuestLabel
+from ..game_widgets.ability_label import AbilityLabel
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
@@ -62,6 +63,11 @@ class GameScreneScene():
             x = 800,
             y = 0,
             event = event,
+        )
+
+        ability_label = AbilityLabel(
+            coordinates = (100, 60),
+            event = event
         )
 
         

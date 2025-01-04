@@ -5,7 +5,7 @@ from ..widgets.pygame_rect import PygameRect
 from ..widgets.pygame_check_box import PygameCheckBox
 from ..tools.pygame_storage import pygame_storage
 from ..game_modules.quests.quest_manager import QuestManager
-from ..game_modules.abilites.parent_ability_class import Ability
+from ..game_widgets.ability_shop_label import AbilityShopLabel
 
 class QuestLabel():
     def __init__(self, x, y, event):
@@ -87,24 +87,13 @@ class QuestLabel():
 
                 quest_check_box.complete = quest.quest_complite
                 quest_check_box.draw()
+
+            ability_shop_label = AbilityShopLabel(
+                x = self.x + 10,
+                y = self.y + 150 + index*70,
+                event = event
+            )
             
-            for index, ability in enumerate(self.abilites_list):
-
-                ability_title = PygameText(
-                    text = ability,
-                    font_size = 25,
-                    x = self.x + 10,
-                    y = self.y + 500 + index*70
-                )
-                buy_ability_button = PygameButton(
-                    coordinates = (self.x + 300, self.y + 500 + index*70),
-                    size = (100, 40),
-                    event = event,
-                    function = lambda: print("Buy"),
-                    text = "Buy"
-                )
-
-
         pygame_storage.storage_dict["QuestManager"].check_all_quests()
                 
 

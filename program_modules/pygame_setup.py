@@ -9,6 +9,7 @@ from .tools.data_manager import DataManager
 from .game_widgets.fps_counter import FpsCounter
 from .game_modules.achievements.achievement_manager import AchievementManager
 from .game_modules.stats.stats_manager import StatsManager
+from .game_modules.abilites.ability_manager import AbilityManager
 
 pygame.init()
 pygame_storage.add_variable({"debug": False})
@@ -21,6 +22,7 @@ pygame_storage.add_variable({"DataManager" : DataManager()})
 pygame_storage.add_variable({"AchievementManager": AchievementManager()})
 pygame_storage.add_variable({"MainGameManager" : MainGameManager()})
 pygame_storage.add_variable({"StatsManager" : StatsManager()})
+pygame_storage.add_variable({"AbilityManager" : AbilityManager()})
 
 pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(pygame_storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
