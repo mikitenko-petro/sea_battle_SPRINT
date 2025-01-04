@@ -1,4 +1,3 @@
-from ...tools.pygame_storage import pygame_storage
 from ...tools.json_manager import read_json, write_json
 from .first_win_achievement import FirstWinAchievement
 import os
@@ -27,12 +26,8 @@ class AchievementManager():
             pass
 
         for achievement_name in self.achievements_data:
-            print(achievement_name)
-            print(self.achievements_data)
             self.achievements_dict[achievement_name].complete_count = self.achievements_data[achievement_name]["complete_count"]
             self.achievements_dict[achievement_name].is_complete = self.achievements_data[achievement_name]["is_complete"]
-
-        print(self.achievements_dict)
 
     def save_achievements(self):
         if not os.path.exists("static/json/achievements.json"):
@@ -40,8 +35,7 @@ class AchievementManager():
 
         for name in self.achievements_dict:
             if self.achievements_dict[name].is_complete:
-                self.achievements_data[name].is_complete = True
-                self.achievements_data[name]["is_complete"] = self.achievements_dict[name].is_complete
+                self.achievements_data[name]["is_complete"] = True
                 write_json("static/json/achievements.json", self.achievements_data)
 
             elif self.achievements_data[name]["complete_count"] != self.achievements_dict[name].complete_count:

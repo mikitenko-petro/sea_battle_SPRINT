@@ -62,7 +62,7 @@ class EndScreenScene():
         pygame_storage.storage_dict["defeated_cells"] = 0
 
         if pygame_storage.storage_dict["win"]:
-            pygame_storage.storage_dict["winned_games"] += 1
+            pygame_storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
 
         pygame_storage.storage_dict['win'] = None
         pygame_storage.storage_dict["dummy_ship_list"] = []

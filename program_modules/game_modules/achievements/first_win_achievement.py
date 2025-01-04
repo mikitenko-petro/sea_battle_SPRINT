@@ -10,5 +10,5 @@ class FirstWinAchievement(Achievement):
         self.image_path = "static/images/first_win_icon.png"
 
     def check_complete(self):
-        if pygame_storage.storage_dict["winned_games"] > 0:
+        if pygame_storage.storage_dict["StatsManager"].stats_dict["winned_games"] > 0:
             self.is_complete = True

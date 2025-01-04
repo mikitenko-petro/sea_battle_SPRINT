@@ -3,7 +3,6 @@ from ..widgets.pygame_label import PygameLabel
 from ..game_widgets.fire_animation_widget import FireAnimationWidget
 from ..tools.pygame_storage import pygame_storage
 from ..game_modules.battle.ship_manager import ShipManager
-from ..game_modules.main_game_manager import MainGameManager
 from ..game_widgets.capitan_icon import CapitanIcon
 from ..game_widgets.quest_label import QuestLabel
 
@@ -23,10 +22,6 @@ class GameScreneScene():
     #Робим метод для створення екрану гри
     def run(self, event : object):
         pygame_storage.storage_dict["collision_list"] = []
-
-        pygame_storage.add_variable(
-            {"MainGameManager" : MainGameManager()}
-        )
 
         #Робим фон
         background_image = PygameImage(

@@ -8,7 +8,6 @@ class DummyShip():
         self.x = pygame_storage.storage_dict["ENEMY_GRID"].x + row*50
         self.y = pygame_storage.storage_dict["ENEMY_GRID"].y + column*50
         self.type = type
-        print(self.id, self.direction, self.x, self.y, self.type)
 
     def show_ship(self):    
         match self.direction:

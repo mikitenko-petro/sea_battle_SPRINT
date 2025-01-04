@@ -55,14 +55,5 @@ class MainScreenScene():
             color = (34, 32, 52)
         )
 
-    def move_to_achievement_scene(self):
-        try:
-            pygame_storage.storage_dict["AchievementManager"].load_achievements()
-            
-            pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement")
-        except FileNotFoundError:
-            pass
-        except Exception as error:
-            print(error)
-
-        
+    def move_to_achievement_scene(self):  
+        pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement")    
