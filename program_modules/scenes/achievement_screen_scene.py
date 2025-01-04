@@ -14,7 +14,7 @@ class AchievementScreenScene():
     def run(self, event : object):
         #Робим фон для початкової сцени
         background_image = PygameImage(
-            path = "static/images/great_sea_battle_bg.png",
+            path = "static/images/achievements_scene_bg.png",
             coordinates = (0, 0),
             size = (1200, 700)
         )
@@ -31,13 +31,9 @@ class AchievementScreenScene():
             text = "Achievements",
             font_size = 120,
             x = 240,
-            y = 500,
+            y = 550,
             font = "static/fonts/alagard.ttf",
-            color = (34, 32, 52)
+            color = (255, 255, 0)
         )
 
-        achievement_label = AchievementLabel(
-            x = 0,
-            y = 0,
-            event = event
-        )
+        achievement_label = AchievementLabel()

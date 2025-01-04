@@ -4,3 +4,4 @@ class Achievement():
         self.description = ""
         self.is_complete = False
         self.complete_count = 0
+        self.unlock = None

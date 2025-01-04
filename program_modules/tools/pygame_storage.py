@@ -17,7 +17,7 @@ class PygameStorage():
                 break
         
         #
-        if is_found == False:    
+        if is_found == False:
             self.storage_dict.update(storage_object)
 
 pygame_storage = PygameStorage()
