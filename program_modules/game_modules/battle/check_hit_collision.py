@@ -1,27 +1,18 @@
-from ...widgets.pygame_rect import PygameRect
 from ...tools.pygame_storage import pygame_storage
 from ...tools.music_manager import music_manager
 
-def check_hit_collision(row, column):
-    check_collision = PygameRect(
-        coordinates = (
-            pygame_storage.storage_dict["PLAYER_GRID"].x + column*50 + 25,
-            pygame_storage.storage_dict["PLAYER_GRID"].y + row*50 + 25
-            ),
-        size = (1,1),
-    )
-
-    collision_list = []
-    is_hit = False
-
-    for ship in pygame_storage.storage_dict["ship_list"]:
-        collision_list.append(ship.ship_collision_rect)
-
-    for collision in collision_list:
-        if check_collision.colliderect(collision):
+def check_hit_collision(row, column, enemy = True):
+    if pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] == "~":
+        if enemy:
             music_manager.music_dict["hit_effect"].play()
-            is_hit = True
-            break
 
-    del check_collision
-    return is_hit
+        print("hit")
+        return "hit"
+    
+    elif pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] == "O":
+        print("shield")
+        return "shield"
+        
+    else:
+        print("miss")
+        return "miss"

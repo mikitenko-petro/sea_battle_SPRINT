@@ -11,10 +11,12 @@ class AbilityManager():
             "Artilery": Artilery(),
         }
 
-        self.picked_abilty = None
+        self.picked_ability = None
 
     def pick_ability(self, ability):
-        if self.picked_abilty == None:
-            self.picked_abilty = f"{ability.__class__.__name__}"
+        if self.picked_ability == None:
+            self.picked_ability = f"{ability.__class__.__name__}"
         else:
-            self.picked_abilty = None
+            self.picked_ability = None
+
+        print(self.picked_ability)

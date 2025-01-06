@@ -1,13 +1,15 @@
 from ...tools.json_manager import read_json, write_json
 from .first_win_achievement import FirstWinAchievement
 from .three_win_achievement import ThreeWinAchievement
+from .fifth_win_achievement import FifthWinAchievement
 import os
 
 class AchievementManager():
     def __init__(self):
         self.achievements_dict = {
             "FirstWinAchievement": FirstWinAchievement(),
-            "ThreeWinAchievement": ThreeWinAchievement()
+            "ThreeWinAchievement": ThreeWinAchievement(),
+            "FifthWinAchivement": FifthWinAchievement()
         }
 
         self.achievements_data = {}

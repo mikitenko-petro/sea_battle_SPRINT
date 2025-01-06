@@ -12,4 +12,4 @@ class KillShipInTimeQuest(Quest):
     def check_quest_done(self):
         if pygame_storage.storage_dict["moves"] <= 10:
             if len(pygame_storage.storage_dict["dummy_ship_list"]) >= 2:
-                self.change_complite()
+                self.quest_complite = True

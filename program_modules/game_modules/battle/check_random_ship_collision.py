@@ -100,8 +100,8 @@ class CheckRandomShipCollision():
         return False
             
 def check_random_ship_collision(direction, row, column, type, id):
-    x = pygame_storage.storage_dict["PLAYER_GRID"].x + row*50
-    y = pygame_storage.storage_dict["PLAYER_GRID"].y + column*50
+    x = pygame_storage.storage_dict["PLAYER_GRID"].x + column*50
+    y = pygame_storage.storage_dict["PLAYER_GRID"].y + row*50
 
     random_ship_collision = CheckRandomShipCollision(direction, x, y, type, id)
 

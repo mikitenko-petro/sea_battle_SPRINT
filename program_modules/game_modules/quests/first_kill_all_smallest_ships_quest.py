@@ -21,4 +21,4 @@ class FirstKillAllSmallestShipsQuest(Quest):
                 our1x1shipsdefeated += 1
         
         if our1x1shipsdefeated < 4 and ships1x1defeated == 4:
-            self.change_complite()
+            self.quest_complite = True

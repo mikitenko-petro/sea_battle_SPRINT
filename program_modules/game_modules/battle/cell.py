@@ -21,26 +21,24 @@ class Cell(PygameHitBox):
         self.initial_x = initial_x
         self.initial_y = initial_y
 
-        self.row = self.x // 50
-        self.column = self.y // 50
+        self.row = self.y // 50
+        self.column = self.x // 50
 
         self.path = ""
         self.type = type
         self.grid_type = grid_type
 
-        match type:
-            case '  ':
-                self.path = "static/images/cell.png"
+        cell = PygameImage(
+            path = "static/images/cell.png",
+            coordinates = (initial_x + self.x, initial_y + self.y),
+            size = size
+        )
 
-            case 'x':
-                self.path = "static/images/wrong_cell.png"
+        self.collision = PygameRect(
+            coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
+            size = (self.width-2, self.height-2),
+        )
 
-            case 'X':
-                self.path = "static/images/right_cell.png"
-                self.collision = PygameRect(
-                    coordinates = (initial_x + self.x + 1, initial_y + self.y + 1),
-                    size = (self.width-2, self.height-2),
-                )
         if type == "x":
             cell = PygameImage(
                 path = "static/images/cell.png",
@@ -59,10 +57,43 @@ class Cell(PygameHitBox):
             )
 
             pygame_storage.storage_dict[f"bauble_animation_{self.row}_{self.column}_{self.grid_type}"].display()
-            
-        else:
+
+        elif type == "X":
             cell = PygameImage(
-                path = self.path,
+                path = "static/images/cell.png",
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )
+
+            pygame_storage.add_variable({f"scrap_animation_{self.row}_{self.column}_{self.grid_type}":
+                    PygameAnimation(
+                        animation_name = "scrap",
+                        coordinates = (initial_x + self.x, initial_y + self.y),
+                        size = size,
+                        speed = 0.05
+                    )
+                }
+            )
+
+            pygame_storage.storage_dict[f"scrap_animation_{self.row}_{self.column}_{self.grid_type}"].display()
+            
+        elif type == "~":
+            cell = PygameImage(
+                path = "static/images/medal.png",
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )
+        
+        elif type == "O":
+            cell = PygameImage(
+                path = "static/images/blue_label.png",
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )
+
+        elif type == "o":
+            cell = PygameImage(
+                path = "static/images/right_cell.png",
                 coordinates = (initial_x + self.x, initial_y + self.y),
                 size = size
             )
@@ -85,14 +116,34 @@ class Cell(PygameHitBox):
             )
     
     def set_current_cell(self):
-        if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
-            pygame_storage.storage_dict["selected_row"] = self.row
-            pygame_storage.storage_dict["selected_column"] = self.column
-        else:
-            if self.grid_type == "enemy" and pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] == "  ":
-                if pygame_storage.storage_dict["player_turn"] == True:
-                    pygame_storage.storage_dict["selected_row"] = self.row
-                    pygame_storage.storage_dict["selected_column"] = self.column
-                    pygame_storage.storage_dict["ENEMY_GRID"].grid[self.column][self.row] = "x"
-                    pygame_storage.storage_dict["MainGameManager"].shoot(self.column, self.row)
-                    pygame_storage.storage_dict["player_turn"] = False
+        pygame_storage.storage_dict["selected_row"] = self.row
+        pygame_storage.storage_dict["selected_column"] = self.column
+        
+        if pygame_storage.storage_dict["SceneManager"].current_scene == "game":
+            enemy_cell = pygame_storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
+            match pygame_storage.storage_dict["AbilityManager"].picked_ability:
+                case None:
+
+                    if self.grid_type == "enemy" and (enemy_cell == "" or enemy_cell == "o"):
+                        if pygame_storage.storage_dict["player_turn"] == True:
+
+                            pygame_storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column] = "x"
+                            pygame_storage.storage_dict["MainGameManager"].shoot(self.row, self.column)
+                            pygame_storage.storage_dict["player_turn"] = False
+                
+                case "Shield":
+                    if self.grid_type == "player":
+                        pygame_storage.storage_dict["AbilityManager"].ability_dict["Shield"].use_ability()
+                
+                case "RadioSet":
+                    if self.grid_type == "enemy":
+                        ...
+
+                case "Artilery":
+                    if self.grid_type == "enemy":
+                        ...
+
+    def check_for_ship(self):
+        for ship in pygame_storage.storage_dict["ship_list"]:
+            if self.collision.collidelist([ship.ship_collision_rect]) != -1:
+                pygame_storage.storage_dict[f"{self.grid_type.upper()}_GRID"].grid[self.row][self.column] = "~"

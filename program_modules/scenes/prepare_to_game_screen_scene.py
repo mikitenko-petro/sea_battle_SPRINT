@@ -69,6 +69,9 @@ class PrepareToGameScreenScene():
         )
     
     def move_to_scene(self):
+        for cell in pygame_storage.storage_dict["PLAYER_GRID"].cell_list:
+            cell.check_for_ship()
+
         pygame_storage.storage_dict["ENEMY_GRID"] = Grid(
             coordinates = (650, 180),
             type = "enemy",

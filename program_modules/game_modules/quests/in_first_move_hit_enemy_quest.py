@@ -12,4 +12,4 @@ class HitShipInFirstMove(Quest):
     def check_quest_done(self):
         if pygame_storage.storage_dict["moves"] == 1:
             if pygame_storage.storage_dict["hits"] >= 1:
-                self.change_complite()
+                self.quest_complite = True

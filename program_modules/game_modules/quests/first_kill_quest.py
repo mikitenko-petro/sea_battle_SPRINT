@@ -17,4 +17,4 @@ class FirstKillQuest(Quest):
                     is_defeated = True
             
             if not is_defeated:
-                self.change_complite()
+                self.quest_complite = True

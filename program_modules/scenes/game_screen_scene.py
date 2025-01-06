@@ -6,6 +6,7 @@ from ..game_modules.battle.ship_manager import ShipManager
 from ..game_widgets.capitan_icon import CapitanIcon
 from ..game_widgets.quest_label import QuestLabel
 from ..game_widgets.ability_label import AbilityLabel
+from ..game_widgets.emotion_label import EmotionLable
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
@@ -70,4 +71,7 @@ class GameScreneScene():
             event = event
         )
 
+        emotion_label = EmotionLable(
+            event = event,
         
+        )

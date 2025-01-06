@@ -8,7 +8,7 @@ class ThreeWinAchievement(Achievement):
 
         self.title = "Third win"
         self.description = "Make 3 victories"
-        self.image_path = "static/images/first_win_icon.png"
+        self.image_path = "static/images/third_win_icon.png"
         
         self.unlock = Unlock(
             path = "static/images/radio_set.png"

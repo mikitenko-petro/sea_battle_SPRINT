@@ -1,5 +1,6 @@
 from ..tools.pygame_storage import pygame_storage
 from ..widgets.pygame_button import PygameButton
+from ..widgets.pygame_image import PygameImage
 
 class AbilityButton():
     def __init__(self, ability, coordinates, size, event, type):
@@ -11,12 +12,19 @@ class AbilityButton():
         if self.type == "buy":
             self.function = lambda: None
         elif self.type == "pick":
-            self.function = lambda: pygame_storage.storage_dict["AbilityManager"].pick_ability(self)
+            self.function = lambda: pygame_storage.storage_dict["AbilityManager"].pick_ability(ability)
 
         self.button = PygameButton(
-            path = pygame_storage.storage_dict["AbilityManager"].ability_dict[ability.__class__.__name__].image_path,
+            path = ability.image_path,
             coordinates = coordinates,
             size = size,
             event = event,
             function = self.function
         )
+
+        if self.type == "pick" and self.ability.name == pygame_storage.storage_dict["AbilityManager"].picked_ability:
+            picked_image = PygameImage(
+                path = "static/images/select.png",
+                coordinates = coordinates,
+                size = size
+            )

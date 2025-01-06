@@ -12,8 +12,8 @@ class ShipManager():
             if pygame_storage.storage_dict["ship_list"][i].status == "placed" or pygame_storage.storage_dict["ship_list"][i].status == "defeated":
                 pygame_storage.storage_dict["ship_list"][i].show_ship(
                     event = event,
-                    x = pygame_storage.storage_dict["PLAYER_GRID"].x + pygame_storage.storage_dict["ship_list"][i].row*50,
-                    y = pygame_storage.storage_dict["PLAYER_GRID"].y + pygame_storage.storage_dict["ship_list"][i].column*50,
+                    x = pygame_storage.storage_dict["PLAYER_GRID"].x + pygame_storage.storage_dict["ship_list"][i].column*50,
+                    y = pygame_storage.storage_dict["PLAYER_GRID"].y + pygame_storage.storage_dict["ship_list"][i].row*50,
                 )
             
             pygame_storage.storage_dict["ship_list"][i].check_collide()

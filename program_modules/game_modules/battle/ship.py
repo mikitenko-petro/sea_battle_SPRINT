@@ -266,7 +266,7 @@ class Ship():
         collision_list = []
 
         for cell in pygame_storage.storage_dict["PLAYER_GRID"].cell_list:
-            if hasattr(cell, "collision") == True:
+            if cell.type == "X":
                 collision_list.append(cell.collision)
 
         collisions = [hitbox for hitbox in collision_list if self.ship_collision_rect.colliderect(hitbox)]

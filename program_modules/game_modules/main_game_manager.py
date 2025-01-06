@@ -29,23 +29,44 @@ class MainGameManager():
     def check_hit(self):
         data = pygame_storage.storage_dict["DataManager"].data["shoot_coord"]
         if not pygame_storage.storage_dict["player_turn"] and data:
+            print(data)
             if len(data) == 2:
                 row = int(data[0])
                 column = int(data[1])
 
-                if check_hit_collision(row, column) == True:
-                    pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord","you don't missed"))
+                if check_hit_collision(row, column) == "hit":
+                    pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord","hit"))
                     pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "X"
 
-                    music_manager.music_dict["kill_effect"].play()
+                elif check_hit_collision(row, column) == "shield":
+                    pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord","shield"))
+                    pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "~"
+                    pygame_storage.storage_dict["player_turn"] = True
+
                 else:
+                    pygame_storage.storage_dict["Client"].send_data(write_string("shoot_coord","miss"))
                     pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "x"
                     pygame_storage.storage_dict["player_turn"] = True
 
             elif len(data) == 1:
-                pygame_storage.storage_dict["ENEMY_GRID"].grid[pygame_storage.storage_dict["last_row"]][pygame_storage.storage_dict["last_column"]] = "X"
-                pygame_storage.storage_dict["player_turn"] = True
+                row = pygame_storage.storage_dict["last_row"]
+                column = pygame_storage.storage_dict["last_column"]
+
+                data = data[0]
+
+                if data == "hit":
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[row][column] = "X"
+                    music_manager.music_dict["kill_effect"].play()
+                    pygame_storage.storage_dict["player_turn"] = True
+
+                elif data == "shield":
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[row][column] = "o"
+
+                else:
+                    pygame_storage.storage_dict["ENEMY_GRID"].grid[row][column] = "x"
+
                 pygame_storage.storage_dict["hits"] += 1
+                
 
             pygame_storage.storage_dict["DataManager"].data["shoot_coord"] = None
                  

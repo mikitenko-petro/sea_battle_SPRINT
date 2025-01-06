@@ -17,4 +17,4 @@ class FirstKillLargestShipQuest(Quest):
 
         for ship in pygame_storage.storage_dict["ship_list"]:
             if ship.type == "4x1" and ship.status != "defeated" and ship4x1defeated:
-                self.change_complite()
+                self.quest_complite = True

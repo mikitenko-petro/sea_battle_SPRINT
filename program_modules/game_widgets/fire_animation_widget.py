@@ -15,7 +15,7 @@ class FireAnimationWidget():
                 pygame_storage.add_variable({f"fire_animation_{cell.row}_{cell.column}_{self.grid.type}":
                         PygameAnimation(
                             animation_name = "fire",
-                            coordinates = (self.grid.x + cell.row*50, self.grid.y + cell.column*50 - 25),
+                            coordinates = (self.grid.x + cell.column*50, self.grid.y + cell.row*50 - 25),
                             size = (50,50),
                             speed = 0.15
                         )
