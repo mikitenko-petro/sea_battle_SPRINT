@@ -2,9 +2,9 @@ from ...widgets.pygame_image import PygameImage
 from ...widgets.pygame_hitbox import PygameHitBox
 from ...widgets.pygame_button import PygameButton
 from ...tools.music_manager import music_manager
-from ...tools.pygame_storage import pygame_storage
-from ...game_widgets.turn_button import TurnButton
-from ...game_widgets.return_button import ReturnButton
+from ...tools.storage import storage
+from ...game_widgets.ship_buttons.turn_button import TurnButton
+from ...game_widgets.ship_buttons.return_button import ReturnButton
 from ...widgets.pygame_rect import PygameRect
 from ...tools.string_manager import write_string
 import pygame
@@ -193,7 +193,7 @@ class Ship():
             color = (255, 0, 0)
         )
 
-        if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
+        if storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
             if self.status == "placed":
                 self.buffer_rect = PygameRect(
                     coordinates = (x - self.delta_x - 50 + 2, y - self.delta_y - 50 + 2),
@@ -210,14 +210,14 @@ class Ship():
                 delattr(self, "buffer_rect")
         
     def highlight_ship(self):
-        if pygame_storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
-            if self.is_picked == False and pygame_storage.storage_dict["picked_ship"] == -1:
+        if storage.storage_dict["SceneManager"].current_scene == "prepare_to_game":
+            if self.is_picked == False and storage.storage_dict["picked_ship"] == -1:
                 self.is_picked = True
-                pygame_storage.storage_dict["picked_ship"] = self.id
+                storage.storage_dict["picked_ship"] = self.id
 
             elif self.is_picked == True:
                 self.is_picked = False
-                pygame_storage.storage_dict["picked_ship"] = -1
+                storage.storage_dict["picked_ship"] = -1
 
     def select_ship(self, event):
         ship_button = PygameButton(
@@ -239,21 +239,21 @@ class Ship():
             
     def check_collide(self):
         collision_list = []
-        pygame_storage.storage_dict["check_placement"] = False
+        storage.storage_dict["check_placement"] = False
 
-        for collision in pygame_storage.storage_dict["collision_list"]:
+        for collision in storage.storage_dict["collision_list"]:
             collision_list.append(collision)
 
         try:
             if self.ship_collision_rect.collidelist(collision_list) != -1:
                 self.ship_collision_rect.draw(2)
-                pygame_storage.storage_dict["check_placement"] = True
+                storage.storage_dict["check_placement"] = True
         except:
             pass
 
         collision_list = []
 
-        for ship in pygame_storage.storage_dict["ship_list"]:
+        for ship in storage.storage_dict["ship_list"]:
             if hasattr(ship, "buffer_rect") == True:
                 if ship.id != self.id:
                     collision_list.append(ship.buffer_rect)
@@ -261,11 +261,11 @@ class Ship():
         for collision in collision_list:
             if self.ship_collision_rect.collidelist(collision_list) != -1:
                 self.ship_collision_rect.draw(2)
-                pygame_storage.storage_dict["check_placement"] = True
+                storage.storage_dict["check_placement"] = True
 
         collision_list = []
 
-        for cell in pygame_storage.storage_dict["PLAYER_GRID"].cell_list:
+        for cell in storage.storage_dict["PLAYER_GRID"].cell_list:
             if cell.type == "X":
                 collision_list.append(cell.collision)
 
@@ -294,7 +294,7 @@ class Ship():
     def add_defeated_ship(self):
         is_found = False
 
-        for id in pygame_storage.storage_dict["defeated_ship_list"]:
+        for id in storage.storage_dict["defeated_ship_list"]:
             if id != self.id:
                 is_found = False
             else:
@@ -303,7 +303,7 @@ class Ship():
         
         #
         if not is_found:
-            pygame_storage.storage_dict["defeated_ship_list"].append(self.id)
-            pygame_storage.storage_dict["Client"].send_data(
+            storage.storage_dict["defeated_ship_list"].append(self.id)
+            storage.storage_dict["Client"].send_data(
                 write_string("defeated_ship", self.id, self.type, self.direction, self.row, self.column)
             )

@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 
 class Ability():
     def __init__(self):
@@ -10,17 +10,20 @@ class Ability():
         self.price = 0
     
     def buy(self):
-        if pygame_storage.storage_dict["medals"] >= self.price:
+        if storage.storage_dict["medals"] >= self.price:
             self.amount += 1
-            pygame_storage.storage_dict["medals"] -= self.price
+            storage.storage_dict["medals"] -= self.price
 
     def usage(func):
-        def handle(self):
+        def handle(self, **kwargs):
             if self.amount > 0:
-                func(self)
+                if kwargs.get("row") and kwargs.get("column"):
+                    func(self, kwargs["row"], kwargs["column"])
+                else:
+                    func(self)
 
                 self.amount -= 1
-                pygame_storage.storage_dict["player_turn"] = False
-                pygame_storage.storage_dict["AbilityManager"].picked_ability = None
+                storage.storage_dict["player_turn"] = False
+                storage.storage_dict["AbilityManager"].picked_ability = None
 
         return handle

@@ -1,5 +1,5 @@
 from ...widgets.pygame_rect import PygameRect
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 
 class CheckRandomShipCollision():
     def __init__(self, direction, x, y, type, id):
@@ -77,7 +77,7 @@ class CheckRandomShipCollision():
     def check_ship_collision(self):
         collision_list = []
 
-        for collision in pygame_storage.storage_dict["collision_list"]:
+        for collision in storage.storage_dict["collision_list"]:
             collision_list.append(collision)
 
         try:
@@ -88,7 +88,7 @@ class CheckRandomShipCollision():
 
         collision_list = []
 
-        for ship in pygame_storage.storage_dict["ship_list"]:
+        for ship in storage.storage_dict["ship_list"]:
             if hasattr(ship, "buffer_rect") == True:
                 if ship.id != self.id:
                     collision_list.append(ship.buffer_rect)
@@ -100,8 +100,8 @@ class CheckRandomShipCollision():
         return False
             
 def check_random_ship_collision(direction, row, column, type, id):
-    x = pygame_storage.storage_dict["PLAYER_GRID"].x + column*50
-    y = pygame_storage.storage_dict["PLAYER_GRID"].y + row*50
+    x = storage.storage_dict["PLAYER_GRID"].x + column*50
+    y = storage.storage_dict["PLAYER_GRID"].y + row*50
 
     random_ship_collision = CheckRandomShipCollision(direction, x, y, type, id)
 

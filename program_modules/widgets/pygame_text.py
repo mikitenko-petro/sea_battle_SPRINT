@@ -1,5 +1,5 @@
 import pygame
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 from ..tools.search_path import search_path
 
 class PygameText():
@@ -21,4 +21,4 @@ class PygameText():
 
         self.button_font = pygame.font.Font(self.font, font_size)
         self.button_text = self.button_font.render(str(text), True, color)
-        pygame_storage.storage_dict["SCREEN"].blit(self.button_text, (x, y))
+        storage.storage_dict["SCREEN"].blit(self.button_text, (x, y))

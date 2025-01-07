@@ -18,6 +18,9 @@ class MusicManager():
         self.music_dict = {
             "hit_effect" : PygameMusic("static/sound/effects/hit.mp3", self.volume*0.1),
             "kill_effect" : PygameMusic("static/sound/effects/kill.mp3", self.volume*0.1),
+            "shield1": PygameMusic("static/sound/effects/shield1.mp3", self.volume*0.1),
+            "shield2": PygameMusic("static/sound/effects/shield2.mp3", self.volume*0.1),
+            "shield4": PygameMusic("static/sound/effects/shield4.mp3", self.volume*0.1)
         }
 
 music_manager = MusicManager()

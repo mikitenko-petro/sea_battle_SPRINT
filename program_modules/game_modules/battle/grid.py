@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage as ps
+from ...tools.storage import storage as ps
 from .cell import Cell
 from ...widgets.pygame_hitbox import PygameHitBox
 from ...widgets.pygame_text import PygameText

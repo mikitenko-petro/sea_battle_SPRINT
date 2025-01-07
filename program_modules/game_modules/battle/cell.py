@@ -3,7 +3,8 @@ from ...widgets.pygame_hitbox import PygameHitBox
 from ...widgets.pygame_button import PygameButton
 from ...widgets.pygame_rect import PygameRect
 from ...widgets.pygame_animation import PygameAnimation
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
+from ...tools.music_manager import music_manager
 import pygame
 
 class Cell(PygameHitBox):
@@ -46,7 +47,7 @@ class Cell(PygameHitBox):
                 size = size
             )
 
-            pygame_storage.add_variable({f"bauble_animation_{self.row}_{self.column}_{self.grid_type}":
+            storage.add_variable({f"bauble_animation_{self.row}_{self.column}_{self.grid_type}":
                     PygameAnimation(
                         animation_name = "baubles",
                         coordinates = (initial_x + self.x, initial_y + self.y),
@@ -56,7 +57,7 @@ class Cell(PygameHitBox):
                 }
             )
 
-            pygame_storage.storage_dict[f"bauble_animation_{self.row}_{self.column}_{self.grid_type}"].display()
+            storage.storage_dict[f"bauble_animation_{self.row}_{self.column}_{self.grid_type}"].display()
 
         elif type == "X":
             cell = PygameImage(
@@ -65,7 +66,7 @@ class Cell(PygameHitBox):
                 size = size
             )
 
-            pygame_storage.add_variable({f"scrap_animation_{self.row}_{self.column}_{self.grid_type}":
+            storage.add_variable({f"scrap_animation_{self.row}_{self.column}_{self.grid_type}":
                     PygameAnimation(
                         animation_name = "scrap",
                         coordinates = (initial_x + self.x, initial_y + self.y),
@@ -75,21 +76,7 @@ class Cell(PygameHitBox):
                 }
             )
 
-            pygame_storage.storage_dict[f"scrap_animation_{self.row}_{self.column}_{self.grid_type}"].display()
-            
-        elif type == "~":
-            cell = PygameImage(
-                path = "static/images/medal.png",
-                coordinates = (initial_x + self.x, initial_y + self.y),
-                size = size
-            )
-        
-        elif type == "O":
-            cell = PygameImage(
-                path = "static/images/blue_label.png",
-                coordinates = (initial_x + self.x, initial_y + self.y),
-                size = size
-            )
+            storage.storage_dict[f"scrap_animation_{self.row}_{self.column}_{self.grid_type}"].display()
 
         elif type == "o":
             cell = PygameImage(
@@ -104,10 +91,10 @@ class Cell(PygameHitBox):
         for pygame_event in event: 
             if not (mouse_x >= self.initial_x and mouse_x <= self.initial_x + 500 and mouse_y >= self.initial_y and mouse_y <= self.initial_y + 500):
                 if pygame_event.type == pygame.MOUSEBUTTONDOWN:
-                    pygame_storage.storage_dict["selected_row"] = -1
-                    pygame_storage.storage_dict["selected_column"] = -1
+                    storage.storage_dict["selected_row"] = -1
+                    storage.storage_dict["selected_column"] = -1
 
-        if not pygame_storage.storage_dict["show_quests"]:
+        if not storage.storage_dict["show_quests"]:
             cell_button = PygameButton(
                 coordinates = (self.initial_x + self.x, self.initial_y + self.y),
                 size = (self.width, self.height),
@@ -116,24 +103,24 @@ class Cell(PygameHitBox):
             )
     
     def set_current_cell(self):
-        pygame_storage.storage_dict["selected_row"] = self.row
-        pygame_storage.storage_dict["selected_column"] = self.column
+        storage.storage_dict["selected_row"] = self.row
+        storage.storage_dict["selected_column"] = self.column
         
-        if pygame_storage.storage_dict["SceneManager"].current_scene == "game":
-            enemy_cell = pygame_storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
-            match pygame_storage.storage_dict["AbilityManager"].picked_ability:
+        if storage.storage_dict["SceneManager"].current_scene == "game":
+            enemy_cell = storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
+            match storage.storage_dict["AbilityManager"].picked_ability:
                 case None:
-
                     if self.grid_type == "enemy" and (enemy_cell == "" or enemy_cell == "o"):
-                        if pygame_storage.storage_dict["player_turn"] == True:
+                        if storage.storage_dict["player_turn"] == True:
 
-                            pygame_storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column] = "x"
-                            pygame_storage.storage_dict["MainGameManager"].shoot(self.row, self.column)
-                            pygame_storage.storage_dict["player_turn"] = False
+                            storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column] = "x"
+                            storage.storage_dict["MainGameManager"].shoot(self.row, self.column)
+                            storage.storage_dict["player_turn"] = False
                 
                 case "Shield":
                     if self.grid_type == "player":
-                        pygame_storage.storage_dict["AbilityManager"].ability_dict["Shield"].use_ability()
+                        storage.storage_dict["AbilityManager"].ability_dict["Shield"].use_ability()
+                        music_manager.music_dict["shield1"].play()
                 
                 case "RadioSet":
                     if self.grid_type == "enemy":
@@ -141,9 +128,10 @@ class Cell(PygameHitBox):
 
                 case "Artilery":
                     if self.grid_type == "enemy":
-                        ...
+                        if (0 < self.row < 9) and (0 < self.column < 9):
+                            storage.storage_dict["AbilityManager"].ability_dict["Artilery"].use_ability(row = self.row, column = self.column)
 
     def check_for_ship(self):
-        for ship in pygame_storage.storage_dict["ship_list"]:
+        for ship in storage.storage_dict["ship_list"]:
             if self.collision.collidelist([ship.ship_collision_rect]) != -1:
-                pygame_storage.storage_dict[f"{self.grid_type.upper()}_GRID"].grid[self.row][self.column] = "~"
+                storage.storage_dict[f"{self.grid_type.upper()}_GRID"].grid[self.row][self.column] = "~"

@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 from .parent_quest_class import Quest
 
 class HitShipInFirstMove(Quest):
@@ -6,10 +6,10 @@ class HitShipInFirstMove(Quest):
         Quest.__init__(self)
 
         self.title = "hit the ship at start"
-        self.image_path = "static/images/first_kill_icon.png"
+        self.image_path = "static/images/hit_at_begin_icon.png"
         self.medals = 2
     
     def check_quest_done(self):
-        if pygame_storage.storage_dict["moves"] == 1:
-            if pygame_storage.storage_dict["hits"] >= 1:
+        if storage.storage_dict["moves"] == 1:
+            if storage.storage_dict["hits"] >= 1:
                 self.quest_complite = True

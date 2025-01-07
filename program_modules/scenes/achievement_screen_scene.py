@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 from ..game_widgets.achievement_label import AchievementLabel
 
 #Робимо клас для Основної сцени гри
@@ -24,7 +24,7 @@ class AchievementScreenScene():
             size = (50, 50),
             event = event,
             path = "static/images/apply_button.png",
-            function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "main")
+            function = lambda: storage.storage_dict["SceneManager"].change_scene(scene = "main")
         )
 
         title = PygameText(

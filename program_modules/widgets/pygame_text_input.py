@@ -2,7 +2,7 @@ import pygame
 import pyperclip
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 
 class PygameTextInput():
     def __init__(
@@ -21,14 +21,14 @@ class PygameTextInput():
         self.width, self.height = size
         self.event = event
 
-        pygame_storage.add_variable({f"{self.name}_text_input_status" : False})
+        storage.add_variable({f"{self.name}_text_input_status" : False})
 
         self.input_text(event)
         self.click_checking(event)
         self.show()
 
     def show(self):
-        if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
+        if storage.storage_dict[f"{self.name}_text_input_status"] == False:
             self.input_image = PygameImage(
                 coordinates = (self.x, self.y),
                 size = (self.width, self.height),
@@ -43,7 +43,7 @@ class PygameTextInput():
             )
         
         self.input_text_lable = PygameText(
-            text = pygame_storage.storage_dict[self.store_to],
+            text = storage.storage_dict[self.store_to],
             font = None,
             font_size = 50,
             x = self.x+10,
@@ -52,23 +52,23 @@ class PygameTextInput():
 
 
     def change_status(self):
-        if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == False:
-            pygame_storage.storage_dict[f"{self.name}_text_input_status"] = True
-            pygame_storage.storage_dict[self.store_to] = ""
+        if storage.storage_dict[f"{self.name}_text_input_status"] == False:
+            storage.storage_dict[f"{self.name}_text_input_status"] = True
+            storage.storage_dict[self.store_to] = ""
             
         else:
-            pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
+            storage.storage_dict[f"{self.name}_text_input_status"] = False
 
     def input_text(self, event):
         for pygame_event in event:
-            if pygame_storage.storage_dict[f"{self.name}_text_input_status"] == True:
+            if storage.storage_dict[f"{self.name}_text_input_status"] == True:
                 if pygame_event.type == pygame.KEYDOWN:
                     if pygame_event.key == pygame.K_BACKSPACE:
-                        pygame_storage.storage_dict[self.store_to] = pygame_storage.storage_dict[self.store_to][:-1]
+                        storage.storage_dict[self.store_to] = storage.storage_dict[self.store_to][:-1]
                     elif pygame_event.key == 118:
-                        pygame_storage.storage_dict[self.store_to] = pyperclip.paste()
+                        storage.storage_dict[self.store_to] = pyperclip.paste()
                     else:
-                        pygame_storage.storage_dict[self.store_to] += pygame_event.unicode
+                        storage.storage_dict[self.store_to] += pygame_event.unicode
 
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
@@ -76,10 +76,10 @@ class PygameTextInput():
         for pygame_event in event:
             if mouse_x >= self.x and mouse_x <= self.x + self.width and mouse_y >= self.y and mouse_y <= self.y + self.height:
                 if pygame_event.type == pygame.MOUSEBUTTONDOWN:
-                    pygame_storage.storage_dict[f"{self.name}_text_input_status"] = False
+                    storage.storage_dict[f"{self.name}_text_input_status"] = False
                     self.change_status()
         
             else:
                 if pygame_event.type == pygame.MOUSEBUTTONDOWN:
-                    pygame_storage.storage_dict[f"{self.name}_text_input_status"] = True
+                    storage.storage_dict[f"{self.name}_text_input_status"] = True
                     self.change_status()

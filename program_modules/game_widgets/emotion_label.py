@@ -1,13 +1,13 @@
 from .capitan_icon import CapitanIcon
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 
 class EmotionLable():
     def __init__(self, event):
         self.x = 0
         self.y = 0
-        pygame_storage.add_variable({"show_emotion_label": False})
+        storage.add_variable({"show_emotion_label": False})
 
         emotion_button = PygameButton(
             coordinates = (0, 65),
@@ -16,7 +16,7 @@ class EmotionLable():
             function = self.show_emotion_label
         )
 
-        if pygame_storage.storage_dict["show_emotion_label"]:
+        if storage.storage_dict["show_emotion_label"]:
             panel = PygameImage(
                 path = "static/images/blue_label.png",
                 coordinates = (465, 85),
@@ -36,4 +36,4 @@ class EmotionLable():
                 index += 1
     
     def show_emotion_label(self):
-        pygame_storage.storage_dict["show_emotion_label"] = not pygame_storage.storage_dict["show_emotion_label"]
+        storage.storage_dict["show_emotion_label"] = not storage.storage_dict["show_emotion_label"]

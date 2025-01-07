@@ -1,9 +1,9 @@
-from ..widgets.pygame_button import PygameButton
-from ..widgets.pygame_image import PygameImage
-from ..widgets.pygame_rect import PygameRect
-from ..widgets.pygame_hitbox import PygameHitBox
-from ..widgets.pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ...widgets.pygame_button import PygameButton
+from ...widgets.pygame_image import PygameImage
+from ...widgets.pygame_rect import PygameRect
+from ...widgets.pygame_hitbox import PygameHitBox
+from ...widgets.pygame_text import PygameText
+from ...tools.storage import storage
 
 class BuyAbilityButton(PygameButton, PygameHitBox):
     def __init__(
@@ -28,7 +28,7 @@ class BuyAbilityButton(PygameButton, PygameHitBox):
             size = size
         )
 
-        if pygame_storage.storage_dict["medals"] < price:
+        if storage.storage_dict["medals"] < price:
             self.rect = PygameRect(
                 coordinates = coordinates,
                 size = size,

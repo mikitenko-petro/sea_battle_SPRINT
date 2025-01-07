@@ -2,16 +2,16 @@ from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..game_modules.battle.grid import Grid
 from ..game_modules.battle.ship_manager import ShipManager
-from ..tools.pygame_storage import pygame_storage
-from ..game_widgets.random_placement_button import RandomPlacementButton
+from ..tools.storage import storage
+from ..game_widgets.ship_buttons.random_placement_button import RandomPlacementButton
 
 #Робим клас для підготовки гри
 class PrepareToGameScreenScene():
     def __init__(self):
-        pygame_storage.add_variable({"check_placement" : False})
-        pygame_storage.add_variable({"PLAYER_GRID" : None})
-        pygame_storage.add_variable({"ship_list" : None})
-        pygame_storage.add_variable({"collision_list" : None})
+        storage.add_variable({"check_placement" : False})
+        storage.add_variable({"PLAYER_GRID" : None})
+        storage.add_variable({"ship_list" : None})
+        storage.add_variable({"collision_list" : None})
 
     #Робим метод для створення єкрану для підготовки гри
     def run(self, event : object):
@@ -28,7 +28,7 @@ class PrepareToGameScreenScene():
             size = (512, 512)
         )
 
-        pygame_storage.storage_dict["PLAYER_GRID"].show_grid(event = event)
+        storage.storage_dict["PLAYER_GRID"].show_grid(event = event)
 
         ship_manager = ShipManager(
             event = event,
@@ -36,17 +36,17 @@ class PrepareToGameScreenScene():
         
         ship_manager.show_label(coordinates = (0, 0))
         
-        pygame_storage.storage_dict["PLAYER_GRID"].place_ship()
+        storage.storage_dict["PLAYER_GRID"].place_ship()
         
         check_placement = True
 
         placed_ships = 0
 
-        for ship in pygame_storage.storage_dict["ship_list"]:
+        for ship in storage.storage_dict["ship_list"]:
             if ship.status == "placed":
                 placed_ships += 1
         
-        if placed_ships == len(pygame_storage.storage_dict["ship_list"]) and not pygame_storage.storage_dict["check_placement"]:
+        if placed_ships == len(storage.storage_dict["ship_list"]) and not storage.storage_dict["check_placement"]:
             check_placement = True
         else:
             check_placement = False
@@ -69,19 +69,19 @@ class PrepareToGameScreenScene():
         )
     
     def move_to_scene(self):
-        for cell in pygame_storage.storage_dict["PLAYER_GRID"].cell_list:
+        for cell in storage.storage_dict["PLAYER_GRID"].cell_list:
             cell.check_for_ship()
 
-        pygame_storage.storage_dict["ENEMY_GRID"] = Grid(
+        storage.storage_dict["ENEMY_GRID"] = Grid(
             coordinates = (650, 180),
             type = "enemy",
         )
 
-        pygame_storage.add_variable({"player_turn" : None})
+        storage.add_variable({"player_turn" : None})
 
-        if pygame_storage.storage_dict["number_client"] == "1":
-            pygame_storage.storage_dict["player_turn"] = True
+        if storage.storage_dict["number_client"] == "1":
+            storage.storage_dict["player_turn"] = True
         else:
-            pygame_storage.storage_dict["player_turn"] = False
+            storage.storage_dict["player_turn"] = False
         
-        pygame_storage.storage_dict["SceneManager"].change_scene(scene = "game")
+        storage.storage_dict["SceneManager"].change_scene(scene = "game")

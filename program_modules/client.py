@@ -1,5 +1,5 @@
 import socket
-from .tools.pygame_storage import pygame_storage
+from .tools.storage import storage
 import threading
 
 class Client():
@@ -16,14 +16,14 @@ class Client():
 
         player_type = self.client_socket.recv(1024).decode("utf-8")
 
-        pygame_storage.add_variable({"number_client" : None})
+        storage.add_variable({"number_client" : None})
 
         if player_type == "1":
-            pygame_storage.storage_dict["number_client"] = "1"
+            storage.storage_dict["number_client"] = "1"
         else:
-            pygame_storage.storage_dict["number_client"] = "2"
+            storage.storage_dict["number_client"] = "2"
 
-        print("player", pygame_storage.storage_dict["number_client"])
+        print("player", storage.storage_dict["number_client"])
                        
     def get_data(self):
         while self.listening:
@@ -31,7 +31,7 @@ class Client():
                 try:
                     data = self.client_socket.recv(1024).decode("utf-8")
                     if data:
-                        pygame_storage.storage_dict["DataManager"].load_data(data)
+                        storage.storage_dict["DataManager"].load_data(data)
                 except Exception as error:
                     print(error)
 

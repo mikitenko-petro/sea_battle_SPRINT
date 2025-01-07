@@ -1,6 +1,6 @@
 import pygame
 from .pygame_hitbox import PygameHitBox
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 
 class PygameRect(PygameHitBox, pygame.Rect):
     def __init__(
@@ -15,8 +15,8 @@ class PygameRect(PygameHitBox, pygame.Rect):
 
         self.color = color
 
-        if pygame_storage.storage_dict["debug"]:
-            pygame.draw.rect(pygame_storage.storage_dict["SCREEN"], debug_color, self, 2)
+        if storage.storage_dict["debug"]:
+            pygame.draw.rect(storage.storage_dict["SCREEN"], debug_color, self, 2)
             
     def draw(self, border):
-        pygame.draw.rect(pygame_storage.storage_dict["SCREEN"], self.color, self, border)
+        pygame.draw.rect(storage.storage_dict["SCREEN"], self.color, self, border)

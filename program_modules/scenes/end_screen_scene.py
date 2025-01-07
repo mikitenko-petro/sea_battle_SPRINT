@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 from ..client import Client
 
 #Створюємо клас для створення екрану для під'єднання до серверу
@@ -11,7 +11,7 @@ class EndScreenScene():
 
     #Створюємо метод для створення підключення до сервера
     def run(self, event):
-        if pygame_storage.storage_dict['win'] == True:
+        if storage.storage_dict['win'] == True:
             win_background_image = PygameImage(
                 path = "static/images/victory_bg.png",
                 coordinates = (0, 0),
@@ -54,17 +54,17 @@ class EndScreenScene():
         )
 
     def end_of_work(self):
-        pygame_storage.storage_dict["Client"].listening = False
-        pygame_storage.storage_dict["Client"].client_socket.close()
-        pygame_storage.storage_dict["Client"] = Client()
+        storage.storage_dict["Client"].listening = False
+        storage.storage_dict["Client"].client_socket.close()
+        storage.storage_dict["Client"] = Client()
 
-        pygame_storage.storage_dict["defeated_ship"] = 0
-        pygame_storage.storage_dict["defeated_cells"] = 0
+        storage.storage_dict["defeated_ship"] = 0
+        storage.storage_dict["defeated_cells"] = 0
 
-        if pygame_storage.storage_dict["win"]:
-            pygame_storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
+        if storage.storage_dict["win"]:
+            storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
 
-        pygame_storage.storage_dict['win'] = None
-        pygame_storage.storage_dict["dummy_ship_list"] = []
+        storage.storage_dict['win'] = None
+        storage.storage_dict["dummy_ship_list"] = []
 
-        pygame_storage.storage_dict["SceneManager"].change_scene(scene = "main")
+        storage.storage_dict["SceneManager"].change_scene(scene = "main")

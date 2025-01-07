@@ -1,28 +1,28 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 
 class ShipManager():
     def __init__(self, event):
         self.event = event
-        pygame_storage.add_variable({"picked_ship" : -1})
-        pygame_storage.add_variable({"defeated_ship_list" : []})
+        storage.add_variable({"picked_ship" : -1})
+        storage.add_variable({"defeated_ship_list" : []})
 
-        for i in range(len(pygame_storage.storage_dict["ship_list"])):
-            pygame_storage.storage_dict["ship_list"][i].select_ship(event = self.event)
+        for i in range(len(storage.storage_dict["ship_list"])):
+            storage.storage_dict["ship_list"][i].select_ship(event = self.event)
 
-            if pygame_storage.storage_dict["ship_list"][i].status == "placed" or pygame_storage.storage_dict["ship_list"][i].status == "defeated":
-                pygame_storage.storage_dict["ship_list"][i].show_ship(
+            if storage.storage_dict["ship_list"][i].status == "placed" or storage.storage_dict["ship_list"][i].status == "defeated":
+                storage.storage_dict["ship_list"][i].show_ship(
                     event = event,
-                    x = pygame_storage.storage_dict["PLAYER_GRID"].x + pygame_storage.storage_dict["ship_list"][i].column*50,
-                    y = pygame_storage.storage_dict["PLAYER_GRID"].y + pygame_storage.storage_dict["ship_list"][i].row*50,
+                    x = storage.storage_dict["PLAYER_GRID"].x + storage.storage_dict["ship_list"][i].column*50,
+                    y = storage.storage_dict["PLAYER_GRID"].y + storage.storage_dict["ship_list"][i].row*50,
                 )
             
-            pygame_storage.storage_dict["ship_list"][i].check_collide()
+            storage.storage_dict["ship_list"][i].check_collide()
 
     def show_label(self, coordinates):
         self.x, self.y = coordinates
-        for i in range(len(pygame_storage.storage_dict["ship_list"])):
-            if pygame_storage.storage_dict["ship_list"][i].status == "unplaced":
-                pygame_storage.storage_dict["ship_list"][i].show_ship(
+        for i in range(len(storage.storage_dict["ship_list"])):
+            if storage.storage_dict["ship_list"][i].status == "unplaced":
+                storage.storage_dict["ship_list"][i].show_ship(
                     self.event,
                     x = self.x,
                     y = self.y + i*45,

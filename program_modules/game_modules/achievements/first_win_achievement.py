@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 from .parent_achievement_class import Achievement
 from .unlock_class import Unlock
 
@@ -15,5 +15,5 @@ class FirstWinAchievement(Achievement):
         )
 
     def check_complete(self):
-        if pygame_storage.storage_dict["StatsManager"].stats_dict["winned_games"] > 0:
+        if storage.storage_dict["StatsManager"].stats_dict["winned_games"] > 0:
             self.is_complete = True

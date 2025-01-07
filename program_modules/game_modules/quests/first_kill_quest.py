@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 from .parent_quest_class import Quest
 
 class FirstKillQuest(Quest):
@@ -10,9 +10,9 @@ class FirstKillQuest(Quest):
         self.medals = 1
     
     def check_quest_done(self):
-        if len(pygame_storage.storage_dict["dummy_ship_list"]) == 1:
+        if len(storage.storage_dict["dummy_ship_list"]) == 1:
             is_defeated = False
-            for ship in pygame_storage.storage_dict["ship_list"]:
+            for ship in storage.storage_dict["ship_list"]:
                 if ship.status == "defeated":
                     is_defeated = True
             

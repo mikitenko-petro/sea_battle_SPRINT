@@ -1,6 +1,6 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_hitbox import PygameHitBox
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 
 class CapitanIcon(PygameHitBox):
     def __init__(self, color, coordinates, size, emotion):

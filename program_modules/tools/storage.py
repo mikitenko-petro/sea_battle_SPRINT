@@ -1,5 +1,5 @@
 #Створюємо клас для зберігання даних
-class PygameStorage():
+class Storage():
     def __init__(self):
         self.storage_dict = {}
 
@@ -20,4 +20,4 @@ class PygameStorage():
         if is_found == False:
             self.storage_dict.update(storage_object)
 
-pygame_storage = PygameStorage()
+storage = Storage()

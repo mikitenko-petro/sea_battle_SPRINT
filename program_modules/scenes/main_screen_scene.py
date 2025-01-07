@@ -1,7 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 
 #Робимо клас для Основної сцени гри
 class MainScreenScene():
@@ -26,7 +26,7 @@ class MainScreenScene():
             coordinates = (460, 230),
             size = (128*2, 32*2),
             event = event,
-            function = lambda: pygame_storage.storage_dict["SceneManager"].change_scene(scene = "conect_to_server")
+            function = lambda: storage.storage_dict["SceneManager"].change_scene(scene = "conect_to_server")
         )
 
         move_to_achievement_scene = PygameButton(
@@ -56,4 +56,4 @@ class MainScreenScene():
         )
 
     def move_to_achievement_scene(self):  
-        pygame_storage.storage_dict["SceneManager"].change_scene(scene = "achievement")    
+        storage.storage_dict["SceneManager"].change_scene(scene = "achievement")    

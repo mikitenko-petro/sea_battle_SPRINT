@@ -1,6 +1,6 @@
 from .pygame_image import PygameImage
 from .pygame_hitbox import PygameHitBox
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 import os
 
 class PygameAnimation(PygameHitBox):
@@ -36,4 +36,4 @@ class PygameAnimation(PygameHitBox):
 
         else:
             self.image_list[int(self.step)].display()
-            self.step += self.speed * 60 / pygame_storage.storage_dict["FPS"]
+            self.step += self.speed * 60 / storage.storage_dict["FPS"]

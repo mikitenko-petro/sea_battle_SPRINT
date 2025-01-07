@@ -1,8 +1,8 @@
-from ..widgets.pygame_image import PygameImage
-from ..widgets.pygame_text import PygameText
-from ..game_widgets.buy_ability_button import BuyAbilityButton
+from ...widgets.pygame_image import PygameImage
+from ...widgets.pygame_text import PygameText
+from .buy_ability_button import BuyAbilityButton
 from .ability_button import AbilityButton
-from ..tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 
 class AbilityShopLabel():
     def __init__(self, x, y, event):
@@ -18,9 +18,9 @@ class AbilityShopLabel():
             y = self.y + 10,
         )
 
-        for index, ability in enumerate(pygame_storage.storage_dict["AbilityManager"].ability_dict):
+        for index, ability in enumerate(storage.storage_dict["AbilityManager"].ability_dict):
             ability_icon = AbilityButton(
-                ability = pygame_storage.storage_dict["AbilityManager"].ability_dict[ability],
+                ability = storage.storage_dict["AbilityManager"].ability_dict[ability],
                 coordinates = (self.x + 10, self.y + 60 + index*70),
                 size = (50, 50),
                 event = event,
@@ -28,7 +28,7 @@ class AbilityShopLabel():
             )
 
             ability_description = PygameText(
-                text = pygame_storage.storage_dict["AbilityManager"].ability_dict[ability].description,
+                text = storage.storage_dict["AbilityManager"].ability_dict[ability].description,
                 font_size = 25,
                 x = self.x + 70,
                 y = self.y + 70 + index*70
@@ -38,6 +38,6 @@ class AbilityShopLabel():
                 coordinates = (self.x + 335, self.y + 60 + index*70),
                 size = (50, 50),
                 event = event,
-                function = lambda: pygame_storage.storage_dict["AbilityManager"].ability_dict[ability].buy(),
-                price = pygame_storage.storage_dict["AbilityManager"].ability_dict[ability].price,
+                function = lambda: storage.storage_dict["AbilityManager"].ability_dict[ability].buy(),
+                price = storage.storage_dict["AbilityManager"].ability_dict[ability].price,
             )

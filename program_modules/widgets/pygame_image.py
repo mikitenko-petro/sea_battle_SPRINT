@@ -1,5 +1,5 @@
 import pygame
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 #Створюємо клас для фото
 class PygameImage():
     def __init__(
@@ -12,7 +12,7 @@ class PygameImage():
         already_display : bool = True):
 
         #Робим відображення кнопки
-        self.image = pygame_storage.storage_dict["ImageContainer"].images[path]
+        self.image = storage.storage_dict["ImageContainer"].images[path]
         self.image = pygame.transform.scale(self.image, size)
         self.image.set_alpha(alpha)
 
@@ -27,4 +27,4 @@ class PygameImage():
             self.display()
 
     def display(self):
-        pygame_storage.storage_dict["SCREEN"].blit(self.image, (self.rect.x, self.rect.y))
+        storage.storage_dict["SCREEN"].blit(self.image, (self.rect.x, self.rect.y))

@@ -3,9 +3,9 @@ from ..widgets.pygame_text import PygameText
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_rect import PygameRect
 from ..widgets.pygame_check_box import PygameCheckBox
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 from ..game_modules.quests.quest_manager import QuestManager
-from ..game_widgets.ability_shop_label import AbilityShopLabel
+from .ability.ability_shop_label import AbilityShopLabel
 
 class QuestLabel():
     def __init__(self, x, y, event):
@@ -22,9 +22,9 @@ class QuestLabel():
 
         self.abilites_list = ["Radar", "Drone", "Shield"]
 
-        pygame_storage.add_variable({"QuestManager": QuestManager()})
+        storage.add_variable({"QuestManager": QuestManager()})
 
-        if pygame_storage.storage_dict["show_quests"]:
+        if storage.storage_dict["show_quests"]:
             self.bg = PygameRect(
                 coordinates = (x, y),
                 size = (400, 700),
@@ -41,7 +41,7 @@ class QuestLabel():
             )
 
             medal_text = PygameText(
-                text = pygame_storage.storage_dict["medals"],
+                text = storage.storage_dict["medals"],
                 font_size = 40,
                 x = self.x + 320,
                 y = self.y + 20,
@@ -53,7 +53,7 @@ class QuestLabel():
                 size = (50, 50)
             )
 
-            for index, quest in enumerate(pygame_storage.storage_dict["QuestManager"].quests_list):
+            for index, quest in enumerate(storage.storage_dict["QuestManager"].quests_list):
                 quest_image = PygameImage(
                     path = quest.image_path,
                     coordinates = (self.x + 10, self.y + 60 + index*70),
@@ -94,8 +94,8 @@ class QuestLabel():
                 event = event
             )
             
-        pygame_storage.storage_dict["QuestManager"].check_all_quests()
+        storage.storage_dict["QuestManager"].check_all_quests()
                 
 
     def show_quests(self):
-        pygame_storage.storage_dict["show_quests"] = not pygame_storage.storage_dict["show_quests"]
+        storage.storage_dict["show_quests"] = not storage.storage_dict["show_quests"]

@@ -1,4 +1,4 @@
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
 from .artilery import Artilery
 from .radio_set import RadioSet
 from .shield import Shield

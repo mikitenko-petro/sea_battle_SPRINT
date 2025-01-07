@@ -1,6 +1,6 @@
 from .parent_ability_class import Ability
-from ..battle.check_hit_collision import check_hit_collision
-from ...tools.pygame_storage import pygame_storage
+from ...tools.storage import storage
+from ...tools.string_manager import write_string
 
 class Shield(Ability):
     def __init__(self):
@@ -15,9 +15,10 @@ class Shield(Ability):
 
     @Ability.usage
     def use_ability(self):
-        row = pygame_storage.storage_dict["selected_row"]
-        column = pygame_storage.storage_dict["selected_column"]
+        row = storage.storage_dict["selected_row"]
+        column = storage.storage_dict["selected_column"]
         
-        if check_hit_collision(column, row, enemy = False):
-            if pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] == "~":
-                pygame_storage.storage_dict["PLAYER_GRID"].grid[row][column] = "O"
+        if storage.storage_dict["PLAYER_GRID"].grid[row][column] == "~":
+            storage.storage_dict["PLAYER_GRID"].grid[row][column] = "O"
+
+        storage.storage_dict["Client"].send_data(write_string("shoot_coord", "shield_placed"))
