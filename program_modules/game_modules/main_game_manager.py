@@ -17,14 +17,6 @@ class MainGameManager():
         storage.add_variable({"moves": 0})
         storage.add_variable({"hits": 0})
 
-    def shoot(self, row, column):
-        if storage.storage_dict["player_turn"]:
-            storage.storage_dict["Client"].send_data(write_string("shoot_coord", row, column))
-            storage.storage_dict["player_turn"] = False
-            storage.storage_dict["last_row"] = row
-            storage.storage_dict["last_column"] = column
-            storage.storage_dict["moves"] += 1
-
     def check_hit(self):
         if len(storage.storage_dict["DataManager"].data["shoot_coord"]) > 0:
             data = storage.storage_dict["DataManager"].data["shoot_coord"][0]
@@ -50,28 +42,29 @@ class MainGameManager():
                     storage.storage_dict["player_turn"] = True
 
             elif len(data) == 3:
-                status = data[0]
+                status = str(data[0])
                 row = int(data[1])
                 column = int(data[2])
 
-                if status == "hit":
-                    storage.storage_dict["ENEMY_GRID"].grid[row][column] = "X"
-                    # music_manager.music_dict["kill_effect"].play()
-                    storage.storage_dict["player_turn"] = True
+                match status:
+                    case "hit":
+                        storage.storage_dict["ENEMY_GRID"].grid[row][column] = "X"
+                        storage.storage_dict["player_turn"] = True
+                        music_manager.music_dict["hit_effect"].play()
 
-                elif status == "shield":
-                    storage.storage_dict["ENEMY_GRID"].grid[row][column] = "o"
-                    music_manager.music_dict["shield4"].play()
+                    case "shield":
+                        storage.storage_dict["ENEMY_GRID"].grid[row][column] = "o"
+                        music_manager.music_dict["shield4"].play()
 
-                elif status == "shield_placed":
-                    storage.storage_dict["player_turn"] = True
-                    music_manager.music_dict["shield1"].play()
-
-                else:
-                    storage.storage_dict["ENEMY_GRID"].grid[row][column] = "x"
+                    case _:
+                        storage.storage_dict["ENEMY_GRID"].grid[row][column] = "x"
 
                 storage.storage_dict["hits"] += 1
-                
+
+            elif len(data) == 1:
+                if data[0] == "shield_placed":
+                    storage.storage_dict["player_turn"] = True
+                    music_manager.music_dict["shield1"].play()
 
             storage.storage_dict["DataManager"].data["shoot_coord"].pop(0)
                  
@@ -108,13 +101,12 @@ class MainGameManager():
                     column = int(data[4]),
                 )
             )
-
-            storage.storage_dict["DataManager"].data["defeated_ship"] = None
+            music_manager.music_dict["kill_effect"].play()
 
             storage.storage_dict["DataManager"].data["defeated_ship"].pop(0)
 
-    for dummy in storage.storage_dict["dummy_ship_list"]:
-        dummy.show_ship()
+        for dummy in storage.storage_dict["dummy_ship_list"]:
+            dummy.show_ship()
 
     def event_manager(self):
         self.check_lose()

@@ -5,6 +5,7 @@ from ...widgets.pygame_rect import PygameRect
 from ...widgets.pygame_animation import PygameAnimation
 from ...tools.storage import storage
 from ...tools.music_manager import music_manager
+from ...tools.string_manager import write_string
 import pygame
 
 class Cell(PygameHitBox):
@@ -41,12 +42,6 @@ class Cell(PygameHitBox):
         )
 
         if type == "x":
-            cell = PygameImage(
-                path = "static/images/cell.png",
-                coordinates = (initial_x + self.x, initial_y + self.y),
-                size = size
-            )
-
             storage.add_variable({f"bauble_animation_{self.row}_{self.column}_{self.grid_type}":
                     PygameAnimation(
                         animation_name = "baubles",
@@ -60,12 +55,6 @@ class Cell(PygameHitBox):
             storage.storage_dict[f"bauble_animation_{self.row}_{self.column}_{self.grid_type}"].display()
 
         elif type == "X":
-            cell = PygameImage(
-                path = "static/images/cell.png",
-                coordinates = (initial_x + self.x, initial_y + self.y),
-                size = size
-            )
-
             storage.add_variable({f"scrap_animation_{self.row}_{self.column}_{self.grid_type}":
                     PygameAnimation(
                         animation_name = "scrap",
@@ -103,23 +92,26 @@ class Cell(PygameHitBox):
             )
     
     def set_current_cell(self):
-        storage.storage_dict["selected_row"] = self.row
-        storage.storage_dict["selected_column"] = self.column
+        enemy_cell = storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
         
-        if storage.storage_dict["SceneManager"].current_scene == "game":
-            enemy_cell = storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
+        if storage.storage_dict["SceneManager"].current_scene == "game" and storage.storage_dict["player_turn"]:
             match storage.storage_dict["AbilityManager"].picked_ability:
                 case None:
                     if self.grid_type == "enemy" and (enemy_cell == "" or enemy_cell == "o"):
-                        if storage.storage_dict["player_turn"] == True:
+                        storage.storage_dict["Client"].send_data(
+                            write_string("shoot_coord", self.row, self.column)
+                        )
+                        storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column] = "x"
 
-                            storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column] = "x"
-                            storage.storage_dict["MainGameManager"].shoot(self.row, self.column)
-                            storage.storage_dict["player_turn"] = False
+                        storage.storage_dict["moves"] += 1
+                        storage.storage_dict["player_turn"] = False
                 
-                case "Shield":
-                    if self.grid_type == "player":
-                        storage.storage_dict["AbilityManager"].ability_dict["Shield"].use_ability()
+                case "Shield":           
+                    if self.grid_type == "player" and self.type == "~":
+                        storage.storage_dict["AbilityManager"].ability_dict["Shield"].use_ability(
+                            row = self.row,
+                            column = self.column
+                        )
                         music_manager.music_dict["shield1"].play()
                 
                 case "RadioSet":
@@ -129,7 +121,10 @@ class Cell(PygameHitBox):
                 case "Artilery":
                     if self.grid_type == "enemy":
                         if (0 < self.row < 9) and (0 < self.column < 9):
-                            storage.storage_dict["AbilityManager"].ability_dict["Artilery"].use_ability(row = self.row, column = self.column)
+                            storage.storage_dict["AbilityManager"].ability_dict["Artilery"].use_ability(
+                                row = self.row,
+                                column = self.column
+                            )
 
     def check_for_ship(self):
         for ship in storage.storage_dict["ship_list"]:

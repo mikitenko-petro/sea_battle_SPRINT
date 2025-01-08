@@ -90,6 +90,10 @@ class ConectToServerScreenScene():
             self.prepare_to_game()
 
             storage.storage_dict["SceneManager"].change_scene(scene = "prepare_to_game")
+            
+        except ConnectionRefusedError:
+            ...
+
         except Exception as error:
             print(error)
 

@@ -32,6 +32,9 @@ class Client():
                     data = self.client_socket.recv(1024).decode("utf-8")
                     if data:
                         storage.storage_dict["DataManager"].load_data(data)
+                except ConnectionAbortedError:
+                    ...
+                
                 except Exception as error:
                     print(error)
 

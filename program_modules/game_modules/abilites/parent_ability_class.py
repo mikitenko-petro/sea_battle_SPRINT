@@ -17,13 +17,11 @@ class Ability():
     def usage(func):
         def handle(self, **kwargs):
             if self.amount > 0:
-                if kwargs.get("row") and kwargs.get("column"):
-                    func(self, kwargs["row"], kwargs["column"])
-                else:
-                    func(self)
+                func(self, kwargs["row"], kwargs["column"])
 
                 self.amount -= 1
                 storage.storage_dict["player_turn"] = False
                 storage.storage_dict["AbilityManager"].picked_ability = None
+                storage.storage_dict["moves"] += 1
 
         return handle

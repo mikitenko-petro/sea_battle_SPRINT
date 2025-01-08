@@ -39,6 +39,7 @@ def run():
 
         for pygame_event in event:
             if pygame_event.type == pygame.QUIT:
+                # storage.storage_dict["Client"].send_data("Close server")
                 storage.storage_dict["Client"].listening = False
                 storage.storage_dict["Client"].client_socket.close()
                 sys.exit()

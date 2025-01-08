@@ -14,11 +14,6 @@ class Shield(Ability):
         self.price = 3
 
     @Ability.usage
-    def use_ability(self):
-        row = storage.storage_dict["selected_row"]
-        column = storage.storage_dict["selected_column"]
-        
-        if storage.storage_dict["PLAYER_GRID"].grid[row][column] == "~":
-            storage.storage_dict["PLAYER_GRID"].grid[row][column] = "O"
-
+    def use_ability(self, row, column):
+        storage.storage_dict["PLAYER_GRID"].grid[row][column] = "O"
         storage.storage_dict["Client"].send_data(write_string("shoot_coord", "shield_placed"))
