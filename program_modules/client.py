@@ -1,15 +1,14 @@
 import socket
-from .tools.pygame_storage import pygame_storage
+from .tools.storage import storage
 import threading
 
 class Client():
-    def __init__(self, ip : str, port : int):
+    def __init__(self):
         self.client_socket = socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM)
-        self.ip = ip    
-        self.port = port
+        self.ip = ""    
+        self.port = 0
         self.get_data_func = threading.Thread(target = self.get_data)
         
-        self.data = None
         self.listening = True
         
     def join(self):
@@ -17,20 +16,25 @@ class Client():
 
         player_type = self.client_socket.recv(1024).decode("utf-8")
 
-        pygame_storage.add_variable({"number_client" : None})
+        storage.add_variable({"number_client" : None})
 
         if player_type == "1":
-            pygame_storage.storage_dict["number_client"] = "1"
+            storage.storage_dict["number_client"] = "1"
         else:
-            pygame_storage.storage_dict["number_client"] = "2"
+            storage.storage_dict["number_client"] = "2"
+
+        print("player", storage.storage_dict["number_client"])
                        
     def get_data(self):
         while self.listening:
             if self.ip != "" and self.port != 0:
                 try:
-                    data = self.client_socket.recv(1024)
+                    data = self.client_socket.recv(1024).decode("utf-8")
                     if data:
-                        self.data = data.decode("utf-8")
+                        storage.storage_dict["DataManager"].load_data(data)
+                except ConnectionAbortedError:
+                    ...
+                
                 except Exception as error:
                     print(error)
 

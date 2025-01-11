@@ -4,7 +4,6 @@ from .pygame_text import PygameText
 class PygameLabel(PygameImage, PygameText):
     def __init__(
         self,
-        screen : object,
         path : str,
         coordinates : tuple,
         size : tuple,
@@ -17,7 +16,7 @@ class PygameLabel(PygameImage, PygameText):
         width, height = size
 
         PygameImage.__init__(
-            self, screen, path, coordinates, size)
+            self, path, coordinates, size)
 
         #Розположення тексту
         text_x = x + width/2 - len(text)*font_size/6
@@ -25,7 +24,6 @@ class PygameLabel(PygameImage, PygameText):
 
         PygameText.__init__(
             self,
-            screen = screen,
             text = text,
             font_size = font_size,
             x = text_x,

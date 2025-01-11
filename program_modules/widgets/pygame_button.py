@@ -14,8 +14,7 @@ class PygameButton(PygameHitBox):
         font_size = 20,
         font : str | None = None,
         text : str | None = None,
-        path : str | None = None,
-        screen : object | None = None):
+        path : str | None = None):
 
         #
         PygameHitBox.__init__(self, coordinates, size)
@@ -23,7 +22,6 @@ class PygameButton(PygameHitBox):
         #
         if path != None:
             self.button_image = PygameImage(
-                screen = screen,
                 path = path,
                 coordinates = coordinates,
                 size = size
@@ -37,7 +35,6 @@ class PygameButton(PygameHitBox):
 
             #Робим текст для кнопки
             self.button_text = PygameText(
-                screen = screen,
                 text = text,
                 font = font,
                 font_size = font_size,

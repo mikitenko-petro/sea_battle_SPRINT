@@ -1,27 +1,24 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 from ..client import Client
 
 #Створюємо клас для створення екрану для під'єднання до серверу
 class EndScreenScene():
-    def __init__(self, screen : object, scene_manager : object):
-        self.scene_manager = scene_manager
-        self.screen = screen
+    def __init__(self):
+        pass
 
     #Створюємо метод для створення підключення до сервера
     def run(self, event):
-        if pygame_storage.storage_dict['win'] == True:
+        if storage.storage_dict['win'] == True:
             win_background_image = PygameImage(
-                screen = self.screen,
                 path = "static/images/victory_bg.png",
                 coordinates = (0, 0),
                 size = (1200, 700)
             )
 
             win_text = PygameText(
-                screen = self.screen,
                 text = "VICTORY",
                 font_size = 200,
                 x = 200,
@@ -32,14 +29,12 @@ class EndScreenScene():
             
         else:
             defeat_background_image = PygameImage(
-                    screen = self.screen,
-                    path = "static/images/defeat_bg.png",
-                    coordinates = (0, 0),
-                    size = (1200, 700)
-                )
+                path = "static/images/defeat_bg.png",
+                coordinates = (0, 0),
+                size = (1200, 700)
+            )
 
             defeat_text = PygameText(
-                screen = self.screen,
                 text = "DEFEAT",
                 font_size = 200,
                 x = 220,
@@ -49,7 +44,6 @@ class EndScreenScene():
             )
 
         return_to_home_button = PygameButton(
-            screen = self.screen,
             path = "static/images/green_button.png",
             text = "return",
             font_size = 50,
@@ -60,12 +54,17 @@ class EndScreenScene():
         )
 
     def end_of_work(self):
-        pygame_storage.storage_dict["GAME"].client.listening = False
-        pygame_storage.storage_dict["GAME"].client.client_socket.close()
-        pygame_storage.storage_dict["GAME"].client = Client(ip = "", port = 0)
+        storage.storage_dict["Client"].listening = False
+        storage.storage_dict["Client"].client_socket.close()
+        storage.storage_dict["Client"] = Client()
 
-        pygame_storage.storage_dict["defeated_ship"] = 0
-        pygame_storage.storage_dict["defeated_cells"] = 0
-        pygame_storage.storage_dict['win'] = None
+        storage.storage_dict["defeated_ship"] = 0
+        storage.storage_dict["defeated_cells"] = 0
 
-        self.scene_manager.change_scene(scene = "main")
+        if storage.storage_dict["win"]:
+            storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
+
+        storage.storage_dict['win'] = None
+        storage.storage_dict["dummy_ship_list"] = []
+
+        storage.storage_dict["SceneManager"].change_scene(scene = "main")

@@ -1,47 +1,57 @@
 import pygame
 import sys
-from .tools.scene_manager import SceneManager
-from .game_widgets.fps_counter import FpsCounter
-from .tools.pygame_storage import pygame_storage
+from .tools.storage import storage
 from .client import Client
+from .tools.scene_manager import SceneManager
 from .tools.image_container import ImageContainer
+from .game_modules.main_game_manager import MainGameManager
+from .tools.data_manager import DataManager
+from .game_widgets.tools.fps_counter import FpsCounter
+from .game_modules.achievements.achievement_manager import AchievementManager
+from .game_modules.stats.stats_manager import StatsManager
+from .game_modules.abilites.ability_manager import AbilityManager
 
-#Робим класс гри
-class Game():
-    def __init__(self):
-        pygame.init()
-        self.screen = pygame.display.set_mode(size = (1200, 700))
-        self.client = Client(ip = "", port = 0)
-        
-        self.scene_manager = SceneManager(screen = self.screen, client = self.client)
-        self.image_container = ImageContainer()
-        
-        pygame_storage.add_variable({"debug": False})
-        self.fps_counter = FpsCounter(screen = self.screen, x = 0, y = 0)
+pygame.init()
+storage.add_variable({"debug": False})
 
-    #Робим клас запуску гри
-    def run(self):
-        #Робим цикл
-        while True:
-            #Отримуємо усі дії миші та клавіатури
-            event = pygame.event.get()
+storage.add_variable({"SCREEN" : pygame.display.set_mode(size = (1200, 700))}) 
+storage.add_variable({"ImageContainer" : ImageContainer()})
+storage.add_variable({"Client" : Client()})
+storage.add_variable({"SceneManager" : SceneManager()})
+storage.add_variable({"DataManager" : DataManager()})
+storage.add_variable({"AchievementManager": AchievementManager()})
+storage.add_variable({"MainGameManager" : MainGameManager()})
+storage.add_variable({"StatsManager" : StatsManager()})
+storage.add_variable({"AbilityManager" : AbilityManager()})
 
-            #робим ще один цикл
-            for pygame_event in event:
-                if pygame_event.type == pygame.QUIT:
-                    self.client.listening = False
-                    self.client.client_socket.close()
-                    sys.exit()
+pygame.display.set_caption('Great Sea Battle')
+pygame.display.set_icon(storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
 
-            self.scene_manager.show(event = event)
+storage.add_variable({"clock": pygame.time.Clock()})
 
-            self.fps_counter.render()
+def run():
+    fps_counter = FpsCounter(x = 0, y = 0)
+    storage.storage_dict["AchievementManager"].load_achievements()
+    storage.storage_dict["StatsManager"].load_stats()
 
-            pygame.display.update()
-            pygame.display.flip()
-            self.fps_counter.clock.tick(60)
+    while True:
+        event = pygame.event.get()
 
-pygame_storage.add_variable({"GAME": Game()})
-#Метод для запуску гри
-def start_game():
-    pygame_storage.storage_dict["GAME"].run()
+        for pygame_event in event:
+            if pygame_event.type == pygame.QUIT:
+                # storage.storage_dict["Client"].send_data("Close server")
+                storage.storage_dict["Client"].listening = False
+                storage.storage_dict["Client"].client_socket.close()
+                sys.exit()
+
+        storage.storage_dict["SceneManager"].show(event = event)
+
+        storage.storage_dict["AchievementManager"].check_all_achievements()
+        storage.storage_dict["StatsManager"].save_stats()
+        storage.storage_dict["AchievementManager"].check_unlocks()
+
+        fps_counter.render()
+
+        pygame.display.update()
+        pygame.display.flip()
+        storage.storage_dict["clock"].tick(60)

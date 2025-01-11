@@ -1,1 +1,1 @@
-from program_modules.pygame_setup import start_game
+from program_modules.pygame_setup import run

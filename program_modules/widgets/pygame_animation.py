@@ -1,12 +1,11 @@
 from .pygame_image import PygameImage
 from .pygame_hitbox import PygameHitBox
-from ..tools.pygame_storage import pygame_storage
+from ..tools.storage import storage
 import os
 
 class PygameAnimation(PygameHitBox):
     def __init__(
         self,
-        screen : object,
         animation_name : str,
         coordinates : tuple,
         size : tuple,
@@ -16,7 +15,6 @@ class PygameAnimation(PygameHitBox):
 
         self.animation_name = animation_name
 
-        self.screen = screen
         self.image_list = []
         self.step = 0
         self.speed = speed
@@ -24,7 +22,6 @@ class PygameAnimation(PygameHitBox):
         for image in os.listdir(f"static/images/{self.animation_name}"):
             self.image_list.append(
                 PygameImage(
-                    screen = self.screen,
                     path = f"static/images/{self.animation_name}/{image}",
                     coordinates = (self.x, self.y),
                     size = (self.width, self.height),
@@ -34,8 +31,9 @@ class PygameAnimation(PygameHitBox):
         
     def display(self):
         if self.step >= len(self.image_list):
+            self.image_list[0].display()
             self.step = 0
 
         else:
             self.image_list[int(self.step)].display()
-            self.step += self.speed * 60 / pygame_storage.storage_dict["FPS"]
+            self.step += self.speed * 60 / storage.storage_dict["FPS"]
