@@ -8,6 +8,7 @@ class Ability():
         self.name = self.__class__.__name__
         self.amount = 0
         self.price = 0
+        self.is_unlocked = False
     
     def buy(self):
         if storage.storage_dict["medals"] >= self.price:

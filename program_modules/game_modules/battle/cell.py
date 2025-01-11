@@ -73,7 +73,14 @@ class Cell(PygameHitBox):
                 coordinates = (initial_x + self.x, initial_y + self.y),
                 size = size
             )
-        
+
+        elif type == "*":
+            cell = PygameImage(
+                path = "static/images/radio_set_tile.png",
+                coordinates = (initial_x + self.x, initial_y + self.y),
+                size = size
+            )  
+             
     def click_checking(self, event):
         mouse_x, mouse_y = pygame.mouse.get_pos()
 
@@ -112,11 +119,14 @@ class Cell(PygameHitBox):
                             row = self.row,
                             column = self.column
                         )
-                        music_manager.music_dict["shield1"].play()
                 
                 case "RadioSet":
                     if self.grid_type == "enemy":
-                        ...
+                        if (0 < self.row < 9) and (0 < self.column < 9):
+                            storage.storage_dict["AbilityManager"].ability_dict["RadioSet"].use_ability(
+                                row = self.row,
+                                column = self.column
+                            )
 
                 case "Artilery":
                     if self.grid_type == "enemy":

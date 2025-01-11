@@ -29,7 +29,7 @@ class MainGameManager():
                 if storage.storage_dict["PLAYER_GRID"].grid[row][column] == "~":
                     storage.storage_dict["Client"].send_data(write_string("shoot_coord","hit", row, column))
                     storage.storage_dict["PLAYER_GRID"].grid[row][column] = "X"
-                    music_manager.music_dict["hit_effect"].play()
+                    music_manager.sfx["hit_effect"].play()
 
                 elif storage.storage_dict["PLAYER_GRID"].grid[row][column] == "O":
                     storage.storage_dict["Client"].send_data(write_string("shoot_coord","shield", row, column))
@@ -50,21 +50,32 @@ class MainGameManager():
                     case "hit":
                         storage.storage_dict["ENEMY_GRID"].grid[row][column] = "X"
                         storage.storage_dict["player_turn"] = True
-                        music_manager.music_dict["hit_effect"].play()
+                        music_manager.sfx["hit_effect"].play()
 
                     case "shield":
                         storage.storage_dict["ENEMY_GRID"].grid[row][column] = "o"
-                        music_manager.music_dict["shield4"].play()
+                        music_manager.sfx["shield4"].play()
 
-                    case _:
-                        storage.storage_dict["ENEMY_GRID"].grid[row][column] = "x"
+                    case "radio_set":
+                        storage.storage_dict["AbilityManager"].ability_dict["RadioSet"].scan_area(
+                            row = row,
+                            column = column
+                        )
+                        storage.storage_dict["player_turn"] = True
 
                 storage.storage_dict["hits"] += 1
+
+            elif len(data) == 4:
+                status = str(data[1])
+                row = int(data[2])
+                column = int(data[3])
+                
+                storage.storage_dict["ENEMY_GRID"].grid[row][column] = status
 
             elif len(data) == 1:
                 if data[0] == "shield_placed":
                     storage.storage_dict["player_turn"] = True
-                    music_manager.music_dict["shield1"].play()
+                    music_manager.sfx["shield1"].play()
 
             storage.storage_dict["DataManager"].data["shoot_coord"].pop(0)
                  
@@ -101,7 +112,7 @@ class MainGameManager():
                     column = int(data[4]),
                 )
             )
-            music_manager.music_dict["kill_effect"].play()
+            music_manager.sfx["kill_effect"].play()
 
             storage.storage_dict["DataManager"].data["defeated_ship"].pop(0)
 

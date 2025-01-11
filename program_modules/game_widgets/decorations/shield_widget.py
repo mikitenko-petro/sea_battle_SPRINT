@@ -3,7 +3,6 @@ from ...widgets.pygame_image import PygameImage
 
 class ShieldWidget():
     def __init__(self):
-        #I HAVE PLAYED THIS GAME BEFORE
         for cell in storage.storage_dict["PLAYER_GRID"].cell_list:
             if cell.type == "O":
                 image = PygameImage(

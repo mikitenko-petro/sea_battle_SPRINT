@@ -1,4 +1,3 @@
-from ...tools.storage import storage
 from .artilery import Artilery
 from .radio_set import RadioSet
 from .shield import Shield
@@ -7,8 +6,8 @@ class AbilityManager():
     def __init__(self):
         self.ability_dict = {
             "Shield": Shield(),
-            "RadioSet": RadioSet(),
             "Artilery": Artilery(),
+            "RadioSet": RadioSet(),
         }
 
         self.picked_ability = None

@@ -11,7 +11,8 @@ class FifthWinAchievement(Achievement):
         self.image_path = "static/images/fifth_win_icon.png"
         
         self.unlock = Unlock(
-            path = "static/images/rocket_artilery.png"
+            path = "static/images/radio_set.png",
+            ability = "RadioSet",
         )
 
     def check_complete(self):

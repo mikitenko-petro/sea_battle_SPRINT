@@ -15,11 +15,11 @@ class Artilery(Ability):
         self.last_coordinates = []
 
         self.amount = 0
-        self.price = 3
+        self.price = 4
 
     @Ability.usage
     def use_ability(self, row, column):
-        music_manager.music_dict["hit_effect"].play()
+        music_manager.sfx["hit_effect"].play()
         for i in range(3):
             sleep(0.1)
             while True:

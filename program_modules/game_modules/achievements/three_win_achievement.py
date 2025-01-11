@@ -11,7 +11,8 @@ class ThreeWinAchievement(Achievement):
         self.image_path = "static/images/third_win_icon.png"
         
         self.unlock = Unlock(
-            path = "static/images/radio_set.png"
+            path = "static/images/rocket_artilery.png",
+            ability = "RocketArtilery"
         )
 
     def check_complete(self):

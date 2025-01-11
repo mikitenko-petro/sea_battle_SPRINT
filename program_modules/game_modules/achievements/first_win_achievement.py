@@ -11,7 +11,8 @@ class FirstWinAchievement(Achievement):
         self.image_path = "static/images/first_win_icon.png"
         
         self.unlock = Unlock(
-            path = "static/images/shield.png"
+            path = "static/images/shield.png",
+            ability = "Shield"
         )
 
     def check_complete(self):
