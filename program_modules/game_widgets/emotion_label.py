@@ -19,7 +19,7 @@ class EmotionLable():
         if storage.storage_dict["show_emotion_label"]:
             panel = PygameImage(
                 path = "static/images/blue_label.png",
-                coordinates = (465, 85),
+                coordinates = (465, 80),
                 size = (128*2, 32*2)
             )
 

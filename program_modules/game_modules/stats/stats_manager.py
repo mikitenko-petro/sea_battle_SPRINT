@@ -7,11 +7,12 @@ class StatsManager():
             "winned_games" : 0,
         }
 
-        self.stats_data = self.stats_dict
+        self.stats_data = {}
 
     def load_stats(self):
         try:
             self.stats_dict = read_json("static/json/stats.json")
+            print(self.stats_data)
         except FileNotFoundError:
             pass
 
@@ -20,5 +21,5 @@ class StatsManager():
             write_json("static/json/stats.json", self.stats_dict)
 
         if self.stats_data != self.stats_dict:
-            self.stats_data = self.stats_dict
+            self.stats_data = self.stats_dict.copy()
             write_json("static/json/stats.json", self.stats_data)

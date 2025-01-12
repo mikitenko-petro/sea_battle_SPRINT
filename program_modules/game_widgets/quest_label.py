@@ -20,11 +20,9 @@ class QuestLabel():
             path = "static/images/quest_icon.png",
         )
 
-        self.abilites_list = ["Radar", "Drone", "Shield"]
-
         storage.add_variable({"QuestManager": QuestManager()})
 
-        if storage.storage_dict["show_quests"]:
+        if storage.storage_dict["show_quests"]:  
             self.bg = PygameRect(
                 coordinates = (x, y),
                 size = (400, 700),
@@ -51,6 +49,13 @@ class QuestLabel():
                 path = "static/images/medal.png",
                 coordinates = (self.x + 350, self.y + 10),
                 size = (50, 50)
+            )
+
+            self.quit_button = PygameButton(
+                coordinates = (50, 0),
+                size = (750, 700),
+                event = event,
+                function = self.show_quests
             )
 
             for index, quest in enumerate(storage.storage_dict["QuestManager"].quests_list):
@@ -95,7 +100,6 @@ class QuestLabel():
             )
             
         storage.storage_dict["QuestManager"].check_all_quests()
-                
 
     def show_quests(self):
         storage.storage_dict["show_quests"] = not storage.storage_dict["show_quests"]

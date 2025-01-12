@@ -11,7 +11,7 @@ class EndScreenScene():
 
     #Створюємо метод для створення підключення до сервера
     def run(self, event):
-        if storage.storage_dict['win'] == True:
+        if storage.storage_dict['win']:
             win_background_image = PygameImage(
                 path = "static/images/victory_bg.png",
                 coordinates = (0, 0),

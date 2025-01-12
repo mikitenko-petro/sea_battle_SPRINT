@@ -7,7 +7,6 @@ from ...game_widgets.ship_buttons.turn_button import TurnButton
 from ...game_widgets.ship_buttons.return_button import ReturnButton
 from ...widgets.pygame_rect import PygameRect
 from ...tools.string_manager import write_string
-import pygame
 
 class Ship():
     def __init__(self, type, id):
@@ -239,8 +238,7 @@ class Ship():
             
     def check_collide(self):
         collision_list = []
-        storage.storage_dict["check_placement"] = False
-
+        
         for collision in storage.storage_dict["collision_list"]:
             collision_list.append(collision)
 

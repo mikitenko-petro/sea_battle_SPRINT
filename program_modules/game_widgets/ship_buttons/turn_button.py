@@ -2,14 +2,13 @@ from ...tools.storage import storage
 from ...widgets.pygame_button import PygameButton
 
 class TurnButton():
-    def __init__(self, screen : object, coordinates : tuple, event : object, id : int):
+    def __init__(self, coordinates : tuple, event : object, id : int):
         turn_button = PygameButton(
             coordinates = coordinates, 
             size = (50, 50),
             event = event, 
             function = lambda : self.rotate(id = id),
             path = "static/images/turn_button.png",
-            screen = screen
         )
         
     def rotate(self, id : int):

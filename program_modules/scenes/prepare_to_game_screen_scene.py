@@ -15,6 +15,7 @@ class PrepareToGameScreenScene():
 
     #Робим метод для створення єкрану для підготовки гри
     def run(self, event : object):
+        storage.storage_dict["check_placement"] = False
         #Робим фон
         background_image = PygameImage(
             path = "static/images/sea_bg.png",
