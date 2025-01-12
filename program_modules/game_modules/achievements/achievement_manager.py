@@ -10,7 +10,7 @@ class AchievementManager():
         self.achievements_dict = {
             "FirstWinAchievement": FirstWinAchievement(),
             "ThreeWinAchievement": ThreeWinAchievement(),
-            "FifthWinAchivement": FifthWinAchievement()
+            "FifthWinAchievement": FifthWinAchievement()
         }
 
         self.achievements_data = {}

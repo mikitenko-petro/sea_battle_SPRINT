@@ -7,11 +7,12 @@ class MusicManager():
         self.volume = 1.0
 
         self.sfx = {
-            "kill_effect": mixer.Sound("static/sound/effects/kill.mp3"),
-            "hit_effect":  mixer.Sound("static/sound/effects/hit.mp3"),
-            "shield1": mixer.Sound("static/sound/effects/shield1.mp3"),
-            "shield2": mixer.Sound("static/sound/effects/shield2.mp3"),
-            "shield4": mixer.Sound("static/sound/effects/shield4.mp3"),
+            "kill_effect": mixer.Sound(search_path("static/sound/effects/kill.mp3")),
+            "hit_effect":  mixer.Sound(search_path("static/sound/effects/hit.mp3")),
+            "shield1": mixer.Sound(search_path("static/sound/effects/shield1.mp3")),
+            "shield2": mixer.Sound(search_path("static/sound/effects/shield2.mp3")),
+            "shield4": mixer.Sound(search_path("static/sound/effects/shield4.mp3")),
+            "radio_set": mixer.Sound(search_path("static/sound/effects/radio_set.wav"))
         }
 
         for sfx in self.sfx:

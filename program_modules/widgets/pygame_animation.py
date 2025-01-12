@@ -9,7 +9,8 @@ class PygameAnimation(PygameHitBox):
         animation_name : str,
         coordinates : tuple,
         size : tuple,
-        speed : float = 1.0):
+        speed : float = 1.0,
+        loop : bool = True):
 
         PygameHitBox.__init__(self, coordinates, size)
 
@@ -18,8 +19,19 @@ class PygameAnimation(PygameHitBox):
         self.image_list = []
         self.step = 0
         self.speed = speed
+        self.loop = loop
 
-        for image in os.listdir(f"static/images/{self.animation_name}"):
+        def sort_by_number(filename):
+            number = ""
+            for char in filename:
+                if char.isdigit():
+                    number += char
+            return int(number)
+        
+        image_list = os.listdir(f"static/images/{self.animation_name}")
+        image_list.sort(key=sort_by_number)
+
+        for image in image_list:
             self.image_list.append(
                 PygameImage(
                     path = f"static/images/{self.animation_name}/{image}",
@@ -30,7 +42,7 @@ class PygameAnimation(PygameHitBox):
         )
         
     def display(self):
-        if self.step >= len(self.image_list):
+        if self.step >= len(self.image_list) and self.loop:
             self.image_list[0].display()
             self.step = 0
 

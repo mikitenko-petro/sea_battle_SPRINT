@@ -1,5 +1,6 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_label import PygameLabel
+from ..widgets.pygame_animation import PygameAnimation
 from ..game_widgets.decorations.fire_animation_widget import FireAnimationWidget
 from ..game_widgets.decorations.shield_widget import ShieldWidget
 from ..tools.storage import storage
@@ -78,3 +79,6 @@ class GameScreneScene():
             event = event,
         
         )
+
+        if storage.storage_dict["radio_set_animation"]:
+            storage.storage_dict["radio_set_animation"].display()
