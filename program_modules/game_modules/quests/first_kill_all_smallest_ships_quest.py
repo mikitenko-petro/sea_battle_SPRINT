@@ -21,4 +21,6 @@ class FirstKillAllSmallestShipsQuest(Quest):
                 our1x1shipsdefeated += 1
         
         if our1x1shipsdefeated < 4 and ships1x1defeated == 4:
+            if not self.quest_complite:
+                storage.storage_dict["medals"] += self.medals
             self.quest_complite = True

@@ -66,5 +66,17 @@ class EndScreenScene():
 
         storage.storage_dict['win'] = None
         storage.storage_dict["dummy_ship_list"] = []
+        storage.storage_dict["moves"] = 0
+
+        storage.storage_dict['DataManager'].data["shoot_coord"] = []
+        storage.storage_dict["DataManager"].data["defeated_ship"] = []
+
+        storage.storage_dict['medals'] = 0
+
+        for ability in storage.storage_dict["AbilityManager"].ability_dict:
+            storage.storage_dict["AbilityManager"].ability_dict[ability].amount = 0
+
+        for quest in storage.storage_dict["QuestManager"].quests_list:
+            quest.quest_complite = False
 
         storage.storage_dict["SceneManager"].change_scene(scene = "main")
