@@ -66,6 +66,7 @@ class EndScreenScene():
 
         storage.storage_dict['win'] = None
         storage.storage_dict["dummy_ship_list"] = []
+        storage.storage_dict["defeated_ship_list"] = []
         storage.storage_dict["moves"] = 0
 
         storage.storage_dict['DataManager'].data["shoot_coord"] = []

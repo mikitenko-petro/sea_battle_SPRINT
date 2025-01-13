@@ -1,6 +1,7 @@
 from .pygame_image import PygameImage
 from .pygame_hitbox import PygameHitBox
 from ..tools.storage import storage
+from ..tools.search_path import search_path
 import os
 
 class PygameAnimation(PygameHitBox):
@@ -28,7 +29,7 @@ class PygameAnimation(PygameHitBox):
                     number += char
             return int(number)
         
-        image_list = os.listdir(f"static/images/{self.animation_name}")
+        image_list = os.listdir(search_path(f"static/images/{self.animation_name}"))
         image_list.sort(key=sort_by_number)
 
         for image in image_list:
@@ -42,9 +43,10 @@ class PygameAnimation(PygameHitBox):
         )
         
     def display(self):
-        if self.step >= len(self.image_list) and self.loop:
+        if self.step >= len(self.image_list):
             self.image_list[0].display()
-            self.step = 0
+            if self.loop:
+                self.step = 0
 
         else:
             self.image_list[int(self.step)].display()
