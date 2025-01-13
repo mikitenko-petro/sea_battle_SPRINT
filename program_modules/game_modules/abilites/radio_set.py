@@ -7,6 +7,7 @@ from time import sleep
 class RadioSet(Ability):
     def __init__(self):
         Ability.__init__(self)
+        storage.add_variable({"radio_set_animation": None})
         
         self.title = "Radio Set"
         self.image_path = "static/images/radio_set.png"
@@ -17,7 +18,8 @@ class RadioSet(Ability):
 
     @Ability.usage
     def use_ability(self, row, column):
-        music_manager.sfx["hit_effect"].play()
+        music_manager.sfx["radio_set"].play()
+
         storage.storage_dict["Client"].send_data(write_string("shoot_coord", "radio_set", row, column))
 
     def scan_area(self, row, column):

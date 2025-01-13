@@ -12,7 +12,7 @@ class ThreeWinAchievement(Achievement):
         
         self.unlock = Unlock(
             path = "static/images/rocket_artilery.png",
-            ability = "RocketArtilery"
+            ability = "Artilery"
         )
 
     def check_complete(self):

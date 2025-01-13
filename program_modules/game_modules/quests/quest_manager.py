@@ -15,13 +15,9 @@ class QuestManager():
             HitShipInFirstMove(),
         ]
 
-        storage.add_variable({"medals" : 69})
+        storage.add_variable({"medals" : 0})
 
     def check_all_quests(self):
         for quest in self.quests_list:
-            if quest.quest_complite:
-                storage.storage_dict["medals"] += quest.medals
-                quest.medals = 0
-
             quest.check_quest_done()
             

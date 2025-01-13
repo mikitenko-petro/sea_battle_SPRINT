@@ -4,10 +4,9 @@ from ..game_widgets.decorations.fire_animation_widget import FireAnimationWidget
 from ..game_widgets.decorations.shield_widget import ShieldWidget
 from ..tools.storage import storage
 from ..game_modules.battle.ship_manager import ShipManager
-from ..game_widgets.capitan_icon import CapitanIcon
 from ..game_widgets.quest_label import QuestLabel
 from ..game_widgets.ability.ability_label import AbilityLabel
-from ..game_widgets.emotion_label import EmotionLable
+from ..game_widgets.decorations.radio_set_animation import RadioSetAnimation
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
@@ -15,16 +14,11 @@ class GameScreneScene():
     def __init__(self):
         storage.add_variable({"ENEMY_GRID" : None})
         storage.add_variable({"show_quests": False})
-        
-        # self.blue_capitan = CapitanIcon(
-        #     color = "blue",
-        #     coordinates = (0, 0),
-        #     size = (128, 128)
-        # )
 
     #Робим метод для створення екрану гри
     def run(self, event : object):
         storage.storage_dict["collision_list"] = []
+        storage.add_variable({"radio_animation" : RadioSetAnimation()})
 
         #Робим фон
         background_image = PygameImage(
@@ -32,8 +26,6 @@ class GameScreneScene():
             coordinates = (0, 0),
             size = (1200, 700)
         )
-
-        # self.blue_capitan.draw()
 
         storage.storage_dict["PLAYER_GRID"].show_grid(event)
         storage.storage_dict["PLAYER_GRID"].x = 50
@@ -52,6 +44,8 @@ class GameScreneScene():
         
         enemy_fire_animation_widget = FireAnimationWidget(type = "enemy")
         enemy_fire_animation_widget.create_fire_animation()
+
+        storage.storage_dict["radio_animation"].show()
 
         shield_widget = ShieldWidget()
 
@@ -72,9 +66,4 @@ class GameScreneScene():
         ability_label = AbilityLabel(
             coordinates = (100, 60),
             event = event
-        )
-
-        emotion_label = EmotionLable(
-            event = event,
-        
         )

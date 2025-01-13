@@ -13,8 +13,9 @@ class AbilityManager():
         self.picked_ability = None
 
     def pick_ability(self, ability):
-        if self.picked_ability == None:
+        if (self.picked_ability == None or self.picked_ability != f"{ability.__class__.__name__}") and ability.amount > 0:
             self.picked_ability = f"{ability.__class__.__name__}"
+
         else:
             self.picked_ability = None
 

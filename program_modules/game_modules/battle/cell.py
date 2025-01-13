@@ -99,9 +99,11 @@ class Cell(PygameHitBox):
             )
     
     def set_current_cell(self):
-        enemy_cell = storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
+        storage.storage_dict["selected_row"] = self.row
+        storage.storage_dict["selected_column"] = self.column
         
         if storage.storage_dict["SceneManager"].current_scene == "game" and storage.storage_dict["player_turn"]:
+            enemy_cell = storage.storage_dict["ENEMY_GRID"].grid[self.row][self.column]
             match storage.storage_dict["AbilityManager"].picked_ability:
                 case None:
                     if self.grid_type == "enemy" and (enemy_cell == "" or enemy_cell == "o"):
