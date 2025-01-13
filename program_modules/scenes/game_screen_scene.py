@@ -6,6 +6,7 @@ from ..tools.storage import storage
 from ..game_modules.battle.ship_manager import ShipManager
 from ..game_widgets.quest_label import QuestLabel
 from ..game_widgets.ability.ability_label import AbilityLabel
+from ..game_widgets.decorations.radio_set_animation import RadioSetAnimation
 
 #Робим клас для ігрвого вікна
 class GameScreneScene():
@@ -17,6 +18,7 @@ class GameScreneScene():
     #Робим метод для створення екрану гри
     def run(self, event : object):
         storage.storage_dict["collision_list"] = []
+        storage.add_variable({"radio_animation" : RadioSetAnimation()})
 
         #Робим фон
         background_image = PygameImage(

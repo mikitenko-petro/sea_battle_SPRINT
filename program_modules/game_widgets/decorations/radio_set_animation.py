@@ -22,3 +22,7 @@ class RadioSetAnimation():
                 }
             )
             storage.storage_dict[f"fire_animation_{self.row}_{self.row}"].display()
+
+            if int(storage.storage_dict[f"fire_animation_{self.row}_{self.row}"]).loop == len(storage.storage_dict[f"fire_animation_{self.row}_{self.row}"].loop):
+                self.row = -1
+                self.column = -1

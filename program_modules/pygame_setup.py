@@ -10,7 +10,6 @@ from .game_widgets.tools.fps_counter import FpsCounter
 from .game_modules.achievements.achievement_manager import AchievementManager
 from .game_modules.stats.stats_manager import StatsManager
 from .game_modules.abilites.ability_manager import AbilityManager
-from .game_widgets.decorations.radio_set_animation import RadioSetAnimation
 
 pygame.init()
 storage.add_variable({"debug": False})
@@ -24,8 +23,6 @@ storage.add_variable({"AchievementManager": AchievementManager()})
 storage.add_variable({"MainGameManager" : MainGameManager()})
 storage.add_variable({"StatsManager" : StatsManager()})
 storage.add_variable({"AbilityManager" : AbilityManager()})
-storage.add_variable({"radio_animation" : RadioSetAnimation()})
-print(storage.storage_dict["radio_animation"])
 
 pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
