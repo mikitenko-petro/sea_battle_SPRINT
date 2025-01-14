@@ -53,8 +53,3 @@ class AchievementManager():
             self.achievements_dict[achievement].check_complete()
 
         self.save_achievements()
-
-    def check_unlocks(self):
-        for achievement in self.achievements_dict:
-            if self.achievements_dict[achievement].is_complete and self.achievements_dict[achievement].unlock.ability != None:
-                storage.storage_dict["AbilityManager"].ability_dict[self.achievements_dict[achievement].unlock.ability].is_unlocked = True

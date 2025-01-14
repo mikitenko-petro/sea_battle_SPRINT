@@ -1,0 +1,3 @@
+class PygameWidget():
+    def __init__(self, scene, z_order, coordinates, size):
+        ...

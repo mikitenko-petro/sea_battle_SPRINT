@@ -37,12 +37,6 @@ class AchievementLabel():
                 y = initial_y + 85 + index*delta_y
             )
 
-            unlock_image = PygameImage(
-                path = storage.storage_dict["AchievementManager"].achievements_dict[achievement_name].unlock.path,
-                coordinates = (initial_x + 405, initial_y + 25 + index*delta_y),
-                size = (50, 50)
-            )
-            
             achievement_check_box = PygameCheckBox(
                 coordinates = (initial_x + 460, initial_y + 25 + index*delta_y),
                 size = (50, 50)
