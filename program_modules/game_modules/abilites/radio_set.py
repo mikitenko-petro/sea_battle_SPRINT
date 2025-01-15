@@ -18,6 +18,8 @@ class RadioSet(Ability):
 
     @Ability.usage
     def use_ability(self, row, column):
+        storage.storage_dict["radio_animation"].row = row
+        storage.storage_dict["radio_animation"].column = column
         music_manager.sfx["radio_set"].play()
 
         storage.storage_dict["Client"].send_data(write_string("shoot_coord", "radio_set", row, column))

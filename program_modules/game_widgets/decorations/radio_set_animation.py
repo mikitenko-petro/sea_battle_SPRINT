@@ -17,12 +17,14 @@ class RadioSetAnimation():
                         ),
                         size = (150, 150),
                         speed = 0.2,
-                        loop = False
+                        loop = False,
+                        name = f"RadioSetAnimation_{self.row}_{self.row}"
                     )
                 }
             )
-            storage.storage_dict[f"fire_animation_{self.row}_{self.row}"].display()
 
-            if int(storage.storage_dict[f"fire_animation_{self.row}_{self.row}"]).loop == len(storage.storage_dict[f"fire_animation_{self.row}_{self.row}"].loop):
+            try:
+                storage.storage_dict[f"fire_animation_{self.row}_{self.row}"].display()
+            except KeyError:
                 self.row = -1
-                self.column = -1
+                self.column = -1                

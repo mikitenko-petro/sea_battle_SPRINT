@@ -2,6 +2,7 @@ from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
 from ..tools.storage import storage
+from ..tools.music_manager import music_manager
 from ..client import Client
 
 #Створюємо клас для створення екрану для під'єднання до серверу
@@ -80,4 +81,6 @@ class EndScreenScene():
         for quest in storage.storage_dict["QuestManager"].quests_list:
             quest.quest_complite = False
 
+        music_manager.music["battle_music"].stop()
+        music_manager.music["background_music"].play(loops=-1)
         storage.storage_dict["SceneManager"].change_scene(scene = "main")
