@@ -1,31 +1,42 @@
 import socket
-import pickle
-import io
-import time
+from .tools.storage import storage
+import threading
 
-sea = [[" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",],
-       [" ", " ", " ", " ", " ", " ", " ", " ", " ", " ",]]
-def client(cell: tuple):
-    with socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM) as client_socket:
-        client_socket.connect(("192.168.0.196", 8082))
-        #data = client_socket.recv(1024)
-        row, column = cell
-        sea[row-1][column-1] = "X"
-        message = pickle.dumps(sea)
-        #client_socket.sendall("check".encode("utf-8"))
-        while True:
-            if input('Go?') == "yes":
-                client_socket.sendall(message)
-                print(f"send: {sea}" )
-            data = client_socket.recv(1024)
-            if data:
-                print(pickle.loads(data))
-client((1, 1))    
+class Client():
+    def __init__(self):
+        self.client_socket = socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM)
+        self.ip = ""    
+        self.port = 0
+        self.get_data_func = threading.Thread(target = self.get_data)
+        
+        self.listening = True
+        
+    def join(self):
+        self.client_socket.connect((self.ip, self.port))
+
+        player_type = self.client_socket.recv(1024).decode("utf-8")
+
+        storage.add_variable({"number_client" : None})
+
+        if player_type == "1":
+            storage.storage_dict["number_client"] = "1"
+        else:
+            storage.storage_dict["number_client"] = "2"
+
+        print("player", storage.storage_dict["number_client"])
+                       
+    def get_data(self):
+        while self.listening:
+            if self.ip != "" and self.port != 0:
+                try:
+                    data = self.client_socket.recv(1024).decode("utf-8")
+                    if data:
+                        storage.storage_dict["DataManager"].load_data(data)
+                except ConnectionAbortedError:
+                    ...
+                
+                except Exception as error:
+                    print(error)
+                    
+    def send_data(self, data : str):
+        self.client_socket.sendall(data.encode("utf-8"))

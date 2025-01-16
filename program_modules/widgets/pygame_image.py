@@ -1,23 +1,30 @@
 import pygame
-from ..search_path import search_path
-
+from ..tools.storage import storage
+#Створюємо клас для фото
 class PygameImage():
     def __init__(
         self,
-        screen : object,
         path : str,
         coordinates : tuple,
-        size : tuple):
+        size : tuple,
+        alpha : int = 255,
+        angle : int = 0,
+        already_display : bool = True):
 
-        self.screen = screen
-
-        self.image = pygame.image.load(search_path(path))
+        #Робим відображення кнопки
+        self.image = storage.storage_dict["ImageContainer"].images[path]
         self.image = pygame.transform.scale(self.image, size)
+        self.image.set_alpha(alpha)
 
+        if angle != 0:
+            self.image = pygame.transform.rotate(self.image, angle = angle)
+
+        #Робим росташування кнопки
         self.rect = self.image.get_rect()
         self.rect.topleft = coordinates
 
-        self.draw()
+        if already_display:
+            self.display()
 
-    def draw(self):
-        self.screen.blit(self.image, (self.rect.x, self.rect.y))
+    def display(self):
+        storage.storage_dict["SCREEN"].blit(self.image, (self.rect.x, self.rect.y))
