@@ -23,6 +23,7 @@ storage.add_variable({"AchievementManager": AchievementManager()})
 storage.add_variable({"MainGameManager" : MainGameManager()})
 storage.add_variable({"StatsManager" : StatsManager()})
 storage.add_variable({"AbilityManager" : AbilityManager()})
+storage.add_variable({"destroed_4x1_ships" : 0})
 
 pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
