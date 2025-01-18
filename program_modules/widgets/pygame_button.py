@@ -2,7 +2,6 @@ import pygame
 from .pygame_image import PygameImage
 from .pygame_text import PygameText
 from .pygame_hitbox import PygameHitBox
-
 #Робим клас для створення кнопки
 class PygameButton(PygameHitBox):
     def __init__(
