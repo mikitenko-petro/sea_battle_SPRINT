@@ -44,10 +44,10 @@ class PygameAnimation(PygameHitBox):
         
     def display(self):
         if self.step >= len(self.image_list):
-            self.image_list[0].display()
             if self.loop:
+                self.image_list[0].display()
                 self.step = 0
-
+                
         else:
             self.image_list[int(self.step)].display()
             self.step += self.speed * 60 / storage.storage_dict["FPS"]

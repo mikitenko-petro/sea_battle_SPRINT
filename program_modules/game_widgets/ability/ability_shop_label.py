@@ -19,26 +19,25 @@ class AbilityShopLabel():
         )
 
         for index, ability in enumerate(storage.storage_dict["AbilityManager"].ability_dict):
-            if storage.storage_dict["AbilityManager"].ability_dict[ability].is_unlocked:
-                ability_icon = AbilityButton(
-                    ability = storage.storage_dict["AbilityManager"].ability_dict[ability],
-                    coordinates = (self.x + 10, self.y + 60 + index*70),
-                    size = (50, 50),
-                    event = event,
-                    type = "buy"
-                )
+            ability_icon = AbilityButton(
+                ability = storage.storage_dict["AbilityManager"].ability_dict[ability],
+                coordinates = (self.x + 10, self.y + 60 + index*70),
+                size = (50, 50),
+                event = event,
+                type = "buy"
+            )
+            
+            ability_description = PygameText(
+                text = storage.storage_dict["AbilityManager"].ability_dict[ability].description,
+                font_size = 25,
+                x = self.x + 70,
+                y = self.y + 70 + index*70
+            )
 
-                ability_description = PygameText(
-                    text = storage.storage_dict["AbilityManager"].ability_dict[ability].description,
-                    font_size = 25,
-                    x = self.x + 70,
-                    y = self.y + 70 + index*70
-                )
-
-                buy_ability_button = BuyAbilityButton(
-                    coordinates = (self.x + 335, self.y + 60 + index*70),
-                    size = (50, 50),
-                    event = event,
-                    function = lambda: storage.storage_dict["AbilityManager"].ability_dict[ability].buy(),
-                    price = storage.storage_dict["AbilityManager"].ability_dict[ability].price,
-                )
+            buy_ability_button = BuyAbilityButton(
+                coordinates = (self.x + 335, self.y + 60 + index*70),
+                size = (50, 50),
+                event = event,
+                function = lambda: storage.storage_dict["AbilityManager"].ability_dict[ability].buy(),
+                price = storage.storage_dict["AbilityManager"].ability_dict[ability].price,
+            )

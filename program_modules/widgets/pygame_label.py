@@ -9,7 +9,8 @@ class PygameLabel(PygameImage, PygameText):
         size : tuple,
         text : str,
         font : str | None = None,
-        font_size : int = 20):
+        font_size : int = 20,
+        color: tuple = (0, 0 ,0)):
 
         #Робим розміри та розположення тексту
         x, y = coordinates
@@ -28,5 +29,6 @@ class PygameLabel(PygameImage, PygameText):
             font_size = font_size,
             x = text_x,
             y = text_y,
-            font = font
+            font = font,
+            color = color
         )

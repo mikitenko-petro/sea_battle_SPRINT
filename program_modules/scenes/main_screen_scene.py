@@ -1,13 +1,14 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
+from ..tools.music_manager import music_manager
 from ..tools.storage import storage
 
 #Робимо клас для Основної сцени гри
 class MainScreenScene():
     #Робимо функцію ініт для задання параметрів та основних модулів
     def __init__(self):
-        pass
+        music_manager.music["background_music"].play(loops=-1)
 
     #Робим метод для початкогово екрану
     def run(self, event : object):

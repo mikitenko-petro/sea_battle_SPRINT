@@ -49,7 +49,6 @@ def run():
 
         storage.storage_dict["AchievementManager"].check_all_achievements()
         storage.storage_dict["StatsManager"].save_stats()
-        storage.storage_dict["AchievementManager"].check_unlocks()
 
         fps_counter.render()
 

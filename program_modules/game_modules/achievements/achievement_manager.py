@@ -2,6 +2,7 @@ from ...tools.json_manager import read_json, write_json
 from .first_win_achievement import FirstWinAchievement
 from .three_win_achievement import ThreeWinAchievement
 from .fifth_win_achievement import FifthWinAchievement
+from .still_standing_achievement import StillStanding
 from ...tools.storage import storage
 import os
 
@@ -10,7 +11,8 @@ class AchievementManager():
         self.achievements_dict = {
             "FirstWinAchievement": FirstWinAchievement(),
             "ThreeWinAchievement": ThreeWinAchievement(),
-            "FifthWinAchievement": FifthWinAchievement()
+            "FifthWinAchievement": FifthWinAchievement(),
+            "StillStanding": StillStanding()
         }
 
         self.achievements_data = {}
@@ -53,8 +55,3 @@ class AchievementManager():
             self.achievements_dict[achievement].check_complete()
 
         self.save_achievements()
-
-    def check_unlocks(self):
-        for achievement in self.achievements_dict:
-            if self.achievements_dict[achievement].is_complete and self.achievements_dict[achievement].unlock.ability != None:
-                storage.storage_dict["AbilityManager"].ability_dict[self.achievements_dict[achievement].unlock.ability].is_unlocked = True
