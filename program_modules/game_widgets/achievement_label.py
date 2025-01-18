@@ -6,9 +6,14 @@ from ..tools.storage import storage
 class AchievementLabel():
     def __init__(self):
         for index, achievement_name in enumerate(storage.storage_dict["AchievementManager"].achievements_dict):
-            initial_x = 60
+            if index < 3:
+                initial_x = 60
+                delta_y = 150
+            else:
+                initial_x = 610
+                index -= 3
+                
             initial_y = 60
-
             delta_y = 150
 
             achievement_bg = PygameImage(

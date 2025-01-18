@@ -2,6 +2,7 @@ from ...tools.json_manager import read_json, write_json
 from .first_win_achievement import FirstWinAchievement
 from .three_win_achievement import ThreeWinAchievement
 from .fifth_win_achievement import FifthWinAchievement
+from .still_standing_achievement import StillStanding
 from ...tools.storage import storage
 import os
 
@@ -10,7 +11,8 @@ class AchievementManager():
         self.achievements_dict = {
             "FirstWinAchievement": FirstWinAchievement(),
             "ThreeWinAchievement": ThreeWinAchievement(),
-            "FifthWinAchievement": FifthWinAchievement()
+            "FifthWinAchievement": FifthWinAchievement(),
+            "StillStanding": StillStanding()
         }
 
         self.achievements_data = {}

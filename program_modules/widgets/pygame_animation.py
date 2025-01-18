@@ -51,6 +51,7 @@ class PygameAnimation(PygameHitBox):
                 self.step = 0
             else:
                 del storage.storage_dict[self.name]
+                print(storage.storage_dict[self.name])
 
         else:
             self.image_list[int(self.step)].display()

@@ -59,11 +59,11 @@ class EndScreenScene():
         storage.storage_dict["Client"].client_socket.close()
         storage.storage_dict["Client"] = Client()
 
-        storage.storage_dict["defeated_ship"] = 0
-        storage.storage_dict["defeated_cells"] = 0
-
         if storage.storage_dict["win"]:
             storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
+
+        storage.storage_dict["defeated_ship"] = 0
+        storage.storage_dict["defeated_cells"] = 0
 
         storage.storage_dict['win'] = None
         storage.storage_dict["dummy_ship_list"] = []
