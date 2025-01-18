@@ -114,6 +114,8 @@ class MainGameManager():
             )
             music_manager.sfx["kill_effect"].play()
 
+            storage.storage_dict["medals"] += int(data[1][0])          
+
             storage.storage_dict["DataManager"].data["defeated_ship"].pop(0)
 
         for dummy in storage.storage_dict["dummy_ship_list"]:

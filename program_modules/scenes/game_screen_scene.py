@@ -3,6 +3,7 @@ from ..widgets.pygame_label import PygameLabel
 from ..game_widgets.decorations.fire_animation_widget import FireAnimationWidget
 from ..game_widgets.decorations.shield_widget import ShieldWidget
 from ..tools.storage import storage
+from ..tools.music_manager import music_manager
 from ..game_modules.battle.ship_manager import ShipManager
 from ..game_widgets.quest_label import QuestLabel
 from ..game_widgets.ability.ability_label import AbilityLabel
@@ -14,12 +15,12 @@ class GameScreneScene():
     def __init__(self):
         storage.add_variable({"ENEMY_GRID" : None})
         storage.add_variable({"show_quests": False})
+        storage.add_variable({"radio_animation": RadioSetAnimation()})
 
     #Робим метод для створення екрану гри
     def run(self, event : object):
         storage.storage_dict["collision_list"] = []
-        storage.add_variable({"radio_animation" : RadioSetAnimation()})
-
+        
         #Робим фон
         background_image = PygameImage(
             path = "static/images/sea_bg.png",
@@ -33,17 +34,10 @@ class GameScreneScene():
 
         storage.storage_dict["ENEMY_GRID"].show_grid(event)
 
-        ship_manager = ShipManager(
-            event = event
-        )
-
+        ship_manager = ShipManager(event = event)
         storage.storage_dict["MainGameManager"].event_manager()
 
-        player_fire_animation_widget = FireAnimationWidget(type = "player")
-        player_fire_animation_widget.create_fire_animation()
-        
-        enemy_fire_animation_widget = FireAnimationWidget(type = "enemy")
-        enemy_fire_animation_widget.create_fire_animation()
+        player_fire_animation_widget = FireAnimationWidget()
 
         storage.storage_dict["radio_animation"].show()
 
@@ -54,7 +48,8 @@ class GameScreneScene():
             coordinates = (500, 10),
             size = (128*2, 32*2),
             text = (lambda: "your turn" if storage.storage_dict["player_turn"] else "enemy turn")(),
-            font_size = 40
+            font_size = 40,
+            color = (lambda: (0, 255, 0) if storage.storage_dict["player_turn"] else (255, 0, 0))()
         )
 
         quest_label = QuestLabel(

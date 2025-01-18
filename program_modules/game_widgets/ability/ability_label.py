@@ -10,26 +10,24 @@ class AbilityLabel(PygameHitBox):
 
         delta_x = 110
 
-        if storage.storage_dict["AbilityManager"].ability_dict["Shield"].is_unlocked:
-            self.bg = PygameImage(
-                path = "static/images/blue_label.png",
-                coordinates = coordinates,
-                size = (self.width, self.height)
+        self.bg = PygameImage(
+            path = "static/images/blue_label.png",
+            coordinates = coordinates,
+            size = (self.width, self.height)
+        )
+            
+        for index, ability in enumerate(storage.storage_dict["AbilityManager"].ability_dict):
+            ability_button = AbilityButton(
+                ability = storage.storage_dict["AbilityManager"].ability_dict[ability],
+                coordinates = (self.x  + delta_x*index + 10, self.y + 10),
+                size = (50, 50),
+                event = event,
+                type = "pick"
             )
-                
-            for index, ability in enumerate(storage.storage_dict["AbilityManager"].ability_dict):
-                if storage.storage_dict["AbilityManager"].ability_dict[ability].is_unlocked:
-                    ability_button = AbilityButton(
-                        ability = storage.storage_dict["AbilityManager"].ability_dict[ability],
-                        coordinates = (self.x  + delta_x*index + 10, self.y + 10),
-                        size = (50, 50),
-                        event = event,
-                        type = "pick"
-                    )
-
-                    amount_text = PygameText(
-                        text = storage.storage_dict["AbilityManager"].ability_dict[ability].amount,
-                        font_size = 20,
-                        x = self.x + delta_x*index + 55,
-                        y = self.y + 60
-                    )
+            
+            amount_text = PygameText(
+                text = storage.storage_dict["AbilityManager"].ability_dict[ability].amount,
+                font_size = 20,
+                x = self.x + delta_x*index + 55,
+                y = self.y + 60
+            )

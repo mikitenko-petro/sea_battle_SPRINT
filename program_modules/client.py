@@ -37,6 +37,6 @@ class Client():
                 
                 except Exception as error:
                     print(error)
-
+                    
     def send_data(self, data : str):
         self.client_socket.sendall(data.encode("utf-8"))
