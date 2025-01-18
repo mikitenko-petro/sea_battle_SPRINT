@@ -3,6 +3,7 @@ from .first_win_achievement import FirstWinAchievement
 from .three_win_achievement import ThreeWinAchievement
 from .fifth_win_achievement import FifthWinAchievement
 from .still_standing_achievement import StillStanding
+from .sink_great_of_uk_ship import SinkGreatOfUKship
 from ...tools.storage import storage
 import os
 
@@ -13,7 +14,7 @@ class AchievementManager():
             "ThreeWinAchievement": ThreeWinAchievement(),
             "FifthWinAchievement": FifthWinAchievement(),
             "StillStanding": StillStanding(),
-            
+            "SinkGreatOfUKship" : SinkGreatOfUKship(),
         }
 
         self.achievements_data = {}

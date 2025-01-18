@@ -8,6 +8,7 @@ class StatsManager():
             "destroed_4x1_ships" : 0,
         }
 
+        print(self.stats_dict["destroed_4x1_ships"])
         self.stats_data = {}
 
     def load_stats(self):

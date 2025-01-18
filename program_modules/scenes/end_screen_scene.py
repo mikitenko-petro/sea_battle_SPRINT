@@ -60,9 +60,16 @@ class EndScreenScene():
         storage.storage_dict["Client"].client_socket.close()
         storage.storage_dict["Client"] = Client()
 
+        print(storage.storage_dict["StatsManager"].stats_dict["destroed_4x1_ships"])
+
+        for ship in storage.storage_dict["ship_list"]:
+            if ship.type == "4x1" and ship.status == "defeated":
+                storage.storage_dict["StatsManager"].stats_dict["destroed_4x1_ships"] += 1
+
+        print(storage.storage_dict["StatsManager"].stats_dict["destroed_4x1_ships"])
+
         if storage.storage_dict["win"]:
             storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
-            storage.storage_dict["StatsManager"].stats_dict["destroed_4x1_ships"] += 1
 
         storage.storage_dict["defeated_ship"] = 0
         storage.storage_dict["defeated_cells"] = 0
