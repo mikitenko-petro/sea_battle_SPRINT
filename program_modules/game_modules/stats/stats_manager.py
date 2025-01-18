@@ -5,6 +5,7 @@ class StatsManager():
     def __init__(self):
         self.stats_dict = {
             "winned_games" : 0,
+            "destroed_4x1_ships" : 0,
         }
 
         self.stats_data = {}

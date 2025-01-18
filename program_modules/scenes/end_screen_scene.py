@@ -1,6 +1,7 @@
 from ..widgets.pygame_image import PygameImage
 from ..widgets.pygame_button import PygameButton
 from ..widgets.pygame_text import PygameText
+from ..tools.json_manager import read_json, write_json
 from ..tools.storage import storage
 from ..tools.music_manager import music_manager
 from ..client import Client
@@ -61,6 +62,7 @@ class EndScreenScene():
 
         if storage.storage_dict["win"]:
             storage.storage_dict["StatsManager"].stats_dict["winned_games"] += 1
+            storage.storage_dict["StatsManager"].stats_dict["destroed_4x1_ships"] += 1
 
         storage.storage_dict["defeated_ship"] = 0
         storage.storage_dict["defeated_cells"] = 0

@@ -12,7 +12,8 @@ class AchievementManager():
             "FirstWinAchievement": FirstWinAchievement(),
             "ThreeWinAchievement": ThreeWinAchievement(),
             "FifthWinAchievement": FifthWinAchievement(),
-            "StillStanding": StillStanding()
+            "StillStanding": StillStanding(),
+            
         }
 
         self.achievements_data = {}
