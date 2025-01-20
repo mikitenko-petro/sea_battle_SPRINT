@@ -17,6 +17,5 @@ class FirstKillQuest(Quest):
                     is_defeated = True
             
             if not is_defeated:
-                if not self.quest_complite:
-                    storage.storage_dict["medals"] += self.medals
+                self.give_medals()
                 self.quest_complite = True

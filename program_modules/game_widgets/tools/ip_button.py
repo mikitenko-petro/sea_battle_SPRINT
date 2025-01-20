@@ -11,12 +11,13 @@ class IpButton(PygameButton):
             path : str):
         
         PygameButton.__init__(
+            self,
             coordinates = coordinates,
             size = size,
             event = event,
-            path = path,
-            function = None
+            path = "static/images/ip_button.png",
+            function = self.get_ip
         )
     
-    def get_ip():
+    def get_ip(self):
         storage.storage_dict['IP'] = socket.gethostbyname(socket.gethostname())

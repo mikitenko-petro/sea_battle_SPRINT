@@ -17,6 +17,16 @@ class MainGameManager():
         storage.add_variable({"moves": 0})
         storage.add_variable({"hits": 0})
 
+
+        storage.add_variable({"number_client": None})
+
+        # if player_type == "1":
+        #     storage.storage_dict["number_client"] = "1"
+        # else:
+        #     storage.storage_dict["number_client"] = "2"
+
+        # print("player", storage.storage_dict["number_client"])
+
     def check_hit(self):
         if len(storage.storage_dict["DataManager"].data["shoot_coord"]) > 0:
             data = storage.storage_dict["DataManager"].data["shoot_coord"][0]
@@ -121,7 +131,7 @@ class MainGameManager():
         for dummy in storage.storage_dict["dummy_ship_list"]:
             dummy.show_ship()
 
-    def event_manager(self):
+    def game_event_manager(self):
         self.check_lose()
         self.check_hit()
         self.check_destroy()

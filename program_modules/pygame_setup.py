@@ -28,6 +28,7 @@ pygame.display.set_caption('Great Sea Battle')
 pygame.display.set_icon(storage.storage_dict["ImageContainer"].images["static/images/icon.png"])
 
 storage.add_variable({"clock": pygame.time.Clock()})
+storage.add_variable({"temporary_objects": []})
 
 def run():
     fps_counter = FpsCounter(x = 0, y = 0)
@@ -36,6 +37,7 @@ def run():
 
     while True:
         event = pygame.event.get()
+        storage.storage_dict["AchievementManager"].check_all_achievements()
 
         for pygame_event in event:
             if pygame_event.type == pygame.QUIT:
@@ -45,11 +47,18 @@ def run():
                 sys.exit()
 
         storage.storage_dict["SceneManager"].show(event = event)
-
-        storage.storage_dict["AchievementManager"].check_all_achievements()
+        
         storage.storage_dict["StatsManager"].save_stats()
 
-        fps_counter.render()
+        storage.storage_dict["FPS"] = round(storage.storage_dict["clock"].get_fps())
+        if storage.storage_dict["debug"]:
+            fps_counter.render()
+
+        for obj in storage.storage_dict["temporary_objects"]:
+            if obj.step >= obj.miliseconds:
+                del obj
+            else:
+                obj.show()
 
         pygame.display.update()
         pygame.display.flip()

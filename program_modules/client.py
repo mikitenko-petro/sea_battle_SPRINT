@@ -2,9 +2,11 @@ import socket
 from .tools.storage import storage
 import threading
 
+#Робимо клас для клієнта
 class Client():
     def __init__(self):
         self.client_socket = socket.socket(family= socket.AF_INET, type= socket.SOCK_STREAM)
+
         self.ip = ""    
         self.port = 0
         self.get_data_func = threading.Thread(target = self.get_data)
@@ -12,18 +14,7 @@ class Client():
         self.listening = True
         
     def join(self):
-        self.client_socket.connect((self.ip, self.port))
-
-        player_type = self.client_socket.recv(1024).decode("utf-8")
-
-        storage.add_variable({"number_client" : None})
-
-        if player_type == "1":
-            storage.storage_dict["number_client"] = "1"
-        else:
-            storage.storage_dict["number_client"] = "2"
-
-        print("player", storage.storage_dict["number_client"])
+        self.client_socket.connect((self.ip, self.port))      
                        
     def get_data(self):
         while self.listening:

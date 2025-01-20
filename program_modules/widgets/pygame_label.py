@@ -16,19 +16,17 @@ class PygameLabel(PygameImage, PygameText):
         x, y = coordinates
         width, height = size
 
-        PygameImage.__init__(
-            self, path, coordinates, size)
+        label_image = PygameImage(path, coordinates, size)
 
         #Розположення тексту
         text_x = x + width/2 - len(text)*font_size/6
         text_y = y + height/2 - font_size/4
 
-        PygameText.__init__(
-            self,
+        label_text = PygameText(
             text = text,
             font_size = font_size,
             x = text_x,
             y = text_y,
             font = font,
-            color = color
+            color = color,
         )
