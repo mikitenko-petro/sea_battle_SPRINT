@@ -17,15 +17,7 @@ class MainGameManager():
         storage.add_variable({"moves": 0})
         storage.add_variable({"hits": 0})
 
-
         storage.add_variable({"number_client": None})
-
-        # if player_type == "1":
-        #     storage.storage_dict["number_client"] = "1"
-        # else:
-        #     storage.storage_dict["number_client"] = "2"
-
-        # print("player", storage.storage_dict["number_client"])
 
     def check_hit(self):
         if len(storage.storage_dict["DataManager"].data["shoot_coord"]) > 0:

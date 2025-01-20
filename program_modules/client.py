@@ -14,7 +14,16 @@ class Client():
         self.listening = True
         
     def join(self):
-        self.client_socket.connect((self.ip, self.port))      
+        self.client_socket.connect((self.ip, self.port))   
+        
+        player_type = self.client_socket.recv(1024).decode("utf-8")
+
+        if player_type == "1":
+            storage.storage_dict["number_client"] = "1"
+        else:
+            storage.storage_dict["number_client"] = "2"
+
+        print("player", storage.storage_dict["number_client"])  
                        
     def get_data(self):
         while self.listening:
