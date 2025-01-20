@@ -6,6 +6,7 @@ from ..game_widgets.tools.last_choise_button import LastChoiceButton
 from ..game_modules.battle.grid import Grid
 from ..game_modules.battle.ship import Ship
 from ..tools.storage import storage
+from ..game_widgets.tools.ip_button import IpButton
 
 #Створюємо клас для створення екрану для під'єднання до серверу
 class ConectToServerScreenScene():
@@ -47,6 +48,13 @@ class ConectToServerScreenScene():
             name = "ip",
             store_to = "IP",
             initial_text = "enter your ip"
+        )
+
+        ip_button = IpButton(
+            coordinates = (1000, 250),
+            size = (96, 96),
+            event = event,
+            path = "static/images/ip_button.png"
         )
 
         self.last_sesion_ip = LastChoiceButton(

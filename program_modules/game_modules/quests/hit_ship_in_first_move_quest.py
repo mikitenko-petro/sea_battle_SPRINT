@@ -12,6 +12,5 @@ class HitShipInFirstMove(Quest):
     def check_quest_done(self):
         if storage.storage_dict["moves"] == 1:
             if storage.storage_dict["hits"] >= 1:
-                if not self.quest_complite:
-                    storage.storage_dict["medals"] += self.medals
+                self.give_medals()
                 self.quest_complite = True

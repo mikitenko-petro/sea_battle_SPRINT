@@ -17,6 +17,5 @@ class FirstKillLargestShipQuest(Quest):
 
         for ship in storage.storage_dict["ship_list"]:
             if ship.type == "4x1" and ship.status != "defeated" and ship4x1defeated:
-                if not self.quest_complite:
-                    storage.storage_dict["medals"] += self.medals
+                self.give_medals()
                 self.quest_complite = True

@@ -11,8 +11,7 @@ class PygameAnimation(PygameHitBox):
         coordinates : tuple,
         size : tuple,
         speed : float = 1.0,
-        loop : bool = True,
-        name : str | None = None):
+        loop : bool = True):
 
         PygameHitBox.__init__(self, coordinates, size)
 
@@ -22,7 +21,6 @@ class PygameAnimation(PygameHitBox):
         self.step = 0
         self.speed = speed
         self.loop = loop
-        self.name = name
 
         def sort_by_number(filename):
             number = ""
@@ -46,13 +44,10 @@ class PygameAnimation(PygameHitBox):
         
     def display(self):
         if self.step >= len(self.image_list):
-            self.image_list[0].display()
             if self.loop:
+                self.image_list[0].display()
                 self.step = 0
-            else:
-                del storage.storage_dict[self.name]
-                print(storage.storage_dict[self.name])
-
+                
         else:
             self.image_list[int(self.step)].display()
             self.step += self.speed * 60 / storage.storage_dict["FPS"]

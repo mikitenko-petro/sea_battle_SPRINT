@@ -15,7 +15,7 @@ class Artilery(Ability):
         self.last_coordinates = []
 
         self.amount = 0
-        self.price = 4
+        self.price = 5
 
     @Ability.usage
     def use_ability(self, row, column):

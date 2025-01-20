@@ -3,7 +3,6 @@ from ..widgets.pygame_label import PygameLabel
 from ..game_widgets.decorations.fire_animation_widget import FireAnimationWidget
 from ..game_widgets.decorations.shield_widget import ShieldWidget
 from ..tools.storage import storage
-from ..tools.music_manager import music_manager
 from ..game_modules.battle.ship_manager import ShipManager
 from ..game_widgets.quest_label import QuestLabel
 from ..game_widgets.ability.ability_label import AbilityLabel
@@ -35,7 +34,7 @@ class GameScreneScene():
         storage.storage_dict["ENEMY_GRID"].show_grid(event)
 
         ship_manager = ShipManager(event = event)
-        storage.storage_dict["MainGameManager"].event_manager()
+        storage.storage_dict["MainGameManager"].game_event_manager()
 
         player_fire_animation_widget = FireAnimationWidget()
 

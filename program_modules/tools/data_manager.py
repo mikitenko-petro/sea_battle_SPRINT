@@ -5,6 +5,7 @@ class DataManager():
         self.data = {
             "shoot_coord": [],
             "defeated_ship": [],
+            "player_handle": []
         }
     
     def load_data(self, data):

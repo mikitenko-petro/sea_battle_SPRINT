@@ -1,30 +1,9 @@
-from ...widgets.pygame_animation import PygameAnimation
 from ...tools.storage import storage
 
 class RadioSetAnimation():
     def __init__(self):
-        self.row = -1
-        self.column = -1
+        storage.add_variable({"radio_set_animation_list": []})
 
     def show(self):
-        if self.row != -1 and self.column != -1:
-            try:
-                storage.storage_dict[f"RadioSetAnimation_{self.row}_{self.row}"].display()
-            except KeyError:
-                storage.add_variable({f"RadioSetAnimation_{self.row}_{self.row}":
-                        PygameAnimation(
-                            animation_name = "radar_animation",
-                            coordinates = (
-                                storage.storage_dict["ENEMY_GRID"].y + (self.row - 1)*50,
-                                storage.storage_dict["ENEMY_GRID"].x + (self.column - 1)*50
-                            ),
-                            size = (150, 150),
-                            speed = 0.2,
-                            loop = False,
-                            name = f"RadioSetAnimation_{self.row}_{self.row}"
-                        )
-                    }
-                )
-
-                self.row = -1
-                self.column = -1
+        for animation in storage.storage_dict["radio_set_animation_list"]:
+            animation.display()

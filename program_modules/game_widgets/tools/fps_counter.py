@@ -8,8 +8,6 @@ class FpsCounter(PygameText):
         storage.add_variable({"FPS": 0})
 
     def render(self):
-        storage.storage_dict["FPS"] = round(storage.storage_dict["clock"].get_fps())
-
         text = PygameText(
             text = str(storage.storage_dict["FPS"]),
             font_size = 20,
