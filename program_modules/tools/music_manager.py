@@ -7,17 +7,17 @@ class MusicManager():
         self.volume = 1.0
 
         self.sfx = {
-            "kill_effect": mixer.Sound(search_path("static/sound/effects/kill.mp3")),
-            "hit_effect":  mixer.Sound(search_path("static/sound/effects/hit.mp3")),
-            "shield1": mixer.Sound(search_path("static/sound/effects/shield1.mp3")),
-            "shield2": mixer.Sound(search_path("static/sound/effects/shield2.mp3")),
-            "shield4": mixer.Sound(search_path("static/sound/effects/shield4.mp3")),
+            "kill_effect": mixer.Sound(search_path("static/sound/effects/kill.wav")),
+            "hit_effect":  mixer.Sound(search_path("static/sound/effects/hit.wav")),
+            "shield1": mixer.Sound(search_path("static/sound/effects/shield1.wav")),
+            "shield2": mixer.Sound(search_path("static/sound/effects/shield2.wav")),
+            "shield4": mixer.Sound(search_path("static/sound/effects/shield4.wav")),
             "radio_set": mixer.Sound(search_path("static/sound/effects/radio_set.wav")),
         }
 
         self.music = {
-            "background_music": mixer.Sound(search_path("static/sound/music/background_music.mp3")),
-            "battle_music": mixer.Sound(search_path("static/sound/music/battle_music.mp3"))
+            "background_music": mixer.Sound(search_path("static/sound/music/background_music.wav")),
+            "battle_music": mixer.Sound(search_path("static/sound/music/battle_music.wav"))
         }
 
         for sfx in self.sfx:
