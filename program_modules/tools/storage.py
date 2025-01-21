@@ -16,7 +16,6 @@ class Storage():
                 is_found = True
                 break
         
-        #
         if is_found == False:
             self.storage_dict.update(storage_object)
 
