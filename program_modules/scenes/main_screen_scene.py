@@ -18,7 +18,6 @@ class MainScreenScene():
             coordinates = (0, 0),
             size = (1200, 700)
         )
-
         #Робим кнопку старт
         move_to_scene = PygameButton(
             path = "static/images/green_button.png",
@@ -29,7 +28,6 @@ class MainScreenScene():
             event = event,
             function = lambda: storage.storage_dict["SceneManager"].change_scene(scene = "conect_to_server")
         )
-
         move_to_achievement_scene = PygameButton(
             coordinates = (1150, 0),
             size = (50,50),
@@ -37,7 +35,6 @@ class MainScreenScene():
             function = self.move_to_achievement_scene,
             path = "static/images/achievements_icon.png"
         )
-
         logo_text1 = PygameText(
             text = "Great Sea",
             font_size = 150,
@@ -46,7 +43,6 @@ class MainScreenScene():
             font = "static/fonts/alagard.ttf",
             color = (34, 32, 52)
         )
-
         logo_text2 = PygameText(
             text = "Battle",
             font_size = 150,
@@ -55,6 +51,7 @@ class MainScreenScene():
             font = "static/fonts/alagard.ttf",
             color = (34, 32, 52)
         )
+        
 
     def move_to_achievement_scene(self):  
         storage.storage_dict["SceneManager"].change_scene(scene = "achievement")    

@@ -3,7 +3,6 @@ from ..widgets.pygame_button import PygameButton
 from ..game_modules.battle.grid import Grid
 from ..game_modules.battle.ship_manager import ShipManager
 from ..tools.storage import storage
-from ..tools.music_manager import music_manager
 from ..game_widgets.ship_buttons.random_placement_button import RandomPlacementButton
 
 #Робим клас для підготовки гри
@@ -86,9 +85,6 @@ class PrepareToGameScreenScene():
             storage.storage_dict["player_turn"] = True
         else:
             storage.storage_dict["player_turn"] = False
-        
-        storage.storage_dict["SceneManager"].change_scene(scene = "game")
 
-        if storage.storage_dict["SceneManager"].current_scene == "game":
-            music_manager.music["background_music"].stop()
-            music_manager.music["battle_music"].play(loops=-1)
+        storage.storage_dict["SceneManager"].change_scene(scene = "wait")
+            

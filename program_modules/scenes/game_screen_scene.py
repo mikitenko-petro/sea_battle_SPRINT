@@ -18,46 +18,46 @@ class GameScreneScene():
 
     #Робим метод для створення екрану гри
     def run(self, event : object):
-        storage.storage_dict["collision_list"] = []
-        
-        #Робим фон
-        background_image = PygameImage(
-            path = "static/images/sea_bg.png",
-            coordinates = (0, 0),
-            size = (1200, 700)
-        )
+            storage.storage_dict["collision_list"] = []
 
-        storage.storage_dict["PLAYER_GRID"].show_grid(event)
-        storage.storage_dict["PLAYER_GRID"].x = 50
-        storage.storage_dict["PLAYER_GRID"].y = 180
+            #Робим фон
+            background_image = PygameImage(
+                path = "static/images/sea_bg.png",
+                coordinates = (0, 0),
+                size = (1200, 700)
+            )
 
-        storage.storage_dict["ENEMY_GRID"].show_grid(event)
+            storage.storage_dict["PLAYER_GRID"].show_grid(event)
+            storage.storage_dict["PLAYER_GRID"].x = 50
+            storage.storage_dict["PLAYER_GRID"].y = 180
 
-        ship_manager = ShipManager(event = event)
-        storage.storage_dict["MainGameManager"].game_event_manager()
+            storage.storage_dict["ENEMY_GRID"].show_grid(event)
 
-        player_fire_animation_widget = FireAnimationWidget()
+            ship_manager = ShipManager(event = event)
+            storage.storage_dict["MainGameManager"].game_event_manager()
 
-        storage.storage_dict["radio_animation"].show()
+            player_fire_animation_widget = FireAnimationWidget()
 
-        shield_widget = ShieldWidget()
+            storage.storage_dict["radio_animation"].show()
 
-        turn_label = PygameLabel(
-            path = "static/images/blue_button.png",
-            coordinates = (500, 10),
-            size = (128*2, 32*2),
-            text = (lambda: "your turn" if storage.storage_dict["player_turn"] else "enemy turn")(),
-            font_size = 40,
-            color = (lambda: (0, 255, 0) if storage.storage_dict["player_turn"] else (255, 0, 0))()
-        )
+            shield_widget = ShieldWidget()
 
-        quest_label = QuestLabel(
-            x = 800,
-            y = 0,
-            event = event,
-        )
+            turn_label = PygameLabel(
+                path = "static/images/blue_button.png",
+                coordinates = (500, 10),
+                size = (128*2, 32*2),
+                text = (lambda: "your turn" if storage.storage_dict["player_turn"] else "enemy turn")(),
+                font_size = 40,
+                color = (lambda: (0, 255, 0) if storage.storage_dict["player_turn"] else (255, 0, 0))()
+            )
 
-        ability_label = AbilityLabel(
-            coordinates = (100, 60),
-            event = event
-        )
+            quest_label = QuestLabel(
+                x = 800,
+                y = 0,
+                event = event,
+            )
+
+            ability_label = AbilityLabel(
+                coordinates = (100, 60),
+                event = event
+            )

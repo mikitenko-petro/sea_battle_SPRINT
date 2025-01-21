@@ -36,7 +36,17 @@ class Client():
                     ...
                 
                 except Exception as error:
-                    print(error)
-                    
+                    print("error in get1", error)
+
+    def get_data2(self):
+            try:
+                self.client_socket.settimeout(1.0)
+                data = self.client_socket.recv(1024)
+                return data.decode("utf-8")
+            except socket.timeout:
+                return None
+            except Exception as e:
+                print(f"Error in get_data2: {e}")
+                return None
     def send_data(self, data : str):
         self.client_socket.sendall(data.encode("utf-8"))
