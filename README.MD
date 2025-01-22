@@ -1,104 +1,74 @@
-# project «Great Sea Battle» / проект «Great Sea Battle»
-### Team composition / Склад команди:
-- Mykytenko Petro / Микитенко Петро: [github.com/mikitenko-petro](https://github.com/mikitenko-petro)
-- Hegor Halkin / Єгор Галкін: [github.com/EgorGalkinORG](https://github.com/EgorGalkinORG)
-- David Petrenko / Давид Петренко: [github.com/Davidptn](https://github.com/Davidptn)
+# «Great Sea Battle»
+_Цей проєкт - найкращий спосіб показати роботу сокетів у пайтоні._
+_Наша гра не тільки дозволяє отримати задоволення від ігрового процесу, а й навчитися створювати прості мережеві ігри._
+_Цей проєкт був створений трьома студентами у яких не було відмазок типу "у мене немае часу", "це дуже складно" і тому подібних._
+_Ми працювали в автобусі, робили зустрічі під час чищеня картоплі, пізно ввечері і навіть о 6:30 ранку._
+
+### Склад команди:
+- Микитенко Петро: [github.com/mikitenko-petro](https://github.com/mikitenko-petro)
+- Єгор Галкін: [github.com/EgorGalkinORG](https://github.com/EgorGalkinORG)
+- Давид Петренко: [github.com/Davidptn](https://github.com/Davidptn)
 
 ____
-
-# How correctly run the project / Як правильно запустити проект
-
-## Server / Сервер
-
-### Commands for installing / Команди для встановлення:
-ALL COMMANDS EXECUTE IN BASH TERMINAL / ВСІ КОМАНДИ ВИКОНАТИ В BASH ТЕРМІНАЛІ
-
-#### clone the project / клонування проєкту
-```bash
-git clone https://github.com/mikitenko-petro/sea_battle_SPRINT_server.git
-```
-
-#### make virtual environment / робимо віртуальне середовище
-```bash
-python3 -m venv venv
-```
-#### activate the virtual environment / активуємо віртуальне середовище
-
-##### for windows / для windows
-```bash
-source venv/Scripts/activate
-```
-
-##### for macOS / для macOS
-```bash
-source venv/bin/activate
-```
-
-#### run the project / запускаємо проєкт
-```bash
-python main.py 
-```
-
-### or just run exe/pkg file / або просто запустіть файл exe/pkg
-
-## Game / Гра
-
-### Commands for installing / Команди для встановлення:
-ALL COMMANDS EXECUTE IN BASH TERMINAL / ВСІ КОМАНДИ ВИКОНАТИ В BASH ТЕРМІНАЛІ
-
-#### clone the project / клонуємо проєкт
-```bash
-git clone https://github.com/mikitenko-petro/sea_battle_SPRINT.git
-```
-
-#### make virtual environment / робимо віртуальне середовище
-```bash
-python3 -m venv venv
-```
-#### activate the virtual environment / активуємо віртуальне середовище
-
-##### for windows / для windows
-```bash
-source venv/Scripts/activate
-```
-
-##### for macOS / для macOS
-```bash
-source venv/bin/activate
-```
-
-#### download libraries / завантаження бібліотек
-```bash
-pip3 install -r requirements.txt
-```
-
-#### run the project / запускаємо проєкт
-```bash
-python main.py 
-```
-
-### or just run exe/pkg file😅 / або просто запустіть файл exe/pkg😅
-
-### To play click on the button in the middle / щоб грати натисніть на кнопку по середині
-![](https://cdn.discordapp.com/attachments/1330986741015908372/1330986789518840059/image.png?ex=678ff98b&is=678ea80b&hm=fcbe45ebb1659d33f2d33a86326b5f2176f2c164d3edecc30514e34f3e8808a6&)
-
-### Enter the IP or click on the computer icon if server is using the same IP with your, and enter and port  / Введіть IP-адресу або клацніть на значок комп'ютера, якщо сервер використовує ту саму IP-адресу що й ваш, і введіть порт
-![](https://cdn.discordapp.com/attachments/1330986741015908372/1330988978618241024/image.png?ex=678ffb95&is=678eaa15&hm=bf863f329336d67ccac925a7ef73b14328503fc98463e0049e27c8c9b30f93c2&)
+# Основна інформація про проєкт 
+- [Ігровий процес](#алгоритм-ручного-розставлення-кораблів)
+- [Як правильно запустити проєкт](#клонуємо-проєкт)
+- [Бібліотеки](#бібліотеки-які-були-використані-у-проєкті)
 
 ____
-# Main Information of project / Основна інформація про проект 
+# Ігровий процес:
+### алгоритм ручного розставлення кораблів
+1. Натискаємо на потрібний корабель, та записуємо в змінну його id
+2. Натискаємо на потрібну клітинку та ставимо корабель, та перезаписуємо статус корабля та його координати
+3. Щоб повернути корабель, ми натискаємо кнопку зі стрілкою біля нього та повертаємо корабель змінюючи його напрямок
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331507583403560981/fa881cd9ca7c52a711e4b784525ae512.gif?ex=6791de92&is=67908d12&hm=b6367167707f0dbf694ade0f0b3032b51d60940e41fe54a3191e7d83784e4a8e&)
 
-# Libraries which was used in the project / Бібліотеки які були використані у проекті:
-1. pygame
-We need pygame to create the main app / Для створення головної програми нам потрібен pygame
-2. pyperclip
-We need pyperclip to fast paste text / Нам потрібен pyperclip для швидкого вставлення тексту
+### алгоритм автомотичного розтавлення кораблів
+0. _для швидкого розставлення треба починати з 4х1 корабля_
+1. створюємо фейковий хітбокс корабля
+2. намагаємося поставити у випадковому місці, якщо не виходить поставити то намагаємося знову; якщо виходить то переходимо до слідучого корабля
 
-____
-# Project mechanics / Механіки проекту:
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331506732534595669/d797ee6e44193f23ad503478caa39e09.gif?ex=6791ddc7&is=67908c47&hm=599558a1d37eea86149e22e754b6ae3a1799a927301516d9a26674047b3e2154&)
 
+### Радар
+Сканує поле 3х3 клітинки та відшукує кораблі поблизу 
+
+1. Ставимо радар на координату(не можно щоб була 1 та 10 клітинка ряда та стовбеця)
+2. Відправляємо 9 запитів на перевірку поля 3х3
+3. Наш хід змінюєтся на хід супротивника
+4. На стороні супротивника обробляємо запити як постріли
+5. Ми отримуємо дані та відмальоваємо їх на полі
+
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331501160829419521/c5bc429095b07571afb6da775790c258.gif?ex=6791d896&is=67908716&hm=17ba678970f8678aa485c913891b33318b5952cdd8209b61ff171a79e20d92ad&)
+
+### Артилерія
+Рандомно стріляє в області 3х3 клітинки
+
+1. Ставимо артілерію на координату(не можно щоб була 1 та 10 клітинка ряда та стовбеця)
+2. Він випадково обирає 3 клітинки у радіусі 3х3, та відправляє їх
+3. Наш хід змінюєтся на хід супротивника
+4. Нам відправляются дані "попав чи не попав"
+
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331502050592292904/a12bbb324173112b4b4c5d93c9fb62f6.gif?ex=6791d96a&is=679087ea&hm=183f2f208c5047fa1409700ec1b445adba3abb28891c0c3056d93af543b68aad&)
+
+### Щит
+Дозволяє защистити нашу частину корабля
+
+1. Ставимо щит на координату на якій знаходиться наш корабель
+2. Меняємо тип клітинки на щит
+3. Наш хід змінюєтся на хід супротивника
+
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331502447780433941/60aa094dbe0fcaf24a2ccec8585c8d37.gif?ex=6791d9c9&is=67908849&hm=ebab5d566fbe4a9bf0c6e58e9dd01780d0517e2e849c372d0bbd0ac7c62c4878&)
+
+4. Коли щит знищено, то клітинка щита змінюєтся на клітинку корабля
+5. Відправляємо супротивнику що щит знищено
+6. Хід супротивника змінюєтся на наш хід
+
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331502770045587498/a03ae55d9c141337bba46303b1b89934.gif?ex=6791da16&is=67908896&hm=544ff8fa4db7d9fb6f9863ac42153364d486bf9d3a78fc7b0b95b7706e504230&)
+
+# Важливі програмні рішення
 ### Storage
-stores variables and dictionaries / зберігає в собі змінні у словниках
+зберігає в собі змінні у словниках, використовуєтся для зберігання та передачі змінних без циклічного імпорту
 
 ```python
 class Storage():
@@ -122,9 +92,6 @@ class Storage():
 storage = Storage()
 ``` 
 
-Storage is needed to store and pass variables without loop import / Storage потрібен для зберігання та передачі змінних без циклічного імпорту
-
-
 ```python
 
 storage.add_variable({"SceneManager": SceneManager()})
@@ -136,7 +103,7 @@ storage.storage_dict["SceneManager"].show(event = event)
 ``` 
 
 ### Search path
-need to create right path to file / потрібен для створення потрібний шлях до файла
+потрібен для створення прпавильного шляху до файла
 
 ```python
 def search_path(file_name : str):
@@ -148,21 +115,78 @@ def search_path(file_name : str):
     return path
 ```
 
-### exemple / приклад
-neded for searching images / використовуємо для пошуку зображень
-
+приклад використання:
 
 ```python
 image = pygame.image.load(search_path(f'static/images/{filename}')).convert_alpha()
 ```
 ____
-# Main Structure of project / Основна структура проекту:
+
+# Бібліотеки які були використані у проєкті:
+1. pygame
+Для створення головної програми потрібен pygame
+2. pyperclip
+Для швидкого вставлення тексту потрібен pyperclip 
+
+# Як правильно запустити проєкт
+
+### Команди для встановлення:
+ВСІ КОМАНДИ ВИКОНАТИ В git bash ТЕРМІНАЛІ
+
+#### клонуємо проєкт
+```bash
+git clone https://github.com/mikitenko-petro/sea_battle_SPRINT.git
+```
+
+#### робимо віртуальне середовище
+```bash
+python3 -m venv venv
+```
+#### активуємо віртуальне середовище
+
+##### для windows
+```bash
+source venv/Scripts/activate
+```
+
+##### для macOS
+```bash
+source venv/bin/activate
+```
+
+#### завантаження бібліотек
+```bash
+pip3 install -r requirements.txt
+```
+
+#### запускаємо проєкт
+```bash
+python main.py 
+```
+
+### або просто запустіть файл exe/pkg😅
+![](https://media.discordapp.net/attachments/1330986741015908372/1331491429490491412/741cfca90ad4f787f639904ccbca6b8f.gif?ex=6791cf86&is=67907e06&hm=f69c6b32bb7505f238fd1776d8a1e6c171bceb92451c2a01f2ac55e1545e2cc0&=&width=955&height=210)
+
+### Введіть IP-адресу або клацніть на значок комп'ютера, якщо сервер використовує ту саму IP-адресу що й ваш, і введіть порт
+![](https://cdn.discordapp.com/attachments/1330986741015908372/1331499569766338671/3bd1c7558a11af6700a68f33042eed02.gif?ex=6791d71b&is=6790859b&hm=4c307bcb60a6b34eb4995c67335c3bd706ee3b74b4cfaac526c29681bb454586&)
+
+____
+
+# Основна структура проєкту:
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
 graph TD
     C{sea_battle_SPRINT}-->program_modules;
 
     program_modules-->game_modules;
+
+    game_modules-->abilites;
+    abilites-->abilite_manager.py;
+    abilite_manager.py-->artilery.py;
+    artilery.py-->parent_ability_class.py;
+    parent_ability_class.py-->radio_set.py;
+    radio_set.py-->shield.py;
+
     game_modules-->achievements;
     achievements-->parent_achievement_class.py;
     parent_achievement_class.py-->achievement_manager.py;
@@ -180,6 +204,9 @@ graph TD
     grid.py-->ship_manager.py;
     ship_manager.py-->ship.py;
 
+    game_modules-->capitan;
+    capitan-->capitan_manager.py;
+
     game_modules-->quests;
     quests-->first_kill_all_smallest_ships_quest.py;
     first_kill_all_smallest_ships_quest.py-->first_kill_largest_ship_quest.py;
@@ -191,15 +218,34 @@ graph TD
 
     game_modules-->B{main_game_manager.py};
 
+
     program_modules-->game_widgets;
-    game_widgets-->capitan_icon.py;
-    capitan_icon.py-->fire_animation_widget.py;
-    fire_animation_widget.py-->fps_counter.py;
-    fps_counter.py-->last_choise_button.py;
-    last_choise_button.py-->quest_label.py;
-    quest_label.py-->random_placement_button.py;
+    
+    game_widgets-->abillity;
+    abillity-->abillity_button.py;
+    abillity_button.py-->abillity_label.py;
+    abillity_label.py-->buy_abillity_button.py;
+
+    game_widgets-->decorations;
+    decorations-->fire_animation_widget.py;
+    fire_animation_widget.py-->radio_set_animation.py;
+    radio_set_animation.py-->shield_widget.py;
+
+    game_widgets-->ships_buttons;
+    ships_buttons-->random_placement_button.py;
     random_placement_button.py-->return_button.py;
     return_button.py-->turn_button.py;
+
+    game_widgets-->tools2[tools];
+    tools2-->fps_counter.py;
+    fps_counter.py-->ip_button.py;
+    ip_button.py-->last_choise_button.py;
+
+    game_widgets-->achievement_label.py;
+    achievement_label.py-->capitan_icon.py
+    capitan_icon.py-->emotion_label.py;
+    emotion_label.py-->quest_label.py
+
 
     program_modules-->scenes;
     scenes-->achievement_screen_scene.py;
@@ -208,6 +254,7 @@ graph TD
     end_screen_scene.py-->game_screen_scene.py;
     game_screen_scene.py-->main_screen_scene.py;
     main_screen_scene.py-->prepare_to_game_screen_scene.py;
+    prepare_to_game_screen_scene.py-->waiting_room_screen_scene.py;
 
     program_modules-->tools;
     tools-->data_manager.py;
@@ -233,6 +280,7 @@ graph TD
     program_modules-->__init__.py;
     __init__.py-->client.py;
     client.py-->pygame_setup.py;
+
     
     C-->static;
     static-->fonts;
@@ -240,47 +288,47 @@ graph TD
     images-->json;
     json-->sound;
 
+
     C-->venv;
     venv-->.gitignore;
     .gitignore-->requirements.txt;
     requirements.txt-->README.MD;
     README.MD-->main.py;
 
+
     style A fill:#706f70,stroke:#333,stroke-width:6px
     style B fill:#706f70,stroke:#333,stroke-width:6px
     style C fill:#4d007d,stroke:#333,stroke-width:6px
 ``` 
 ____
-
-# Code problems we solved / Проблеми з кодом, які ми вирішили:
-1. client-server structure problem / проблема структури клієнт-сервер
-2. data routing problem / проблема маршрутизації даних
-3. temporary animation problem / проблема тимчасової анімації
+# Проблеми з кодом, які ми вирішили:
+1. проблема структури клієнт-сервер
+2. проблема маршрутизації даних
+3. проблема тимчасової анімації
 
 ___
+# Висновок:
+### Давид
+1. Вчився у найкращого тімліда
+2. Пригадав материали які проходив до цього
+3. Трошки навчився малювювати анімації та малюнки в Aseprite
+4. По новому ознайомився з pygame
+5. Навчився працювати з кординатами
+6. Працював з аріфметичною прогресією
 
-# Conclusion / Висновок:
-### Davyd / Давид
-1. Studied from the best team leader / Вчився у найкращого тімліда
-2. I remembered the materials I went through before. / Пригадав материали які проходив до цього
-3. I learned a little about drawing animations and drawings in Aseprite / Трошки навчився малювювати анімації та малюнки в Aseprite
-4. I got to know pygame in a new way / По новому ознайомився з pygame
-5. Learned to work with coordinates / Навчився працювати з кординатами
-6. Worked with arithmetic progression / Працював з аріфметичною прогресією
-
-### Hegor / Єгор
+### Єгор
 1. Studied from the best team leader / Вчився у найкращого тімліда
 2. Learned new commands / Навчився новим командам (enumerate, match/case)
 3. Improved skills in OOP / Покращив навички у ООП
 4. Improved skills in socket / Покращив навички у socket
 5. Repeated pygame / Повторив pygame
 
-### Petro / Петро
-1. improved team leader skills / покращив навички тімліда
-2. learned to work with pygame (I had almost no experience with it before) / навчився працювати з pygame (до цього майже не вчив)
-3. learned to work with web sockets / навчився працювати з веб сокетами
-4. learned OOP principles (inheritance, encapsulation) / вивчив принципи ООП (наслідування, інкапсуляція)
-5. learned the principles of good project architecture and code (DRY, KISS) / вивчив принципи гарної архітектури і коду проекта (DRY, KISS)
+### Петро
+1. покращив навички тімліда
+2. навчився працювати з pygame (до цього майже не вчив)
+3. навчився працювати з сокетами
+4. вивчив принципи ООП (наслідування, інкапсуляція)
+5. вивчив принципи гарної архітектури і коду проєкта (DRY, KISS)
 ____
 
-# Enjoy the game! / Приємної гри!
+# Приємної гри!
