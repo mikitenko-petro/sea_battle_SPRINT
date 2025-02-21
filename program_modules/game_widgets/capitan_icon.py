@@ -7,7 +7,7 @@ class CapitanIcon(PygameHitBox):
         PygameHitBox.__init__(self, coordinates, size)
         self.color = color
         self.status = emotion
-        self.path = ""
+        self.path = "static/images/Base_capitan.png"
         
 
         match self.status:

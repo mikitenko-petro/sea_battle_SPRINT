@@ -1,8 +1,8 @@
 # «Great Sea Battle»
+### [English version](#english-version)
+
 _Цей проєкт - найкращий спосіб показати роботу сокетів у пайтоні._
 _Наша гра не тільки дозволяє отримати задоволення від ігрового процесу, а й навчитися створювати прості мережеві ігри._
-_Цей проєкт був створений трьома студентами у яких не було відмазок типу "у мене немае часу", "це дуже складно" і тому подібних._
-_Ми працювали в автобусі, робили зустрічі під час чищеня картоплі, пізно ввечері і навіть о 6:30 ранку._
 
 ### Склад команди:
 - Микитенко Петро: [github.com/mikitenko-petro](https://github.com/mikitenko-petro)
@@ -103,7 +103,7 @@ storage.storage_dict["SceneManager"].show(event = event)
 ``` 
 
 ### Search path
-потрібен для створення прпавильного шляху до файла
+потрібен для створення правильного шляху до файла
 
 ```python
 def search_path(file_name : str):
@@ -129,11 +129,14 @@ ____
 Для швидкого вставлення тексту потрібен pyperclip 
 
 # Як правильно запустити проєкт
-
 ### Команди для встановлення:
 ВСІ КОМАНДИ ВИКОНАТИ В git bash ТЕРМІНАЛІ
 
 #### клонуємо проєкт
+Завантажуємо додаток VScode, та встановлюємо в ньюго останню версію пайтона
+
+Запускаємо VScode 
+
 ```bash
 git clone https://github.com/mikitenko-petro/sea_battle_SPRINT.git
 ```
@@ -171,7 +174,6 @@ python main.py
 ![](https://cdn.discordapp.com/attachments/1330986741015908372/1331499569766338671/3bd1c7558a11af6700a68f33042eed02.gif?ex=6791d71b&is=6790859b&hm=4c307bcb60a6b34eb4995c67335c3bd706ee3b74b4cfaac526c29681bb454586&)
 
 ____
-
 # Основна структура проєкту:
 ```mermaid
 %%{init: {'theme': 'dark'}}%%
@@ -330,3 +332,229 @@ ___
 ____
 
 # Приємної гри!
+
+# English Version
+
+_This project is the best way to demonstrate socket programming in Python._
+_Our game not only provides an enjoyable gaming experience but also helps you learn how to create simple network games._
+
+### Team members:
+
+- Mykitenko Petro: [github.com/mikitenko-petro](https://github.com/mikitenko-petro)
+- Hegor Galkin: [github.com/EgorGalkinORG](https://github.com/EgorGalkinORG)
+- David Petrenko: [github.com/Davidptn](https://github.com/Davidptn)
+
+---
+
+# Main Project Information
+
+- [Gameplay](#manual-ship-placement-algorithm)
+- [How to Run the Project](#cloning-the-project)
+- [Libraries Used](#libraries-used-in-the-project)
+
+---
+
+# Gameplay:
+
+### Manual Ship Placement Algorithm
+
+1. Click on the desired ship to select its ID.
+2. Click on the desired cell to place the ship and update its status and coordinates.
+3. To rotate the ship, click the arrow button next to it to change its direction.
+
+### Automatic Ship Placement Algorithm
+
+0. *For quick placement, start with the 4x1 ship.*
+1. Create a fake hitbox for the ship.
+2. Attempt to place it at a random position. If unsuccessful, try again; if successful, move to the next ship.
+
+### Radar
+
+Scans a 3x3 area and detects nearby ships.
+
+1. Place the radar at a coordinate (it cannot be placed on the first or tenth row and column).
+2. Send 9 requests to check the 3x3 grid.
+3. Your turn switches to the opponent.
+4. The opponent processes the requests as shots.
+5. You receive data and visualize it on the field.
+
+### Artillery
+
+Randomly shoots within a 3x3 area.
+
+1. Place artillery at a coordinate (it cannot be placed on the first or tenth row and column).
+2. It randomly selects 3 cells within the 3x3 radius and sends them.
+3. Your turn switches to the opponent.
+4. You receive hit/miss data.
+
+### Shield
+
+Allows protection of a part of your ship.
+
+1. Place the shield on a coordinate where your ship is located.
+2. Change the cell type to shield.
+3. Your turn switches to the opponent.
+4. When the shield is destroyed, its cell changes back to a ship cell.
+5. Notify the opponent that the shield is destroyed.
+6. The opponent's turn switches to yours.
+
+# Important Software Solutions
+
+### Storage
+
+Stores variables in dictionaries and is used for variable storage and transfer without cyclic imports.
+
+```python
+class Storage():
+    def __init__(self):
+        self.storage_dict = {}
+
+    def add_variable(self, storage_object: dict):
+        is_found = False
+        value_key = list(storage_object.keys())
+
+        for item in self.storage_dict.keys():
+            if item != value_key[0]:
+                is_found = False
+            else:
+                is_found = True
+                break
+        
+        if not is_found:
+            self.storage_dict.update(storage_object)
+
+storage = Storage()
+```
+
+```python
+storage.add_variable({"SceneManager": SceneManager()})
+```
+
+```python
+storage.storage_dict["SceneManager"].show(event=event)
+```
+
+### Search Path
+
+Used for creating the correct file path.
+
+```python
+def search_path(file_name: str):
+    if getattr(sys, 'frozen', False):
+        path = os.path.abspath(os.path.join(".", "_internal", *file_name.split("/")))
+    else:
+        path = os.path.abspath(os.path.join(".", *file_name.split("/")))
+    return path
+```
+
+Example usage:
+
+```python
+image = pygame.image.load(search_path(f'static/images/{filename}')).convert_alpha()
+```
+
+---
+
+# Libraries Used in the Project:
+
+1. pygame - Required for the main program.
+2. pyperclip - Used for quick text pasting.
+
+# How to Run the Project
+
+### Installation Commands:
+
+EXECUTE ALL COMMANDS IN THE GIT BASH TERMINAL
+
+#### Cloning the Project
+
+Download and install VSCode along with the latest Python version.
+
+Launch VSCode and run:
+
+```bash
+git clone https://github.com/mikitenko-petro/sea_battle_SPRINT.git
+```
+
+#### Creating a Virtual Environment
+
+```bash
+python3 -m venv venv
+```
+
+#### Activating the Virtual Environment
+
+##### For Windows
+
+```bash
+source venv/Scripts/activate
+```
+
+##### For macOS
+
+```bash
+source venv/bin/activate
+```
+
+#### Installing Dependencies
+
+```bash
+pip3 install -r requirements.txt
+```
+
+#### Running the Project
+
+```bash
+python main.py
+```
+
+### Or simply run the exe/pkg file 😅
+
+### Enter the IP address or click the computer icon if the server uses the same IP as yours, then enter the port.
+
+---
+
+# Main Project Structure:
+
+```
+Project structure diagram here...
+```
+
+---
+
+# Code Issues We Resolved:
+
+1. Client-server structure issue.
+2. Data routing issue.
+3. Temporary animation issue.
+
+---
+
+# Conclusion:
+
+### David
+
+1. Revisited previously learned materials.
+2. Learned some animation and drawing skills in Aseprite.
+3. Gained new insights into pygame.
+4. Learned to work with coordinates.
+5. Worked with arithmetic progression.
+
+### Hegor
+
+1. Learned new commands (enumerate, match/case).
+2. Improved OOP skills.
+3. Enhanced socket programming knowledge.
+4. Revised pygame concepts.
+
+### Petro
+
+1. Improved team leadership skills.
+2. Learned to work with pygame (had little prior experience).
+3. Gained experience with sockets.
+4. Learned OOP principles (inheritance, encapsulation).
+5. Studied project architecture and clean code principles (DRY, KISS).
+
+---
+
+# Enjoy the Game!

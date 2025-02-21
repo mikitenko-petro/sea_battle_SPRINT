@@ -5,9 +5,14 @@ class StillStanding(Achievement):
     def __init__(self):
         Achievement.__init__(self)
 
-        self.title = "I am still standing"
-        self.description = "???"
-        self.image_path = "static/images/secret_achievement_icon.png"
+        if not self.is_complete:
+            self.title = "I am still standing"
+            self.description = "???"
+            self.image_path = "static/images/secret_achievement_icon.png"
+        else:
+            self.title = "I am still standing"
+            self.description = "win with one 1x1 ship"
+            self.image_path = "static/images/i_am_still_standing_icon_achivement.png"
 
     def check_complete(self):
         if storage.storage_dict["SceneManager"].current_scene == "end":
